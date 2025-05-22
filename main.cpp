@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <thread>
+#include "colour_detection.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -30,12 +32,17 @@ int main(void)
 
     init();
 
+	std::thread t(color_detection_loop);
+
+	t.join();
+
 	while (!glfwWindowShouldClose(window))
 	{
 		update();
 		draw();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
 	}
 
 	glfwTerminate();
