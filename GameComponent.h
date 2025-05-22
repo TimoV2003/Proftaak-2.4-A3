@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 
+class GameObject;
+
 class GameComponent
 {
 protected:
