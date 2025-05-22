@@ -1,6 +1,8 @@
+#include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "tigl.h"
+#include "GameObject.h"
 #include <glm/gtc/matrix_transform.hpp>
 using tigl::Vertex;
 
@@ -9,6 +11,8 @@ using tigl::Vertex;
 #pragma comment(lib, "opengl32.lib")
 
 GLFWwindow* window;
+
+std::vector<GameObject> objects;
 
 void init();
 void update();
@@ -58,11 +62,17 @@ void init()
 
 void update()
 {
-
+    for (auto& object : objects) {
+        object.update();
+    }
 }
 
 void draw()
 {
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    for (auto& object : objects) {
+        object.draw();
+    }
 }

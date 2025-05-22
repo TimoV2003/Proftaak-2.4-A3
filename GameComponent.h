@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObject.h"
+#include <vector>
+#include <memory>
+
 class GameComponent
 {
 private:
@@ -10,7 +13,7 @@ public:
 	virtual ~GameComponent() = default;
 
 	virtual void update();//TODO elapsedtime
-	void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
+	inline void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
 	std::string getId() const { return id; }
 };
 
