@@ -13,8 +13,8 @@ using tigl::Vertex;
 class GameObject
 {
 	private:
-		std::vector<GameComponent> gameComponents = {};
-		std::vector<DrawComponent> drawComponents = {};
+		std::vector<std::shared_ptr<GameComponent>> gameComponents;
+		std::vector<std::shared_ptr<DrawComponent>> drawComponents;
 		glm::vec3 position = glm::vec3(0, 0, 0);
 		glm::vec3 rotation = glm::vec3(0, 0, 0);
 		glm::vec3 scale = glm::vec3(0, 0, 0);
@@ -22,9 +22,9 @@ class GameObject
 	public: 
 		GameObject();
 		~GameObject();
-		void addComponent(GameComponent gameComponent);
+		void GameObject::addComponent(std::shared_ptr<GameComponent> component);
+		void GameObject::removeComponent(const std::string& id);
 		std::shared_ptr<GameComponent> getComponent();
-		void removeComponent(std::string id);
 
 		void update();
 		void draw();

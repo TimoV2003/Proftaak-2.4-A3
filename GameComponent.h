@@ -4,11 +4,13 @@ class GameComponent
 {
 private:
 	std::shared_ptr<GameObject> parent;
+	std::string id;
 public:
-	GameComponent();
-	~GameComponent();
+	GameComponent(const std::string& id) : id(id) {}
+	virtual ~GameComponent() = default;
 
-	void update();//TODO elapsedtime
-	void setGameObject(std::shared_ptr<GameObject> gameObject);
+	virtual void update();//TODO elapsedtime
+	void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
+	std::string getId() const { return id; }
 };
 

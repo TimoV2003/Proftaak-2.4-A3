@@ -8,32 +8,33 @@ GameObject::~GameObject() {
 	//TODO add logic: to delete
 }
 
-void GameObject::addComponent(GameComponent gameComponent)
-{
-	//TODO add logic: add component
+void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
+	gameComponents.push_back(component);
 }
 
-std::shared_ptr<GameComponent> GameObject::getComponent()
-{
+void GameObject::removeComponent(const std::string& id) {
+	gameComponents.erase(
+		std::remove_if(gameComponents.begin(), gameComponents.end(),
+			[&](const std::shared_ptr<GameComponent>& component) {
+				return component->getId() == id;
+			}),
+		gameComponents.end()
+	);
+}
+
+std::shared_ptr<GameComponent> GameObject::getComponent() {
 	//TODO add logic: get component of same type
 	return std::shared_ptr<GameComponent>();
 }
 
-void GameObject::removeComponent(std::string id)
-{
-	//TODO add logic: remove component with ID
-}
-
-void GameObject::update()
-{
-	for (auto& component : gameComponents)
+void GameObject::update() {
+	for (auto& component : gameComponents) 
 	{
-		component.update();
+		component->update();
 	}
 }
 
-void GameObject::draw()
-{
+void GameObject::draw() {
 	for (auto& component : drawComponents)
 	{
 		component.draw();
