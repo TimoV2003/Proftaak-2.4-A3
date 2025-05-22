@@ -1,5 +1,6 @@
 #pragma once
 #include "GameComponent.h"
+
 class DrawComponent : public GameComponent
 {
 public:

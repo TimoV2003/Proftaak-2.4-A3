@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 class GameObject;
 
@@ -11,7 +11,7 @@ protected:
 	std::string id;
 	std::shared_ptr<GameObject> parent;
 public:
-	GameComponent(const std::string& id) : id(id) {}
+	GameComponent() {}
 	~GameComponent();
 
 	virtual void update() {}; //TODO elapsedtime
