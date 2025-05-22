@@ -12,7 +12,7 @@ public:
 	GameComponent(const std::string& id) : id(id) {}
 	virtual ~GameComponent() = default;
 
-	virtual void update();//TODO elapsedtime
+	virtual void update() {}; //TODO elapsedtime
 	inline void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
 	std::string getId() const { return id; }
 };

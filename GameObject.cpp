@@ -37,7 +37,7 @@ void GameObject::update() {
 void GameObject::draw() {
 	for (auto& component : drawComponents)
 	{
-		component.draw();
+		component->draw();
 	}
 }
 

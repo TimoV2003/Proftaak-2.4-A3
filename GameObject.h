@@ -6,6 +6,9 @@
 #include "GameComponent.h"
 #include "DrawComponent.h"
 
+class GameComponent;
+class DrawComponent;
+
 class GameObject
 {
 	private:
