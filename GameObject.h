@@ -1,11 +1,9 @@
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "GameComponent.h"
 #include <string>
-using tigl::Vertex;
+#include <vector>
+#include <memory>
+#include "GameComponent.h"
 
 class GameObject
 {
