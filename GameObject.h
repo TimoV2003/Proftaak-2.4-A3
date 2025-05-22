@@ -18,8 +18,8 @@ class GameObject
 	public: 
 		GameObject();
 		~GameObject();
-		void GameObject::addComponent(std::shared_ptr<GameComponent> component);
-		void GameObject::removeComponent(const std::string& id);
+		void addComponent(std::shared_ptr<GameComponent> component);
+		void removeComponent(const std::string& id);
 		std::shared_ptr<GameComponent> getComponent();
 
 		void update();
