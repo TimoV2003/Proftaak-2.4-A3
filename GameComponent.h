@@ -11,7 +11,7 @@ protected:
 	std::string id;
 	std::shared_ptr<GameObject> parent;
 public:
-	GameComponent() {}
+	GameComponent();
 	~GameComponent();
 
 	virtual void update() {}; //TODO elapsedtime

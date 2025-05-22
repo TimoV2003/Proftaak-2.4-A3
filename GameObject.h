@@ -14,11 +14,11 @@ class GameObject
 	private:
 		std::vector<std::shared_ptr<GameComponent>> gameComponents;
 		std::vector<std::shared_ptr<DrawComponent>> drawComponents;
+public:
 		glm::vec3 position = glm::vec3(0, 0, 0);
 		glm::vec3 rotation = glm::vec3(0, 0, 0);
 		glm::vec3 scale = glm::vec3(0, 0, 0);
 
-	public: 
 		GameObject();
 		~GameObject();
 		void addComponent(std::shared_ptr<GameComponent> component);
