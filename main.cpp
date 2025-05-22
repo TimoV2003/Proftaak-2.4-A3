@@ -13,7 +13,7 @@ using tigl::Vertex;
 
 GLFWwindow* window;
 
-std::vector<GameObject> objects;
+std::vector<std::shared_ptr<GameObject>> objects;
 
 void init();
 void update();
@@ -52,6 +52,8 @@ int main(void)
 
 void init()
 {
+    glEnable(GL_DEPTH_TEST);
+
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_ESCAPE)
@@ -63,13 +65,14 @@ void init()
     auto blocky = std::make_shared<GameObject>();
     blocky->position = glm::vec3(0, 0, 0);
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
+    objects.push_back(blocky);
 }
 
 
 void update()
 {
     for (auto& object : objects) {
-        object.update();
+        object->update();
     }
 }
 
@@ -79,12 +82,18 @@ void draw()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glm::mat4 modelMatrix(1);
     glm::mat4 viewMatrix(1);
-    tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(90.0f), 1.0f, 1.0f, 150.0f));
-    tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0,0,0), glm::vec3(0, 0, 5), glm::vec3(0, 1, 0)));
+    
+    //GPT aspect ratio code. please make propper
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    float aspect = width / (float)height;
+
+    tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
+    tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5,10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
     tigl::shader->setModelMatrix(modelMatrix);
     tigl::shader->enableColor(true);
 
     for (auto& object : objects) {
-        object.draw();
+        object->draw();
     }
 }
