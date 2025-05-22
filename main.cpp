@@ -77,6 +77,12 @@ void draw()
 {
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glm::mat4 modelMatrix(1);
+    glm::mat4 viewMatrix(1);
+    tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(90.0f), 1.0f, 1.0f, 150.0f));
+    tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0,0,0), glm::vec3(0, 0, 5), glm::vec3(0, 1, 0)));
+    tigl::shader->setModelMatrix(modelMatrix);
+    tigl::shader->enableColor(true);
 
     for (auto& object : objects) {
         object.draw();
