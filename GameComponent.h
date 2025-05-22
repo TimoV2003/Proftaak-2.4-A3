@@ -1,9 +1,14 @@
 #pragma once
+#include "GameObject.h"
 class GameComponent
 {
-	private:
+private:
+	std::shared_ptr<GameObject> parent;
+public:
+	GameComponent();
+	~GameComponent();
 
-	public:
-		
+	void update();//TODO elapsedtime
+	void setGameObject(std::shared_ptr<GameObject> gameObject);
 };
 
