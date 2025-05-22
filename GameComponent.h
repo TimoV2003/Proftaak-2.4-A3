@@ -1,17 +1,21 @@
 #pragma once
-#include "GameObject.h"
 #include <vector>
 #include <memory>
+#include <string>
+
+class GameObject;
 
 class GameComponent
 {
-private:
+protected:
+	std::string id;
 	std::shared_ptr<GameObject> parent;
 public:
 	GameComponent();
 	~GameComponent();
 
-	virtual void update();//TODO elapsedtime
+	virtual void update() {}; //TODO elapsedtime
 	inline void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
+	std::string getId() const { return id; }
 };
 

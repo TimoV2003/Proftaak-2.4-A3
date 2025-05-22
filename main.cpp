@@ -4,6 +4,7 @@
 #include "tigl.h"
 #include "GameObject.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "CubeDrawComponent.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -57,6 +58,11 @@ void init()
             glfwSetWindowShouldClose(window, true);
     });
 
+
+    ///////// LE BIG INIT OF ENTITIES ////////
+    auto blocky = std::make_shared<GameObject>();
+    blocky->position = glm::vec3(0, 0, 0);
+    blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
 }
 
 
