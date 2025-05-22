@@ -5,12 +5,12 @@
 
 class GameComponent
 {
-private:
-	std::shared_ptr<GameObject> parent;
+protected:
 	std::string id;
+	std::shared_ptr<GameObject> parent;
 public:
 	GameComponent(const std::string& id) : id(id) {}
-	virtual ~GameComponent() = default;
+	~GameComponent();
 
 	virtual void update() {}; //TODO elapsedtime
 	inline void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
