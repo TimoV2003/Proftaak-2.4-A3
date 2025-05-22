@@ -4,14 +4,17 @@
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "GameComponent.h"
+#include "DrawComponent.h"
 #include <string>
+
+
 using tigl::Vertex;
 
 class GameObject
 {
 	private:
 		std::vector<GameComponent> gameComponents = {};
-		//std::vector<DrawComponent> gameComponents = {};
+		std::vector<DrawComponent> drawComponents = {};
 		glm::vec3 position = glm::vec3(0, 0, 0);
 		glm::vec3 rotation = glm::vec3(0, 0, 0);
 		glm::vec3 scale = glm::vec3(0, 0, 0);

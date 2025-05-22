@@ -26,11 +26,17 @@ void GameObject::removeComponent(std::string id)
 
 void GameObject::update()
 {
-	//TODO add logic: call update on all list items
+	for (auto& component : gameComponents)
+	{
+		component.update();
+	}
 }
 
 void GameObject::draw()
 {
-	//TODO add logic: call draw on all drawcomponents
+	for (auto& component : drawComponents)
+	{
+		component.draw();
+	}
 }
 
