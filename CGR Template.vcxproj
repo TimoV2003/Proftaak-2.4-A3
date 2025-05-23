@@ -65,6 +65,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -167,6 +168,9 @@
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
     <ClCompile Include="Source Files\TestBoxObject.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
+    <ClCompile Include="colour_detection.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tigl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\DrawComponent.h" />
@@ -180,6 +184,8 @@
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
+    <ClInclude Include="colour_detection.h" />
+    <ClInclude Include="tigl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
