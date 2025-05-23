@@ -73,6 +73,7 @@ void init()
     ///////// LE BIG INIT OF ENTITIES ////////
     auto blocky = std::make_shared<GameObject>("blocky");
     blocky->position = glm::vec3(0, 0, 0);
+	blocky->scale = glm::vec3(1, 1, 1);
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
     objects.push_back(blocky);
 

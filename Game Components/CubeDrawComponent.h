@@ -6,9 +6,9 @@ using tigl::Vertex;
 #include <vector>
 class CubeDrawComponent : public DrawComponent
 {
-	std::vector<Vertex> verts;
+	float size;
 public:
-	CubeDrawComponent(float size);
+	CubeDrawComponent(float size) : size(size){};
 	~CubeDrawComponent() = default;
 
 	virtual void draw() override;
