@@ -2,7 +2,6 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
-#include <optional>
 
 namespace vision {
 	//first element is the contour, second element is the bounding rectangle of the contour
