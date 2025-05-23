@@ -74,9 +74,6 @@ void init()
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
 	blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
     objects.push_back(blocky);
-
-    blocky->position.x += 200;
-	std::cout << blocky->position.x << std::endl;
 }
 
 
