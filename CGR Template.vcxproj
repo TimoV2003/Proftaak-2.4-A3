@@ -161,7 +161,6 @@
     <ClCompile Include="Source Files\ModelLoader.cpp" />
     <ClCompile Include="Source Files\DrawComponent.cpp" />
     <ClCompile Include="Source Files\GameComponent.cpp" />
-    <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
   </ItemGroup>
@@ -169,7 +168,6 @@
     <ClInclude Include="Game Components\CubeDrawComponent.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />
-    <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Header Files\MeshComponent.h" />
