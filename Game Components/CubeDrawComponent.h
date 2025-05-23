@@ -8,9 +8,8 @@ class CubeDrawComponent : public DrawComponent
 {
 	float size;
 public:
-	CubeDrawComponent(float size) : size(size){};
+	CubeDrawComponent(float size) : size(size) {};
 	~CubeDrawComponent() = default;
-
 	virtual void draw() override;
 };
 

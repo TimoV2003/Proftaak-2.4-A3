@@ -5,6 +5,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "CubeDrawComponent.h"
+#include "PlayerComponent.h"
+#include "KeyboardInput.h"
+#include "I_InputStrategy.h"
+#include "IOstream"
 #include "GameObject.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
@@ -22,6 +26,8 @@ std::vector<std::shared_ptr<GameObject>> objects;
 void init();
 void update();
 void draw();
+
+std::shared_ptr<IInputStrategy> keyboardInput;
 
 int main(void)
 {
@@ -70,11 +76,14 @@ void init()
             glfwSetWindowShouldClose(window, true);
     });
 
+	keyboardInput = std::make_shared<KeyboardInput>();
+
     ///////// LE BIG INIT OF ENTITIES ////////
     auto blocky = std::make_shared<GameObject>("blocky");
     blocky->position = glm::vec3(0, 0, 0);
 	blocky->scale = glm::vec3(1, 1, 1);
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
+	blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
     objects.push_back(blocky);
 
     Model treeModel;
@@ -95,6 +104,7 @@ void init()
 
 void update()
 {
+    
     for (auto& object : objects) {
         object->update();
     }
