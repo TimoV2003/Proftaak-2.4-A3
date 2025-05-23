@@ -24,7 +24,7 @@ public:
 	~GameObject() = default;
 
 	void addComponent(std::shared_ptr<GameComponent> component);
-	void removeComponent(const std::string& id);
+	//void removeComponent(const std::string& id);
 	std::shared_ptr<GameComponent> getComponent();
 
 	void update();

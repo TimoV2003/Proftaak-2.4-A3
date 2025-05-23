@@ -1,6 +1,5 @@
 #include "CubeDrawComponent.h"
-CubeDrawComponent::CubeDrawComponent(const std::string id, float size)
-	: DrawComponent(id)
+CubeDrawComponent::CubeDrawComponent(float size)
 {
 	glm::vec3 s(size);
 	glm::vec4 color(1, 1, 1, 1);

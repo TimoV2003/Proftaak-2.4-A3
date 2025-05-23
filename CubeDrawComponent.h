@@ -8,7 +8,7 @@ class CubeDrawComponent : public DrawComponent
 {
 	std::vector<Vertex> verts;
 public:
-	CubeDrawComponent(const std::string id, float size);
+	CubeDrawComponent(float size);
 	~CubeDrawComponent() = default;
 
 	virtual void draw() override;
