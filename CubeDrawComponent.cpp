@@ -1,5 +1,6 @@
 #include "CubeDrawComponent.h"
-CubeDrawComponent::CubeDrawComponent(float size)
+CubeDrawComponent::CubeDrawComponent(const std::string id, float size)
+	: DrawComponent(id)
 {
 	glm::vec3 s(size);
 	glm::vec4 color(1, 1, 1, 1);
@@ -40,11 +41,6 @@ CubeDrawComponent::CubeDrawComponent(float size)
 	verts.push_back(Vertex::PCTN(p + glm::vec3(-s.x, s.y, s.z), color, glm::vec2(1, 0), glm::vec3(0, 0, 1)));
 	verts.push_back(Vertex::PCTN(p + glm::vec3(s.x, s.y, s.z), color, glm::vec2(1, 1), glm::vec3(0, 0, 1)));
 	verts.push_back(Vertex::PCTN(p + glm::vec3(s.x, -s.y, s.z), color, glm::vec2(0, 1), glm::vec3(0, 0, 1)));
-}
-
-
-CubeDrawComponent::~CubeDrawComponent()
-{
 }
 
 void CubeDrawComponent::draw()

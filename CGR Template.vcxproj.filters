@@ -33,6 +33,12 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DrawComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeDrawComponent.cpp">
+      <Filter>Game Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -43,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="GameComponent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeDrawComponent.h">
+      <Filter>Game Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
