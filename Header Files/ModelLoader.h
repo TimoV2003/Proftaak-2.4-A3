@@ -6,6 +6,7 @@
 struct Model {
     std::vector<glm::vec3> vertices;
     std::vector<std::vector<int>> faces; // each face contains indices into the vertices vector
+    std::vector<glm::vec3> colors; // RGB colors corresponding to each vertex
 };
 
 class ModelLoader {

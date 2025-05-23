@@ -18,8 +18,17 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 		iss >> prefix;
 		if (prefix == "v") {
 			glm::vec3 vertex;
+			glm::vec3 color(1.0f, 1.0f, 1.0f); // default color: white
 			iss >> vertex.x >> vertex.y >> vertex.z;
+
+			// Attempt to read RGB values
+			if (!(iss >> color.r >> color.g >> color.b)) {
+				// If not enough color info, use default white
+				color = glm::vec3(1.0f, 1.0f, 1.0f);
+			}
+
 			model.vertices.push_back(vertex);
+			model.colors.push_back(color); // Add color info
 		}
 		else if (prefix == "f") {
 			std::vector<int> face;
