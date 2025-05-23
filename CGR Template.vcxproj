@@ -75,6 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Game Components;$(ProjectDir)\Header Files;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -156,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game Components\CubeDrawComponent.cpp" />
+    <ClCompile Include="Source Files\ModelLoader.cpp" />
     <ClCompile Include="Source Files\DrawComponent.cpp" />
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\tigl.h" />
+    <ClInclude Include="Header Files\ModelLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
