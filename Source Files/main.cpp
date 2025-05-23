@@ -4,14 +4,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
 #include "CubeDrawComponent.h"
-#include "tigl.h"
 #include "GameObject.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include "CubeDrawComponent.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
+#include "tigl.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
