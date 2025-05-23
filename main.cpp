@@ -32,7 +32,7 @@ int main(void)
 
     init();
 
-	std::thread t(color_detection_loop);
+	std::thread t(vision::color_detection_loop);
 
 	t.join();
 

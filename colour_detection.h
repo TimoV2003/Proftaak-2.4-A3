@@ -1,3 +1,5 @@
 #pragma once
 
-int color_detection_loop();
+namespace vision {
+	int color_detection_loop();
+}
