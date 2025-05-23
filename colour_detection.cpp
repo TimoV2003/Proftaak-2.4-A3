@@ -70,6 +70,8 @@ namespace vision {
 		return {biggestContour, rectOfBiggestContour};
 	}
 
+	/*x value is horizontal where 0 is right (on camera)
+	* y value is vertical where 0 is top (on camera)*/
 	cv::Point getCentreOfContour(std::pair<std::vector<cv::Point>, cv::Rect> contour) {
 		cv::Point centre(0, 0);
 		centre.x = contour.second.x + contour.second.width / 2;
@@ -77,31 +79,34 @@ namespace vision {
 		return centre;
 	}
 
-	std::vector<cv::Mat> extractColor(cv::Mat image) {
+	cv::Mat extractColor(cv::Mat image, std::vector<int> color) {
 
 		cv::Mat imgHSV;
 		cv::cvtColor(image, imgHSV, cv::COLOR_BGR2HSV);
-		std::vector<cv::Mat> masks(myColors.size());
+		cv::Mat mask;
 
-		for (int i = 0; i < myColors.size(); i++) {
-			cv::Scalar lower(myColors[i][0], myColors[i][1], myColors[i][2]);
-			cv::Scalar upper(myColors[i][3], myColors[i][4], myColors[i][5]);
-			cv::Mat mask;
 
-			cv::inRange(imgHSV, lower, upper, masks[i]);
-		}
-		return masks;
+		cv::Scalar lower(color[0], color[1], color[2]);
+		cv::Scalar upper(color[3], color[4], color[5]);
+
+		cv::inRange(imgHSV, lower, upper, mask);
+		return mask;
 	}
 
 	int color_detection_loop() {
 		while (true) {
 			cap.read(img);
-			auto masks = extractColor(img);
-			for (cv::Mat mask : masks) {
-				cv::Point centre;
-				centre = getCentreOfContour(getBiggestContourByArea(mask, 1000));
-				std::cout << centre.x << " " << centre.y << std::endl;
+			auto mask = extractColor(img, myColors[0]);
+			auto biggestContour = getBiggestContourByArea(mask, 1000);
+			if (!biggestContour.first.empty()) {
+				cv::Point centreOfBiggestContour;
+				centreOfBiggestContour = getCentreOfContour(biggestContour);
+				std::cout << "contour x: " << centreOfBiggestContour.x << " contour y: " << centreOfBiggestContour.y << std::endl;
+				int widthOfImage = img.cols;
+				std::cout << "width: " << widthOfImage << std::endl;
+				std::cout << "0..1 horizontal value: " << centreOfBiggestContour.x / (float)widthOfImage << std::endl;
 			}
+
 			cv::imshow("Image", img);
 			if (cv::waitKey(1) == 27) { break; }
 		}
