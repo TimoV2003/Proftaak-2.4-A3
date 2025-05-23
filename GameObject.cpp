@@ -15,9 +15,21 @@ inline void GameObject::removeComponent()
 }
 
 template<typename T2>
-std::shared_ptr<GameComponent> GameObject::getComponent()
+std::shared_ptr<T2> GameObject::getComponent()
 {
-	return std::shared_ptr<GameComponent>();
+	for (const std::shared_ptr<GameComponent>& gameComponent : gameComponents) {
+		std::shared_ptr<T2> casted = std::dynamic_pointer_cast<T2>(gameComponent);
+		if (casted) {
+			return casted;
+		}
+	}
+	for (const std::shared_ptr<DrawComponent>& drawComponent : drawComponents) {
+		std::shared_ptr<T2> casted = std::dynamic_pointer_cast<T2>(drawComponent);
+		if (casted) {
+			return casted;
+		}
+	}
+	return nullptr;
 }
 
 void GameObject::update() {
