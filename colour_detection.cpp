@@ -5,6 +5,9 @@
 #include <optional>
 
 namespace vision {
+	//first element is the contour, second element is the bounding rectangle of the contour
+	typedef std::pair<std::vector<cv::Point>, cv::Rect> ContourWithBoundingRect;
+
 	cv::Mat img;
 	cv::VideoCapture cap(0);
 
@@ -38,9 +41,8 @@ namespace vision {
 		}
 		return myPoint;
 	}
-
 	
-	std::pair<std::vector<cv::Point>, cv::Rect> getBiggestContourByArea(cv::Mat image, int minimumArea) {
+	ContourWithBoundingRect getBiggestContourByArea(cv::Mat image, int minimumArea) {
 		std::vector<std::vector<cv::Point>> contours;
 		std::vector<cv::Vec4i> hierarchy;
 
@@ -49,34 +51,39 @@ namespace vision {
 		std::vector<cv::Rect> boundRect(contours.size());
 
 		int biggestArea = 0;
+		int biggestContourIteration = 0;
 		std::vector<cv::Point> biggestContour;
 		cv::Rect rectOfBiggestContour;
 		for (int i = 0; i < contours.size(); i++) {
 			int area = cv::contourArea(contours[i]);
 
 			if ((area > minimumArea) && (area > biggestArea)) {
-				float peri = cv::arcLength(contours[i], true);
-				cv::approxPolyDP(contours[i], conPoly[i], 0.02 * peri, true);
-				boundRect[i] = cv::boundingRect(conPoly[i]);
-				cv::rectangle(img, boundRect[i].tl(), boundRect[i].br(), cv::Scalar(255, 255, 255), 2);
-				biggestContour = contours[i];
-				rectOfBiggestContour = boundRect[i];
 				biggestArea = area;
+				biggestContourIteration = i;
 			}
 		}
 		if (biggestArea == 0) {
 			return {};
 		}
+		float peri = cv::arcLength(contours[biggestContourIteration], true);
+		cv::approxPolyDP(contours[biggestContourIteration], conPoly[biggestContourIteration], 0.02 * peri, true);
+		boundRect[biggestContourIteration] = cv::boundingRect(conPoly[biggestContourIteration]);
+		biggestContour = contours[biggestContourIteration];
+		rectOfBiggestContour = boundRect[biggestContourIteration];
 		return {biggestContour, rectOfBiggestContour};
 	}
 
 	/*x value is horizontal where 0 is right (on camera)
 	* y value is vertical where 0 is top (on camera)*/
-	cv::Point getCentreOfContour(std::pair<std::vector<cv::Point>, cv::Rect> contour) {
+	cv::Point getCentreOfContour(ContourWithBoundingRect contour) {
 		cv::Point centre(0, 0);
 		centre.x = contour.second.x + contour.second.width / 2;
 		centre.y = contour.second.y + contour.second.height / 2;
 		return centre;
+	}
+
+	void drawContour(ContourWithBoundingRect contour) {
+		cv::rectangle(img, contour.second.tl(), contour.second.br(), cv::Scalar(255, 255, 255), 2);
 	}
 
 	cv::Mat extractColor(cv::Mat image, std::vector<int> color) {
@@ -105,6 +112,7 @@ namespace vision {
 				int widthOfImage = img.cols;
 				std::cout << "width: " << widthOfImage << std::endl;
 				std::cout << "0..1 horizontal value: " << centreOfBiggestContour.x / (float)widthOfImage << std::endl;
+				drawContour(biggestContour);
 			}
 
 			cv::imshow("Image", img);
