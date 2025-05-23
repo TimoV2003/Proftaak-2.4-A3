@@ -18,6 +18,11 @@ void GameObject::update() {
 void GameObject::draw() {
 	for (auto& component : drawComponents)
 	{
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), scale);
+
+		tigl::shader->setModelMatrix(model);
+
 		component->draw();
 	}
 }
