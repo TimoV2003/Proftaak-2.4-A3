@@ -95,7 +95,6 @@ namespace vision {
 
 	int color_detection_loop() {
 		while (true) {
-			getContours(img);
 			cap.read(img);
 			auto masks = extractColor(img);
 			for (cv::Mat mask : masks) {
