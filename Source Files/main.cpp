@@ -77,14 +77,13 @@ void init()
     auto blocky = std::make_shared<GameObject>("blocky");
     blocky->position = glm::vec3(0, 0, 0);
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
-    blocky->addComponent(std::make_shared<GameComponent>());
     objects.push_back(blocky);
 
     Model treeModel;
     if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
-        auto tree = std::make_shared<GameObject>();
-        tree->position = glm::vec3(2, 0, 0); // Move it to the right so you can see both
+        auto tree = std::make_shared<GameObject>("tree");
+        tree->position = glm::vec3(5, 0, 0); // Move it to the right so you can see both
         tree->scale = glm::vec3(0.1f, 0.1f, 0.1f);
         tree->addComponent(std::make_shared<MeshComponent>(treeModel));
         objects.push_back(tree);

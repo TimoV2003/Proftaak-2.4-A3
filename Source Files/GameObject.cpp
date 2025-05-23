@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "tigl.h"
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	if (std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(component)) {
@@ -19,7 +20,7 @@ void GameObject::draw() {
 	for (auto& component : drawComponents)
 	{
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
-			* glm::scale(glm::mat4(1.0f), scale);
+				* glm::scale(glm::mat4(1.0f), scale);
 
 		tigl::shader->setModelMatrix(model);
 
