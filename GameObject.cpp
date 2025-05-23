@@ -8,6 +8,18 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	gameComponents.push_back(component);
 }
 
+template<typename T1>
+inline void GameObject::removeComponent()
+{
+
+}
+
+template<typename T2>
+std::shared_ptr<GameComponent> GameObject::getComponent()
+{
+	return std::shared_ptr<GameComponent>();
+}
+
 void GameObject::update() {
 	for (auto& component : gameComponents) 
 	{

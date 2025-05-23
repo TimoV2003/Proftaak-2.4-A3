@@ -26,10 +26,10 @@ public:
 	void addComponent(std::shared_ptr<GameComponent> component);
 
 	template<typename T1> 
-	void removeComponent(T1 type);
+	void removeComponent();
 
 	template<typename T2> 
-	std::shared_ptr<GameComponent> getComponent(T2 type);
+	std::shared_ptr<GameComponent> getComponent();
 
 	void update();
 	void draw();
