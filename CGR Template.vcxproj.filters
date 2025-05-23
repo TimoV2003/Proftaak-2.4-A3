@@ -27,9 +27,6 @@
     <ClCompile Include="Source Files\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\GameComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,21 +39,27 @@
     <ClCompile Include="Source Files\ModelLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\MeshComponent.cpp">
+    <ClCompile Include="Game Components\MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawComponent.cpp">
+    <ClCompile Include="Game Components\HealthComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CubeDrawComponent.cpp">
-      <Filter>Game Components</Filter>
+    <ClCompile Include="Source Files\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\KeyboardInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\PlayerComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\TestBoxObject.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\tigl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\GameComponent.h">
@@ -71,14 +74,26 @@
     <ClInclude Include="Header Files\ModelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\MeshComponent.h">
+    <ClInclude Include="Game Components\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DrawComponent.h">
+    <ClInclude Include="Header Files\I_InputStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CubeDrawComponent.h">
-      <Filter>Game Components</Filter>
+    <ClInclude Include="Header Files\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\KeyboardInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\PlayerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\TestBoxObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\HealthComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include "CubeDrawComponent.h"
 #include "PlayerComponent.h"
 #include "KeyboardInput.h"
 #include "I_InputStrategy.h"
@@ -79,20 +78,29 @@ void init()
 	keyboardInput = std::make_shared<KeyboardInput>();
 
     ///////// LE BIG INIT OF ENTITIES ////////
-    auto blocky = std::make_shared<GameObject>("blocky");
-    blocky->position = glm::vec3(0, 0, 0);
-	blocky->scale = glm::vec3(1, 1, 1);
-    blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
-	blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
-    objects.push_back(blocky);
 
     Model treeModel;
-    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
+    if (ModelLoader::load("Resource Files/Tree/Tree_2.obj", treeModel)) // Make sure this path is correct
+    {
+        auto blocky = std::make_shared<GameObject>("blocky");
+        blocky->position = glm::vec3(0, 0, 0);
+        blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
+        blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
+        blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+        objects.push_back(blocky);
+    }
+    else
+    {
+        std::cerr << "Failed to load tree model!" << std::endl;
+    }
+
+    Model treeModel2;
+    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel2)) // Make sure this path is correct
     {
         auto tree = std::make_shared<GameObject>("tree");
         tree->position = glm::vec3(5, 0, 0); // Move it to the right so you can see both
         tree->scale = glm::vec3(0.1f, 0.1f, 0.1f);
-        tree->addComponent(std::make_shared<MeshComponent>(treeModel));
+        tree->addComponent(std::make_shared<MeshComponent>(treeModel2));
         objects.push_back(tree);
     }
     else
