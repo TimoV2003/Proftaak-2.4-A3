@@ -9,10 +9,7 @@ PlayerComponent::~PlayerComponent()
 }
 
 void PlayerComponent::update() {
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		std::cout << "A" << std::endl;
-		parent->position.x -= 20;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		std::cout << "D" << std::endl;
-		parent->position.x += 20;
+	parent->position.x = inputstrategy->handlestrategy(parent->position.x);
+
+	std::cout << "Player position: " << parent->position.x << std::endl;
 }
