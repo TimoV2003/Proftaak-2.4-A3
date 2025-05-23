@@ -10,10 +10,12 @@ GameObject::~GameObject() {
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	if (std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(component)) {
+		draw->setGameObject(shared_from_this());
 		drawComponents.push_back(draw);
 		return;
 	}
 	gameComponents.push_back(component);
+	component->setGameObject(shared_from_this());
 }
 
 void GameObject::removeComponent(const std::string& id) {
@@ -33,6 +35,10 @@ std::shared_ptr<GameComponent> GameObject::getComponent() {
 
 void GameObject::update() {
 	for (auto& component : gameComponents) 
+	{
+		component->update();
+	}
+	for (auto& component : drawComponents)
 	{
 		component->update();
 	}
