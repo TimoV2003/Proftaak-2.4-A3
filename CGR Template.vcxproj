@@ -168,9 +168,7 @@
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
     <ClCompile Include="Source Files\TestBoxObject.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
-    <ClCompile Include="colour_detection.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="tigl.cpp" />
+    <ClCompile Include="Source Files\colour_detection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\DrawComponent.h" />
@@ -184,8 +182,10 @@
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
-    <ClInclude Include="colour_detection.h" />
-    <ClInclude Include="tigl.h" />
+    <ClInclude Include="Header Files\colour_detection.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PropertySheet.props" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

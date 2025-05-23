@@ -8,10 +8,12 @@
 #include "KeyboardInput.h"
 #include "I_InputStrategy.h"
 #include "IOstream"
+#include <thread>
 #include "GameObject.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
 #include "tigl.h"
+#include "colour_detection.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -49,6 +51,9 @@ int main(void)
     tigl::init();
 
     init();
+
+    // thread should be saved so it could be closed.
+    std::thread t(vision::color_detection_loop);
 
 	while (!glfwWindowShouldClose(window))
 	{
