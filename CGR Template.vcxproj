@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game Components\CubeDrawComponent.cpp" />
+    <ClCompile Include="Source Files\MeshComponent.cpp" />
     <ClCompile Include="Source Files\ModelLoader.cpp" />
     <ClCompile Include="Source Files\DrawComponent.cpp" />
     <ClCompile Include="Source Files\GameComponent.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
+    <ClInclude Include="Header Files\MeshComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

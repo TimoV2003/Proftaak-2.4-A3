@@ -23,11 +23,22 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 		}
 		else if (prefix == "f") {
 			std::vector<int> face;
-			int index;
-			while (iss >> index) {
-				face.push_back(index - 1); // OBJ indices are 1-based
+			std::string vertexStr;
+			while (iss >> vertexStr) {
+				std::stringstream vertexStream(vertexStr);
+				std::string indexStr;
+				int vertexIndex = -1;
+
+				// Get vertex index before the first slash
+				std::getline(vertexStream, indexStr, '/');
+				if (!indexStr.empty())
+					vertexIndex = std::stoi(indexStr) - 1; // OBJ is 1-based, subtract 1
+
+				if (vertexIndex >= 0)
+					face.push_back(vertexIndex);
 			}
-			model.faces.push_back(face);
+			if (face.size() >= 3)
+				model.faces.push_back(face);
 		}
 	}
 

@@ -1,3 +1,5 @@
+#include <iostream>
+#include <ostream>
 #include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -5,6 +7,8 @@
 #include "GameObject.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "CubeDrawComponent.h"
+#include "ModelLoader.h"
+#include "MeshComponent.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -30,6 +34,12 @@ int main(void)
         throw "Could not initialize glwf";
     }
     glfwMakeContextCurrent(window);
+
+    GLenum err = glewInit();
+    if (err != GLEW_OK) {
+        std::cerr << "GLEW init failed: " << glewGetErrorString(err) << std::endl;
+        return -1;
+    }
 
     tigl::init();
 
@@ -66,6 +76,20 @@ void init()
     blocky->position = glm::vec3(0, 0, 0);
     blocky->addComponent(std::make_shared<CubeDrawComponent>(1.0f));
     objects.push_back(blocky);
+
+    Model treeModel;
+    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
+    {
+        auto tree = std::make_shared<GameObject>();
+        tree->position = glm::vec3(2, 0, 0); // Move it to the right so you can see both
+        tree->scale = glm::vec3(0.1f, 0.1f, 0.1f);
+        tree->addComponent(std::make_shared<MeshComponent>(treeModel));
+        objects.push_back(tree);
+    }
+    else
+    {
+        std::cerr << "Failed to load tree model!" << std::endl;
+    }
 }
 
 
