@@ -7,4 +7,4 @@ public:
 	DrawComponent() = default;
 	~DrawComponent() = default;
 	virtual void draw() = 0;
-}; 
+};

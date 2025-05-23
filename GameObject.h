@@ -24,10 +24,13 @@ public:
 	~GameObject() = default;
 
 	void addComponent(std::shared_ptr<GameComponent> component);
-	//void removeComponent(const std::string& id);
-	std::shared_ptr<GameComponent> getComponent();
+
+	template<typename T1> 
+	void removeComponent(T1 type);
+
+	template<typename T2> 
+	std::shared_ptr<GameComponent> getComponent(T2 type);
 
 	void update();
 	void draw();
 };
-
