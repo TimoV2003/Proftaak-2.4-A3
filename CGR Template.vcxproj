@@ -160,10 +160,12 @@
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="IEndOfMillBehavior.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="tigl.cpp" />
+    <ClCompile Include="TreadmillComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeDrawComponent.h" />
@@ -171,10 +173,12 @@
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="IEndOfMillBehavior.h" />
     <ClInclude Include="I_InputStrategy.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="tigl.h" />
+    <ClInclude Include="TreadmillComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
