@@ -1,12 +1,5 @@
 #include "GameObject.h"
-
-GameObject::GameObject() {
-	//TODO add logic: to be overwritten
-}
-
-GameObject::~GameObject() {
-	//TODO add logic: to delete
-}
+#include "tigl.h"
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	if (std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(component)) {
@@ -16,21 +9,6 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	}
 	gameComponents.push_back(component);
 	component->setGameObject(shared_from_this());
-}
-
-void GameObject::removeComponent(const std::string& id) {
-	gameComponents.erase(
-		std::remove_if(gameComponents.begin(), gameComponents.end(),
-			[&](const std::shared_ptr<GameComponent>& component) {
-				return component->getId() == id;
-			}),
-		gameComponents.end()
-	);
-}
-
-std::shared_ptr<GameComponent> GameObject::getComponent() {
-	//TODO add logic: get component of same type
-	return std::shared_ptr<GameComponent>();
 }
 
 void GameObject::update() {
@@ -47,6 +25,12 @@ void GameObject::update() {
 void GameObject::draw() {
 	for (auto& component : drawComponents)
 	{
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), scale);
+
+		tigl::shader->enableColor(true);
+		tigl::shader->setModelMatrix(model);
+
 		component->draw();
 	}
 }
