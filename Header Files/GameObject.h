@@ -20,7 +20,7 @@ public:
 	glm::vec3 rotation = glm::vec3(0, 0, 0);
 	glm::vec3 scale = glm::vec3(1, 1, 1);
 
-	GameObject(const std::string id) : id(id) {};
+	GameObject(const std::string id) : id(id) {}
 	~GameObject() = default;
 
 	void addComponent(std::shared_ptr<GameComponent> component);
