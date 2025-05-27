@@ -4,12 +4,10 @@
 #include <iostream>
 extern GLFWwindow* window;
 
-PlayerComponent::~PlayerComponent()
-{
-}
+void PlayerComponent::update(float deltaTime) {
+	if (auto p = getParent()) {
+		p->position.x = inputstrategy->handlestrategy(p->position.x);
 
-void PlayerComponent::update() {
-	parent->position.x = inputstrategy->handlestrategy(parent->position.x);
-
-	std::cout << "Player position: " << parent->position.x << std::endl;
+		std::cout << "Player position: " << p->position.x << std::endl;
+	}
 }

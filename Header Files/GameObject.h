@@ -24,6 +24,7 @@ public:
 	~GameObject() = default;
 
 	void addComponent(std::shared_ptr<GameComponent> component);
+	void setGameService();
 
 	/// <summary>
 	/// removes a component based on type, removes all components of said type
@@ -41,7 +42,7 @@ public:
 	std::shared_ptr<T2> getComponent();
 
 	
-	void update();
+	void update(float deltaTime);
 	void draw();
 };
 

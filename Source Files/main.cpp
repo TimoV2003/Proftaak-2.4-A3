@@ -22,13 +22,13 @@ using tigl::Vertex;
 
 GLFWwindow* window;
 
+double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
+std::shared_ptr<IInputStrategy> keyboardInput;
 
 void init();
 void update();
 void draw();
-
-std::shared_ptr<IInputStrategy> keyboardInput;
 
 int main(void)
 {
@@ -117,9 +117,12 @@ void init()
 
 void update()
 {
-    
+    double currentFrameTime = glfwGetTime();
+    double deltaTime = currentFrameTime - lastFrameTime;
+    lastFrameTime = currentFrameTime;
+
     for (auto& object : objects) {
-        object->update();
+        object->update((float)deltaTime);
     }
 }
 

@@ -11,14 +11,14 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	component->setGameObject(shared_from_this());
 }
 
-void GameObject::update() {
+void GameObject::update(float deltaTime) {
 	for (auto& component : gameComponents) 
 	{
-		component->update();
+		component->update(deltaTime);
 	}
 	for (auto& component : drawComponents)
 	{
-		component->update();
+		component->update(deltaTime);
 	}
 }
 
