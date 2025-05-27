@@ -167,10 +167,10 @@
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
-    <ClCompile Include="Source Files\TestBoxObject.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\colour_detection.cpp" />
     <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
+    <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\GameService.h" />
@@ -180,13 +180,13 @@
     <ClInclude Include="Header Files\I_InputStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
-    <ClInclude Include="Header Files\TestBoxObject.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
     <ClInclude Include="Header Files\colour_detection.h" />
     <ClInclude Include="Game Components\TestSpawnerComponent.h" />
+    <ClInclude Include="Game Components\TimedSuicideComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

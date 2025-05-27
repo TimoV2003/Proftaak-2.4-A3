@@ -57,10 +57,19 @@ void GameService::update()
         object->update((float)deltaTime);
     }
 
+    //add new objects
     if (!pendingAdding.empty())
     {
         objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
         pendingAdding.clear();
+    }
+
+    //remove requested objects
+    if (!pendingDeletion.empty()) {
+        for (auto& toDelete : pendingDeletion) {
+            objects.erase(std::remove(objects.begin(), objects.end(), toDelete), objects.end());
+        }
+        pendingDeletion.clear();
     }
 }
 
@@ -101,6 +110,15 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
         if (tag == object->getTag()) return object;
     }
     return nullptr;
+}
+
+void GameService::queueDelete(std::shared_ptr<GameObject>& object)
+{
+    // find = return index of first find or index of end (last index + 1)
+    // so if find == vector.end() then nothing was found
+    if (std::find(pendingDeletion.begin(), pendingDeletion.end(), object) == pendingDeletion.end()) {
+        pendingDeletion.push_back(object);
+    }
 }
 
 

@@ -38,7 +38,12 @@ public:
 	/// <returns>gameObject pointer or nullptr</returns>
 	std::shared_ptr<GameObject> getGameObject(std::string tag);
 
+	/// <summary>
+	/// queues given object to be deleted. best used on own object.
+	/// </summary>
+	void queueDelete(std::shared_ptr<GameObject>& object);
+
 	//TODO get gameObjects plural function
-	//TODO add queueDelete function
+	//TODO queue delete based on tag
 };
 

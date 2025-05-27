@@ -27,7 +27,7 @@ public:
 	glm::vec3 scale = glm::vec3(1, 1, 1);
 
 	GameObject(const std::string tag) : tag(tag), game(nullptr) {}
-	~GameObject() = default;
+	~GameObject();
 
 	void addComponent(std::shared_ptr<GameComponent> component);
 	void setGameService(GameService* gameService) { game = gameService; }

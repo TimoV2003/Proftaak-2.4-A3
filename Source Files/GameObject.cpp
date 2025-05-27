@@ -1,5 +1,11 @@
 #include "GameObject.h"
 #include "tigl.h"
+#include <iostream>
+
+GameObject::~GameObject()
+{
+	std::cout << "Object deleted, tag: " << tag << std::endl;
+}
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	if (std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(component)) {
