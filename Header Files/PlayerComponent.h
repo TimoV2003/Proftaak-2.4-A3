@@ -11,5 +11,4 @@ public:
 	PlayerComponent(std::shared_ptr<IInputStrategy> inputstrategy) :inputstrategy(inputstrategy) {};
 	~PlayerComponent() = default;
 	virtual void update(float deltaTime) override;
-
 };

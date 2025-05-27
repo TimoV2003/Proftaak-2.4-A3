@@ -9,15 +9,20 @@
 #include "tigl.h"
 using tigl::Vertex;
 
+//TESTING please delete when ready
+#include "TestSpawnerComponent.h"
+
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
+std::vector<std::shared_ptr<GameObject>> pendingAdding;
+std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
 
 void GameService::init() 
 {
     keyboardInput = std::make_shared<KeyboardInput>();
 
-    //game object creation
+    /////  GAME OBJECT CREATION  /////
     Model treeModel;
     if (ModelLoader::load("Resource Files/Tree/Tree_2.obj", treeModel)) // Make sure this path is correct
     {
@@ -26,26 +31,20 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
-        objects.push_back(blocky);
+        instantiate(blocky);
+    
+
+        //test spawner. feel free to delete in entirity
+        auto testSpawner = std::make_shared<GameObject>("testSpawner");
+        testSpawner->addComponent(std::make_shared<TestSpawnerComponent>(treeModel));
+        instantiate(testSpawner);
     }
     else
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
 
-    Model treeModel2;
-    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel2)) // Make sure this path is correct
-    {
-        auto tree = std::make_shared<GameObject>("tree");
-        tree->position = glm::vec3(5, 0, 0); // Move it to the right so you can see both
-        tree->scale = glm::vec3(0.1f, 0.1f, 0.1f);
-        tree->addComponent(std::make_shared<MeshComponent>(treeModel2));
-        objects.push_back(tree);
-    }
-    else
-    {
-        std::cerr << "Failed to load tree model!" << std::endl;
-    }
+    objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 }
 
 void GameService::update()
@@ -56,6 +55,12 @@ void GameService::update()
 
     for (auto& object : objects) {
         object->update((float)deltaTime);
+    }
+
+    if (!pendingAdding.empty())
+    {
+        objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
+        pendingAdding.clear();
     }
 }
 
@@ -80,4 +85,25 @@ void GameService::draw()
         object->draw();
     }
 }
+
+void GameService::instantiate(std::shared_ptr<GameObject> object)
+{
+    //TODO add nullptr check, should to this to a lot of functions
+    object->setGameService(this);
+    pendingAdding.push_back(object);
+}
+
+//TODO not tested, but should work
+std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
+{
+    for (auto& object : objects)
+    {
+        if (tag == object->getTag()) return object;
+    }
+    return nullptr;
+}
+
+
+
+
 

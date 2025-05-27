@@ -35,3 +35,8 @@ void GameObject::draw() {
 	}
 }
 
+std::string GameObject::getTag()
+{
+	return tag;
+}
+

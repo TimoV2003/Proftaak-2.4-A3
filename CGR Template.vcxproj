@@ -170,6 +170,7 @@
     <ClCompile Include="Source Files\TestBoxObject.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\colour_detection.cpp" />
+    <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\GameService.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
     <ClInclude Include="Header Files\colour_detection.h" />
+    <ClInclude Include="Game Components\TestSpawnerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

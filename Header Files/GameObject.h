@@ -8,23 +8,29 @@
 
 class GameComponent;
 class DrawComponent;
+class GameService;
 
 class GameObject : public std::enable_shared_from_this<GameObject>
 {
 private:
 	std::vector<std::shared_ptr<GameComponent>> gameComponents;
 	std::vector<std::shared_ptr<DrawComponent>> drawComponents;
-	std::string id;
+	std::string tag;
 public:
+	// TODO: Should have game be private and game being inserted into gamecomponents.
+	// Or have some structure so only gameComponents can acces game.
+	// However this was quicker.
+	GameService* game;
+	
 	glm::vec3 position = glm::vec3(0, 0, 0);
 	glm::vec3 rotation = glm::vec3(0, 0, 0);
 	glm::vec3 scale = glm::vec3(1, 1, 1);
 
-	GameObject(const std::string id) : id(id) {}
+	GameObject(const std::string tag) : tag(tag), game(nullptr) {}
 	~GameObject() = default;
 
 	void addComponent(std::shared_ptr<GameComponent> component);
-	void setGameService();
+	void setGameService(GameService* gameService) { game = gameService; }
 
 	/// <summary>
 	/// removes a component based on type, removes all components of said type
@@ -41,9 +47,10 @@ public:
 	template<typename T2> 
 	std::shared_ptr<T2> getComponent();
 
-	
 	void update(float deltaTime);
 	void draw();
+
+	std::string getTag();
 };
 
 // to prevent the use of a TPP file we have put the template functions here.
