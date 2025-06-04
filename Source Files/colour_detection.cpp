@@ -8,6 +8,9 @@ namespace vision {
 	//first element is the contour, second element is the bounding rectangle of the contour
 	typedef std::pair<std::vector<cv::Point>, cv::Rect> ContourWithBoundingRect;
 
+	cv::Point visionPosition(0, 0);
+	std::mutex visionPositionMutex;
+
 	cv::Mat img;
 	cv::VideoCapture cap(0);
 
@@ -110,6 +113,10 @@ namespace vision {
 				centreOfBiggestContour = getCentreOfContour(biggestContour);
 				std::cout << "contour x: " << centreOfBiggestContour.x << " contour y: " << centreOfBiggestContour.y << std::endl;
 				int widthOfImage = img.cols;
+				{
+					std::lock_guard<std::mutex> lock(visionPositionMutex);
+					visionPosition = centreOfBiggestContour;
+				}
 				std::cout << "width: " << widthOfImage << std::endl;
 				std::cout << "0..1 horizontal value: " << centreOfBiggestContour.x / (float)widthOfImage << std::endl;
 				drawContour(biggestContour);
