@@ -2,6 +2,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
+#include <atomic>
 
 namespace vision {
 	//first element is the contour, second element is the bounding rectangle of the contour
@@ -99,8 +100,8 @@ namespace vision {
 		return mask;
 	}
 
-	int color_detection_loop() {
-		while (true) {
+	void color_detection_loop(std::atomic<bool>& shouldStop) {
+		while (!shouldStop) {
 			cap.read(img);
 			auto mask = extractColor(img, myColors[0]);
 			auto biggestContour = getBiggestContourByArea(mask, 1000);
@@ -117,6 +118,5 @@ namespace vision {
 			cv::imshow("Image", img);
 			if (cv::waitKey(1) == 27) { break; }
 		}
-		return 0;
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
 
 namespace vision {
-	int color_detection_loop();
+	void color_detection_loop(std::atomic<bool>& shouldStop);
 }
