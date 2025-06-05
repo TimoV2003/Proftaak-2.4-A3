@@ -17,7 +17,7 @@ void TestSpawnerComponent::update(float deltaTime)
 
 	static float timeSinceLast = 0.0f;
 	timeSinceLast += deltaTime;
-	if (timeSinceLast < 0.2f) return;
+	if (timeSinceLast < 1.0f) return;
 
 	//called on a timer
 	timeSinceLast = 0.0f;
@@ -27,7 +27,7 @@ void TestSpawnerComponent::update(float deltaTime)
 		tree->scale = glm::vec3(0.05f, 0.05f, 0.05f);
 		tree->addComponent(std::make_shared<MeshComponent>(model));
 		tree->addComponent(std::make_shared<TreadmillComponent>(keyboardInput));
-		tree->addComponent(std::make_shared<TimedSuicideComponent>(1.0f));
+		//tree->addComponent(std::make_shared<TimedSuicideComponent>(1.0f));
 		p->game->instantiate(tree);
 	}
 }
