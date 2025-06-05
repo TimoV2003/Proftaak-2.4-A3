@@ -1,71 +1,79 @@
 #include "MeshComponent.h"
 #include <iostream>
 
+#include "tigl.h"
+
 MeshComponent::MeshComponent(const Model& model)
 {
-    std::vector<GLfloat> vertexData;
-    std::vector<GLuint> indexData;
+	std::vector<GLfloat> vertexData;
+	std::vector<GLuint> indexData;
+	std::map<int, std::vector<GLuint>> materialToIndices;
 
-    for (size_t i = 0; i < model.vertices.size(); ++i) {
-        const auto& vertex = model.vertices[i];
-        const auto& color = model.colors[i]; // Assumes same size as vertices
+	std::map<std::pair<int, int>, GLuint> uniqueVertices;
+	GLuint currentIndex = 0;
 
-        vertexData.push_back(vertex.x);
-        vertexData.push_back(vertex.y);
-        vertexData.push_back(vertex.z);
+	for (size_t i = 0; i < model.faces.size(); ++i) {
+		const auto& face = model.faces[i];
+		int matIndex = model.faceMaterialIndices[i];
+		std::vector<GLuint> indices;
 
-        vertexData.push_back(color.r);
-        vertexData.push_back(color.g);
-        vertexData.push_back(color.b);
-    }
+		for (const auto& fv : face.vertices) {
+			std::pair<int, int> key = { fv.vertexIndex, fv.texcoordIndex };
+			if (uniqueVertices.count(key) == 0) {
+				const glm::vec3& pos = model.vertices[fv.vertexIndex];
+				glm::vec2 tex = (fv.texcoordIndex >= 0 && fv.texcoordIndex < model.texcoords.size())
+					? model.texcoords[fv.texcoordIndex] : glm::vec2(0.0f);
 
-    for (const auto& face : model.faces) {
-        if (face.size() == 3) {
-            indexData.insert(indexData.end(), {
-			static_cast<GLuint>(face[0]),
-			static_cast<GLuint>(face[1]),
-			static_cast<GLuint>(face[2])
-            });
-        }
-        else if (face.size() == 4) {
-            indexData.insert(indexData.end(), {
-			static_cast<GLuint>(face[0]),
-			static_cast<GLuint>(face[1]),
-			static_cast<GLuint>(face[2]),
-			static_cast<GLuint>(face[2]),
-			static_cast<GLuint>(face[3]),
-			static_cast<GLuint>(face[0])
-            });
-        }
-        else {
-            std::cerr << "Non-triangular face detected (" << face.size() << "), skipping for now.\n";
-        }
-    }
+				vertexData.insert(vertexData.end(), { pos.x, pos.y, pos.z, tex.x, tex.y });
+				uniqueVertices[key] = currentIndex++;
+			}
+			indices.push_back(uniqueVertices[key]);
+		}
 
-    indexCount = indexData.size();
+		for (size_t j = 1; j + 1 < indices.size(); ++j) {
+			materialToIndices[matIndex].push_back(indices[0]);
+			materialToIndices[matIndex].push_back(indices[j]);
+			materialToIndices[matIndex].push_back(indices[j + 1]);
+		}
+	}
 
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glGenBuffers(1, &ebo);
+	GLuint startIndex = 0;
+	for (const auto& [matIndex, indices] : materialToIndices) {
+		DrawBatch batch;
+		batch.startIndex = startIndex;
+		batch.count = static_cast<GLsizei>(indices.size());
+		batch.material = (matIndex >= 0 && matIndex < model.materials.size()) ?
+			model.materials[matIndex] : Material{};
+		drawBatches.push_back(batch);
 
-    glBindVertexArray(vao);
+		indexData.insert(indexData.end(), indices.begin(), indices.end());
+		startIndex += static_cast<GLuint>(indices.size());
+	}
 
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
+	indexCount = static_cast<GLsizei>(indexData.size());
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ebo);
 
-    // Vertex Position (location = 0)
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
+	glBindVertexArray(vao);
 
-    // Vertex Color (location = 1)
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
 
-    glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+
+	glBindVertexArray(0);
 }
+
+
 
 
 MeshComponent::~MeshComponent()
@@ -77,7 +85,31 @@ MeshComponent::~MeshComponent()
 
 void MeshComponent::draw()
 {
-	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indexCount), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+    tigl::shader->use();
+    glBindVertexArray(vao);
+
+    for (const auto& batch : drawBatches) {
+        if (batch.material.textureID) {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, batch.material.textureID);
+            tigl::shader->enableTexture(true);
+
+            // Bind texture unit 0 to "s_texture" in your shader
+            GLuint shaderProgram = tigl::shader->getID(); // Add getID() to your shader class if needed
+            glUseProgram(shaderProgram);
+            GLint textureUniform = glGetUniformLocation(shaderProgram, "s_texture");
+            glUniform1i(textureUniform, 0); // 0 means GL_TEXTURE0
+        }
+
+        else
+        {
+			tigl::shader->enableTexture(false);
+        }
+
+        glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
+    }
+
+    glBindVertexArray(0);
 }
+
+
