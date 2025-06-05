@@ -4,8 +4,7 @@
 class DrawComponent : public GameComponent
 {
 public:
-	DrawComponent();
-	~DrawComponent();
+	DrawComponent() = default;
+	~DrawComponent() = default;
 	virtual void draw() = 0;
 };
-

@@ -9,7 +9,6 @@ class PlayerComponent : public GameComponent
 	std::shared_ptr<IInputStrategy> inputstrategy;
 public:
 	PlayerComponent(std::shared_ptr<IInputStrategy> inputstrategy) :inputstrategy(inputstrategy) {};
-	~PlayerComponent();
-	virtual void update() override;
-
+	~PlayerComponent() = default;
+	virtual void update(float deltaTime) override;
 };
