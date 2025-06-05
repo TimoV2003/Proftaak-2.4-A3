@@ -2,5 +2,5 @@
 
 __interface IInputStrategy
 {
-	float handlestrategy(float currentLocation);
+	float handlestrategy(float currentLocation, float deltaTime);
 };

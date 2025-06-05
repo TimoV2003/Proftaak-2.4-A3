@@ -10,7 +10,7 @@ KeyboardInput::~KeyboardInput()
 {
 }
 
-float KeyboardInput::handlestrategy(float currentLocation)
+float KeyboardInput::handlestrategy(float currentLocation, float deltaTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		currentLocation -= speed;
