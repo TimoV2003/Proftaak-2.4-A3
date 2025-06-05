@@ -8,6 +8,6 @@ public:
 	EnemyMillBehavior() = default;
 	~EnemyMillBehavior() = default;
 
-	void ReachedEndOfMill() override;
+	void ReachedEndOfMill(std::shared_ptr<GameObject> parent) override;
 };
 
