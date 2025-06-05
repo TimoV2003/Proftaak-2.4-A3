@@ -3,7 +3,7 @@
 #include "GameService.h"
 #include "TimedSuicideComponent.h"
 #include "IEndOfMillBehavior.h"
-#include "EnemyMillBehavior.h"
+#include "FloorMillBehavior.h"
 #include "TreadmillComponent.h"
 
 int random() {
@@ -13,7 +13,7 @@ int random() {
 void TestSpawnerComponent::update(float deltaTime)
 {
 	std::shared_ptr<IEndOfMillBehavior> keyboardInput;
-	keyboardInput = std::make_shared<EnemyMillBehavior>();
+	keyboardInput = std::make_shared<FloorMillBehavior>();
 
 	static float timeSinceLast = 0.0f;
 	timeSinceLast += deltaTime;
