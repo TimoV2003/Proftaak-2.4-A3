@@ -1,5 +1,5 @@
 #pragma once
-class IEndOfMillBehavior
+__interface IEndOfMillBehavior
 {
 public:
 	void ReachedEndOfMill();

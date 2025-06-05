@@ -9,6 +9,6 @@ public:
 	TreadmillComponent(std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior) : endOfMillBehavior(endOfMillBehavior) {};
 	~TreadmillComponent() = default;
 
-	virtual void update() override;
+	virtual void update(float deltaTime) override;
 };
 
