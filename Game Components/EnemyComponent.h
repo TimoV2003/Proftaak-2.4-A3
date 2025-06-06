@@ -6,7 +6,7 @@ class EnemyComponent : public GameComponent
 {
 private:
 	std::shared_ptr<GameObject> player = nullptr;
-	std::vector<IObserver*> observers;
+	std::vector<ICollisionObserver*> observers;
 	void notifyEnemyObservers();
 
 public:
@@ -14,5 +14,5 @@ public:
 	~EnemyComponent() = default;
 	virtual void update(float deltaTime) override;
 	bool collides(std::shared_ptr<GameObject> other);
-	void addObserver(IObserver* observer);
+	void addObserver(ICollisionObserver* observer);
 };

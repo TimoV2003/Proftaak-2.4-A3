@@ -1,5 +1,5 @@
 #pragma once
 
-__interface IObserver {
-	virtual void notify();
+__interface ICollisionObserver {
+	virtual void onCollision();
 };

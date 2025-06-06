@@ -2,11 +2,11 @@
 #include "I_Observer.h"
 #include <iostream>
 
-class TestObserver : public IObserver {
+class TestObserver : public ICollisionObserver {
 public:
 	TestObserver() = default;
 	~TestObserver() = default;
-	void notify() override {
-		std::cout << "Observer notify called" << std::endl;
+	void onCollision() override {
+		std::cout << "Observer onCollision called" << std::endl;
 	}
 };

@@ -16,12 +16,12 @@ bool EnemyComponent::collides(std::shared_ptr<GameObject> other) {
     return false;
 }
 
-void EnemyComponent::addObserver(IObserver* observer) {
+void EnemyComponent::addObserver(ICollisionObserver* observer) {
     this->observers.push_back(observer);
 }
 
 void EnemyComponent::notifyEnemyObservers() {
-    for (IObserver* observer : this->observers) {
-        observer->notify();
+    for (ICollisionObserver* observer : this->observers) {
+        observer->onCollision();
     }
 }
