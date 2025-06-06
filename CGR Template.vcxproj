@@ -157,7 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source Files\EnemyComponent.cpp" />
+    <ClCompile Include="Game Components\EnemyComponent.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
@@ -175,14 +175,16 @@
     <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header Files\EnemyComponent.h" />
+    <ClInclude Include="Game Components\EnemyComponent.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
+    <ClInclude Include="Header Files\I_Observer.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
+    <ClInclude Include="Header Files\TestObserver.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
