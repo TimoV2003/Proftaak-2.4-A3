@@ -66,7 +66,10 @@
     <ClCompile Include="Source Files\VisionInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\EnemyComponent.cpp">
+    <ClCompile Include="Game Components\EnemyComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Components\CollisionComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,10 +116,19 @@
     <ClInclude Include="Game Components\TimedSuicideComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\EnemyComponent.h">
+    <ClInclude Include="Header Files\VisionInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\VisionInput.h">
+    <ClInclude Include="Game Components\EnemyComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\I_Observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\TestObserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\CollisionComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

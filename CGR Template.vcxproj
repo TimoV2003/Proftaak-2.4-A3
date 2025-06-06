@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game Components\CollisionComponent.cpp" />
     <ClCompile Include="Game Components\EnemyComponent.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />

@@ -4,16 +4,9 @@
 #include <glm/glm.hpp>
 
 void EnemyComponent::update(float deltaTime) {
-    if (collides(this->player)) {
+    if (this->collides(this->player)) {
         notifyEnemyObservers();
     }
-}
-
-bool EnemyComponent::collides(std::shared_ptr<GameObject> other) {
-    if (auto p = this->getParent()) {
-        return glm::distance(p->position, other->position) < 4;
-    }
-    return false;
 }
 
 void EnemyComponent::addObserver(ICollisionObserver* observer) {

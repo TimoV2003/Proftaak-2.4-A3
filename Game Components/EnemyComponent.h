@@ -1,9 +1,8 @@
 #pragma once
-#include "GameComponent.h"
+#include "CollisionComponent.h"
 #include "I_Observer.h"
 
-class EnemyComponent : public GameComponent
-{
+class EnemyComponent : public CollisionComponent {
 private:
 	std::shared_ptr<GameObject> player = nullptr;
 	std::vector<ICollisionObserver*> observers;
@@ -13,6 +12,5 @@ public:
 	EnemyComponent(std::shared_ptr<GameObject> player) : player(player) {};
 	~EnemyComponent() = default;
 	virtual void update(float deltaTime) override;
-	bool collides(std::shared_ptr<GameObject> other);
 	void addObserver(ICollisionObserver* observer);
 };
