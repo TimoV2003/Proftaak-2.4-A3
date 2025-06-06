@@ -6,21 +6,26 @@
 #include "PlayerComponent.h"
 #include "KeyboardInput.h"
 #include "I_InputStrategy.h"
+#include "I_ScoreStrategy.h"
+#include "ScoreHolder.h"
 #include "tigl.h"
 using tigl::Vertex;
 
 //TESTING please delete when ready
 #include "TestSpawnerComponent.h"
+#include <ScoreComponent.h>
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
+std::shared_ptr<IScoreStrategy> scoreHolder;
 
 void GameService::init() 
 {
     keyboardInput = std::make_shared<KeyboardInput>();
+    scoreHolder = std::make_shared<ScoreHolder>();
 
     /////  GAME OBJECT CREATION  /////
     Model treeModel;
@@ -31,6 +36,7 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+        blocky->addComponent(std::make_shared<DistanceScoreComponent>(scoreHolder));
         instantiate(blocky);
     
 

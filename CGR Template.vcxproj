@@ -157,6 +157,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game Components\ScoreComponent.cpp" />
+    <ClCompile Include="Source Files\ScoreHolder.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
+    <ClInclude Include="Header Files\I_ScoreStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
     <ClInclude Include="Header Files\tigl.h" />
@@ -187,6 +190,8 @@
     <ClInclude Include="Header Files\colour_detection.h" />
     <ClInclude Include="Game Components\TestSpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
+    <ClInclude Include="Game Components\ScoreComponent.h" />
+    <ClInclude Include="Header Files\ScoreHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
