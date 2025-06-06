@@ -110,6 +110,9 @@
     <ClInclude Include="Game Components\TimedSuicideComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Header Files\VisionInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
