@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\EnemyComponent.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header Files\EnemyComponent.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />
