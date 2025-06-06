@@ -5,10 +5,12 @@
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
 #include "KeyboardInput.h"
+#include "VisionInput.h"
 #include "I_InputStrategy.h"
 #include "I_ScoreStrategy.h"
 #include "ScoreHolder.h"
 #include "tigl.h"
+
 using tigl::Vertex;
 
 //TESTING please delete when ready
@@ -20,11 +22,13 @@ std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
+std::shared_ptr<IInputStrategy> visionInput;
 std::shared_ptr<IScoreStrategy> scoreHolder;
 
 void GameService::init() 
 {
     keyboardInput = std::make_shared<KeyboardInput>();
+    visionInput = std::make_shared<VisionInput>();
     scoreHolder = std::make_shared<ScoreHolder>();
 
     /////  GAME OBJECT CREATION  /////
@@ -34,7 +38,7 @@ void GameService::init()
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
+        blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         blocky->addComponent(std::make_shared<DistanceScoreComponent>(scoreHolder));
         instantiate(blocky);

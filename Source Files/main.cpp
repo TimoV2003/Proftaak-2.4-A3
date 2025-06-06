@@ -11,6 +11,7 @@
 #include "colour_detection.h"
 #include "GameService.h"
 #include "tigl.h"
+#include <atomic>
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -20,6 +21,7 @@ using tigl::Vertex;
 GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
+std::atomic<bool> visionShouldStop{ false };
 
 void plagueRunInit();
 
@@ -81,8 +83,10 @@ int main(void)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
+	visionShouldStop = true; // Signal the vision thread to stop
+	visionThread.join(); // Wait for the vision thread to finish
+
     //TODO: send a signal to vision to close. then wait for it to stop.
-    visionThread.join();
 
 	glfwTerminate();
     return 0;
@@ -102,5 +106,5 @@ void plagueRunInit()
     gameService = std::make_unique<GameService>(window);
     gameService->init();
 
-    visionThread = std::thread(vision::color_detection_loop);
+    visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
 }
