@@ -1,5 +1,5 @@
 #pragma once
 
-__interface ICollisionObserver {
-	virtual void onCollision();
+__interface IPlayerCollisionObserver {
+	virtual void onPlayerCollision();
 };

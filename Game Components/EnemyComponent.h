@@ -5,12 +5,12 @@
 class EnemyComponent : public CollisionComponent {
 private:
 	std::shared_ptr<GameObject> player = nullptr;
-	std::vector<ICollisionObserver*> observers;
+	std::vector<IPlayerCollisionObserver*> observers;
 	void notifyEnemyObservers();
 
 public:
 	EnemyComponent(std::shared_ptr<GameObject> player) : player(player) {};
 	~EnemyComponent() = default;
 	virtual void update(float deltaTime) override;
-	void addObserver(ICollisionObserver* observer);
+	void addCollisionObserver(IPlayerCollisionObserver* observer);
 };

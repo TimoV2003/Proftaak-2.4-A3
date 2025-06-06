@@ -9,12 +9,12 @@ void EnemyComponent::update(float deltaTime) {
     }
 }
 
-void EnemyComponent::addObserver(ICollisionObserver* observer) {
+void EnemyComponent::addCollisionObserver(IPlayerCollisionObserver* observer) {
     this->observers.push_back(observer);
 }
 
 void EnemyComponent::notifyEnemyObservers() {
-    for (ICollisionObserver* observer : this->observers) {
-        observer->onCollision();
+    for (IPlayerCollisionObserver* observer : this->observers) {
+        observer->onPlayerCollision();
     }
 }

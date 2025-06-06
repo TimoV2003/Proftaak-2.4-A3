@@ -52,7 +52,7 @@ void GameService::init()
         testEnemy->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         testEnemy->addComponent(std::make_shared<MeshComponent>(treeModel));
         auto enemy = std::make_shared<EnemyComponent>(blocky);
-        enemy->addObserver(new TestObserver);
+        enemy->addCollisionObserver(new TestObserver);
         testEnemy->addComponent(enemy);
         instantiate(testEnemy);
     }
