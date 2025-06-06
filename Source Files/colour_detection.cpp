@@ -2,10 +2,14 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
+#include <atomic>
 
 namespace vision {
 	//first element is the contour, second element is the bounding rectangle of the contour
 	typedef std::pair<std::vector<cv::Point>, cv::Rect> ContourWithBoundingRect;
+
+	cv::Point visionPosition(0, 0);
+	std::mutex visionPositionMutex;
 
 	cv::Mat img;
 	cv::VideoCapture cap(0);
@@ -99,8 +103,8 @@ namespace vision {
 		return mask;
 	}
 
-	int color_detection_loop() {
-		while (true) {
+	void color_detection_loop(std::atomic<bool>& shouldStop) {
+		while (!shouldStop) {
 			cap.read(img);
 			auto mask = extractColor(img, myColors[0]);
 			auto biggestContour = getBiggestContourByArea(mask, 1000);
@@ -109,6 +113,10 @@ namespace vision {
 				centreOfBiggestContour = getCentreOfContour(biggestContour);
 				std::cout << "contour x: " << centreOfBiggestContour.x << " contour y: " << centreOfBiggestContour.y << std::endl;
 				int widthOfImage = img.cols;
+				{
+					std::lock_guard<std::mutex> lock(visionPositionMutex);
+					visionPosition = centreOfBiggestContour;
+				}
 				std::cout << "width: " << widthOfImage << std::endl;
 				std::cout << "0..1 horizontal value: " << centreOfBiggestContour.x / (float)widthOfImage << std::endl;
 				drawContour(biggestContour);
@@ -117,6 +125,5 @@ namespace vision {
 			cv::imshow("Image", img);
 			if (cv::waitKey(1) == 27) { break; }
 		}
-		return 0;
 	}
 }
