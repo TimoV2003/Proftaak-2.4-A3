@@ -1,17 +1,18 @@
 #include "MeshComponent.h"
 #include <iostream>
-
 #include "tigl.h"
 
+// Constructor: Builds the mesh from model data
 MeshComponent::MeshComponent(const Model& model)
 {
 	std::vector<GLfloat> vertexData;
 	std::vector<GLuint> indexData;
-	std::map<int, std::vector<GLuint>> materialToIndices;
+	std::map<int, std::vector<GLuint>> materialToIndices; // Maps material index to triangle indices
 
 	std::map<std::pair<int, int>, GLuint> uniqueVertices;
 	GLuint currentIndex = 0;
 
+	// Loop through each face to prepare vertex/index data
 	for (size_t i = 0; i < model.faces.size(); ++i) {
 		const auto& face = model.faces[i];
 		int matIndex = model.faceMaterialIndices[i];
@@ -24,12 +25,14 @@ MeshComponent::MeshComponent(const Model& model)
 				glm::vec2 tex = (fv.texcoordIndex >= 0 && fv.texcoordIndex < model.texcoords.size())
 					? model.texcoords[fv.texcoordIndex] : glm::vec2(0.0f);
 
+				// Push vertex position and texcoord
 				vertexData.insert(vertexData.end(), { pos.x, pos.y, pos.z, tex.x, tex.y });
 				uniqueVertices[key] = currentIndex++;
 			}
 			indices.push_back(uniqueVertices[key]);
 		}
 
+		// Triangulate face
 		for (size_t j = 1; j + 1 < indices.size(); ++j) {
 			materialToIndices[matIndex].push_back(indices[0]);
 			materialToIndices[matIndex].push_back(indices[j]);
@@ -39,6 +42,7 @@ MeshComponent::MeshComponent(const Model& model)
 
 	GLuint startIndex = 0;
 	for (const auto& [matIndex, indices] : materialToIndices) {
+		// Create a draw batch per material
 		DrawBatch batch;
 		batch.startIndex = startIndex;
 		batch.count = static_cast<GLsizei>(indices.size());
@@ -52,6 +56,7 @@ MeshComponent::MeshComponent(const Model& model)
 
 	indexCount = static_cast<GLsizei>(indexData.size());
 
+	// Create OpenGL buffers and VAO
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
@@ -64,18 +69,18 @@ MeshComponent::MeshComponent(const Model& model)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
 
+	// Vertex attribute: position (3 floats)
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
 
+	// Vertex attribute: texcoord (2 floats)
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 
 	glBindVertexArray(0);
 }
 
-
-
-
+// Destructor: Clean up OpenGL resources
 MeshComponent::~MeshComponent()
 {
 	glDeleteVertexArrays(1, &vao);
@@ -83,33 +88,33 @@ MeshComponent::~MeshComponent()
 	glDeleteBuffers(1, &ebo);
 }
 
+// Draw the mesh with correct material textures
 void MeshComponent::draw()
 {
-    tigl::shader->use();
-    glBindVertexArray(vao);
+	tigl::shader->use();
+	glBindVertexArray(vao);
 
-    for (const auto& batch : drawBatches) {
-        if (batch.material.textureID) {
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, batch.material.textureID);
-            tigl::shader->enableTexture(true);
+	for (const auto& batch : drawBatches) {
+		if (batch.material.textureID) {
+			// Enable and bind texture
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, batch.material.textureID);
+			tigl::shader->enableTexture(true);
 
-            // Bind texture unit 0 to "s_texture" in your shader
-            GLuint shaderProgram = tigl::shader->getID(); // Add getID() to your shader class if needed
-            glUseProgram(shaderProgram);
-            GLint textureUniform = glGetUniformLocation(shaderProgram, "s_texture");
-            glUniform1i(textureUniform, 0); // 0 means GL_TEXTURE0
-        }
-
-        else
-        {
+			// Explicitly bind the texture uniform
+			GLuint shaderProgram = tigl::shader->getID();
+			glUseProgram(shaderProgram);
+			GLint textureUniform = glGetUniformLocation(shaderProgram, "s_texture");
+			glUniform1i(textureUniform, 0);
+		}
+		else {
+			// No texture for this batch
 			tigl::shader->enableTexture(false);
-        }
+		}
 
-        glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
-    }
+		// Draw elements (triangles)
+		glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
+	}
 
-    glBindVertexArray(0);
+	glBindVertexArray(0);
 }
-
-

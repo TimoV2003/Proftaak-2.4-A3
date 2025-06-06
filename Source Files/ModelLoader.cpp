@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 
+// Loads an OBJ model from file and populates the provided Model structure
 bool ModelLoader::load(const std::string& filename, Model& model)
 {
 	std::ifstream file(filename);
@@ -17,6 +18,7 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 	std::string currentMaterial = "";
 	int currentMaterialIndex = -1;
 
+	// Extract base directory path for material loading
 	std::string basePath = filename.substr(0, filename.find_last_of("/\\") + 1);
 
 	while (std::getline(file, line)) {
@@ -25,16 +27,19 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 		iss >> prefix;
 
 		if (prefix == "v") {
+			// Vertex position
 			glm::vec3 vertex;
 			iss >> vertex.x >> vertex.y >> vertex.z;
 			model.vertices.push_back(vertex);
 		}
 		else if (prefix == "vt") {
+			// Texture coordinate
 			glm::vec2 tex;
 			iss >> tex.x >> tex.y;
 			model.texcoords.push_back(tex);
 		}
 		else if (prefix == "f") {
+			// Face (group of vertex/texcoord indices)
 			Face face;
 			std::string vertexStr;
 			while (iss >> vertexStr) {
@@ -56,16 +61,19 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 			}
 		}
 		else if (prefix == "mtllib") {
+			// Material library reference
 			std::string mtlFile = basePath + line.substr(7);
 			if (!loadMaterialFile(mtlFile, model)) {
 				std::cerr << "Warning: Could not load material file: " << mtlFile << std::endl;
 			}
 		}
 		else if (prefix == "usemtl") {
+			// Use material
 			std::string materialName;
 			iss >> materialName;
 			currentMaterial = materialName;
 
+			// Match material index
 			currentMaterialIndex = -1;
 			for (size_t i = 0; i < model.materials.size(); ++i) {
 				if (model.materials[i].name == materialName) {
@@ -84,6 +92,7 @@ bool ModelLoader::load(const std::string& filename, Model& model)
 	return true;
 }
 
+// Loads material file and adds materials to the model
 bool ModelLoader::loadMaterialFile(const std::string& mtlFilename, Model& model)
 {
 	std::ifstream file(mtlFilename);
@@ -113,22 +122,28 @@ bool ModelLoader::loadMaterialFile(const std::string& mtlFilename, Model& model)
 			iss >> currentMaterial.name;
 		}
 		else if (prefix == "Ka") {
+			// Ambient color
 			iss >> currentMaterial.ambient.r >> currentMaterial.ambient.g >> currentMaterial.ambient.b;
 		}
 		else if (prefix == "Kd") {
+			// Diffuse color
 			iss >> currentMaterial.diffuse.r >> currentMaterial.diffuse.g >> currentMaterial.diffuse.b;
 		}
 		else if (prefix == "Ks") {
+			// Specular color
 			iss >> currentMaterial.specular.r >> currentMaterial.specular.g >> currentMaterial.specular.b;
 		}
 		else if (prefix == "Ns") {
+			// Shininess
 			iss >> currentMaterial.shininess;
 		}
 		else if (prefix == "map_Kd") {
+			// Texture map
 			iss >> currentMaterial.textureFilename;
 
 			std::string fullPath = mtlFilename.substr(0, mtlFilename.find_last_of("/\\") + 1) + currentMaterial.textureFilename;
 
+			// Load texture using stb_image
 			glGenTextures(1, &currentMaterial.textureID);
 			glBindTexture(GL_TEXTURE_2D, currentMaterial.textureID);
 
@@ -151,6 +166,7 @@ bool ModelLoader::loadMaterialFile(const std::string& mtlFilename, Model& model)
 		}
 	}
 
+	// Add the last material
 	if (inMaterial) {
 		model.materials.push_back(currentMaterial);
 	}
