@@ -171,6 +171,7 @@
     <ClCompile Include="Source Files\colour_detection.cpp" />
     <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
+    <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\GameService.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Header Files\colour_detection.h" />
     <ClInclude Include="Game Components\TestSpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
+    <ClInclude Include="Header Files\VisionInput.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
