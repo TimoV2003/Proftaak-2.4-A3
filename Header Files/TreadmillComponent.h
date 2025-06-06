@@ -7,6 +7,7 @@ class TreadmillComponent : public GameComponent
 	std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior;
 	int speed = 2;
 	int deletionDistance = 10;
+	bool ReachedEnd = false;
 public:
 	TreadmillComponent(std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior) : endOfMillBehavior(endOfMillBehavior) {};
 	~TreadmillComponent() = default;

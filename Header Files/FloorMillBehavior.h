@@ -3,7 +3,6 @@
 
 class FloorMillBehavior : public IEndOfMillBehavior
 {
-	bool taggedEnd = false;
 public:
 	FloorMillBehavior() = default;
 	~FloorMillBehavior() = default;
