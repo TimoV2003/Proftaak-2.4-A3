@@ -9,6 +9,7 @@
 #include "EnemyComponent.h"
 #include "I_InputStrategy.h"
 #include "CollisionComponent.h"
+#include "HealthComponent.h"
 #include "tigl.h"
 
 using tigl::Vertex;
@@ -36,8 +37,10 @@ void GameService::init()
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
+        blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+        auto health = std::make_shared<HealthComponent>(5);
+        blocky->addComponent(health);
         instantiate(blocky);
     
 
@@ -51,8 +54,7 @@ void GameService::init()
         testEnemy->position = glm::vec3(5, 0, 0);
         testEnemy->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         testEnemy->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto enemy = std::make_shared<EnemyComponent>(blocky);
-        enemy->addCollisionObserver(new TestObserver);
+        auto enemy = std::make_shared<EnemyComponent>(blocky, [health]() { health->decreaseHealth(); });
         testEnemy->addComponent(enemy);
         instantiate(testEnemy);
     }
