@@ -38,7 +38,7 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto health = std::make_shared<HealthComponent>(5);
+        auto health = std::make_shared<HealthComponent>(5,1.0f);
         blocky->addComponent(health);
         instantiate(blocky);
     
