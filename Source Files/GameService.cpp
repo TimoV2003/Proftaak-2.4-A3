@@ -44,18 +44,9 @@ void GameService::init()
     
 
         //test spawner. feel free to delete in entirity
-        /*auto testSpawner = std::make_shared<GameObject>("testSpawner");
+        auto testSpawner = std::make_shared<GameObject>("testSpawner");
         testSpawner->addComponent(std::make_shared<TestSpawnerComponent>(treeModel));
-        instantiate(testSpawner);*/
-
-        // test enemy for collision testing
-        auto testEnemy = std::make_shared<GameObject>("testEnemy");
-        testEnemy->position = glm::vec3(5, 0, 0);
-        testEnemy->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        testEnemy->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto enemy = std::make_shared<EnemyComponent>(blocky, [health]() { health->decreaseHealth(); });
-        testEnemy->addComponent(enemy);
-        instantiate(testEnemy);
+        instantiate(testSpawner);
     }
     else
     {
