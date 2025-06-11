@@ -11,7 +11,6 @@
 #include "colour_detection.h"
 #include "GameService.h"
 #include "tigl.h"
-#include <atomic>
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -69,16 +68,6 @@ int main(void)
         gameService->update();
         gameService->draw();
         
-        //ImGui
-        {
-            ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
-            ImGui::SetNextWindowSize(ImVec2(200, 0));
-            ImGui::Begin("DebugMenu");
-
-            ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
-
-            ImGui::End();
-        }
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}

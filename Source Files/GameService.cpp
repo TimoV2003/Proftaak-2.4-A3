@@ -8,6 +8,9 @@
 #include "VisionInput.h"
 #include "I_InputStrategy.h"
 #include "I_ScoreStrategy.h"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 #include "ScoreHolder.h"
 #include "tigl.h"
 
@@ -24,6 +27,8 @@ std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
 std::shared_ptr<IScoreStrategy> scoreHolder;
+
+void imgGuiUpdate();
 
 void GameService::init() 
 {
@@ -42,6 +47,10 @@ void GameService::init()
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         blocky->addComponent(std::make_shared<DistanceScoreComponent>(scoreHolder));
         instantiate(blocky);
+
+        auto uiObject = std::make_shared<GameObject>("uiObject");
+
+        instantiate(uiObject);
     
 
         //test spawner. feel free to delete in entirity
@@ -81,6 +90,8 @@ void GameService::update()
         }
         pendingDeletion.clear();
     }
+
+    imgGuiUpdate();
 }
 
 void GameService::draw()
@@ -103,6 +114,22 @@ void GameService::draw()
     for (auto& object : objects) {
         object->draw();
     }
+}
+
+void imgGuiUpdate()
+{
+    std::cout << scoreHolder->getDistanceScore() << std::endl;
+
+    ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
+    ImGui::SetNextWindowSize(ImVec2(200, 0));
+    ImGui::Begin("DebugMenu");
+
+    ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
+    ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
+    ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
+
+    ImGui::End();
+
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object)
