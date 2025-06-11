@@ -17,6 +17,7 @@ std::string text = "Hello world";
 UiScoreComponent::UiScoreComponent(std::shared_ptr<IScoreStrategy> scoreHolder) : scoreHolder(scoreHolder)
 {
 	//code from CGR Demo -> font demo
+	/*
 	unsigned char* ttf_buffer = new unsigned char[1 << 20];
 	unsigned char* temp_bitmap = new unsigned char[512 * 512];
 	constexpr size_t element_size = 1;
@@ -50,6 +51,7 @@ UiScoreComponent::UiScoreComponent(std::shared_ptr<IScoreStrategy> scoreHolder) 
 
 	delete[] ttf_buffer;
 	delete[] temp_bitmap;
+	*/
 }
 
 void UiScoreComponent::update(float deltaTime)
