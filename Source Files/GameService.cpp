@@ -7,6 +7,8 @@
 #include "KeyboardInput.h"
 #include "I_InputStrategy.h"
 #include "tigl.h"
+#include "HealthComponent.h"
+#include "TimedSuicideComponent.h"
 using tigl::Vertex;
 
 //TESTING please delete when ready
@@ -31,6 +33,8 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+        blocky->addComponent(std::make_shared<HealthComponent>(1));
+        blocky->addComponent(std::make_shared<TimedSuicideComponent>(5.0f)); 
         instantiate(blocky);
     
 
@@ -111,6 +115,14 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
     }
     return nullptr;
 }
+
+void GameService::reset() {
+	objects.clear();
+	pendingAdding.clear();
+	pendingDeletion.clear();
+    init();
+	gameOverMessageShown = false;
+    }
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object)
 {

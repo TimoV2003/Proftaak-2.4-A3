@@ -43,18 +43,32 @@ int main(void)
 
     // TODO: possibly move this while loop to game service, 
     // Have rushed the coding so now its still here
-	while (!glfwWindowShouldClose(window))
-	{
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-        gameService->update();
-        gameService->draw();
-	}
+    while (!glfwWindowShouldClose(window))
+    {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
 
+        if (!gameService->gameOver) {
+            gameService->update();
+            gameService->draw();
+            gameService->gameOverMessageShown = false;
+        }
+        else {
+            if (!gameService->gameOverMessageShown) {
+                std::cout << "Game Over!  Druk op R om opnieuw te starten." << std::endl;
+                gameService->gameOverMessageShown = true;
+            }
+            if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+                gameService->reset();
+                gameService->gameOver = false;
+                gameService->gameOverMessageShown = false;
+            }
+        }
+    }
     //TODO: send a signal to vision to close. then wait for it to stop.
     visionThread.join();
 
-	glfwTerminate();
+    glfwTerminate();
     return 0;
 }
 
