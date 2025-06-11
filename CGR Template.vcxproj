@@ -108,7 +108,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\stb;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +158,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game Components\CollisionComponent.cpp" />
+    <ClCompile Include="Game Components\EnemyComponent.cpp" />
     <ClCompile Include="Game Components\ScoreComponent.cpp" />
     <ClCompile Include="Game Components\UiScoreComponent.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp" />
@@ -167,7 +170,8 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\misc\cpp\imgui_stdlib.cpp" />
-    <ClCompile Include="Source Files\ScoreHolder.cpp" />
+    <ClCompile Include="Source Files\EnemyMillBehavior.cpp" />
+    <ClCompile Include="Source Files\FloorMillBehavior.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
@@ -178,18 +182,25 @@
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
+    <ClCompile Include="Source Files\ScoreHolder.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\colour_detection.cpp" />
     <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
+    <ClCompile Include="Source Files\TreadmillComponent.cpp" />
     <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game Components\CollisionComponent.h" />
+    <ClInclude Include="Game Components\EnemyComponent.h" />
     <ClInclude Include="Game Components\UiScoreComponent.h" />
+    <ClInclude Include="Header Files\EnemyMillBehavior.h" />
+    <ClInclude Include="Header Files\FloorMillBehavior.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
+    <ClInclude Include="Header Files\IEndOfMillBehavior.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
     <ClInclude Include="Header Files\I_ScoreStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
@@ -201,7 +212,9 @@
     <ClInclude Include="Header Files\colour_detection.h" />
     <ClInclude Include="Game Components\TestSpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
+    <ClInclude Include="lib\stb\stb_image.h" />
     <ClInclude Include="Header Files\VisionInput.h" />
+    <ClInclude Include="Header Files\TreadmillComponent.h" />
     <ClInclude Include="Game Components\ScoreComponent.h" />
     <ClInclude Include="Header Files\ScoreHolder.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_glfw.h" />
@@ -214,7 +227,7 @@
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\imgui\misc\cpp\imgui_stdlib.h" />
-    <ClInclude Include="lib\stb_truetype.h" />
+    <ClInclude Include="lib\stb\stb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\imgui\misc\debuggers\imgui.natstepfilter" />
