@@ -11,12 +11,8 @@
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
 #include "tigl.h"
-<<<<<<< HEAD
 #include "HealthComponent.h"
 #include "TimedSuicideComponent.h"
-=======
-
->>>>>>> Dev
 using tigl::Vertex;
 
 //TESTING please delete when ready
@@ -43,14 +39,21 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
-<<<<<<< HEAD
-        blocky->addComponent(std::make_shared<HealthComponent>(1));
-        blocky->addComponent(std::make_shared<TimedSuicideComponent>(5.0f)); 
-=======
-        auto health = std::make_shared<HealthComponent>(5,1.0f);
-        blocky->addComponent(health);
->>>>>>> Dev
+		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
+		blocky->addComponent(health);
+
+        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+
         instantiate(blocky);
+
+        // test enemy for collision testing
+        auto testEnemy = std::make_shared<GameObject>("testEnemy");
+        testEnemy->position = glm::vec3(5, 0, 0);
+        testEnemy->scale = glm::vec3(0.2f, 0.2f, 0.2f);
+        testEnemy->addComponent(std::make_shared<MeshComponent>(treeModel));
+        auto enemy = std::make_shared<EnemyComponent>(blocky, [health]() { health->decreaseHealth(); });
+        testEnemy->addComponent(enemy);
+        instantiate(testEnemy);
     }
     else
     {
