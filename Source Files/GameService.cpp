@@ -92,7 +92,7 @@ void GameService::draw()
     tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
     tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
     tigl::shader->setModelMatrix(modelMatrix);
-    tigl::shader->enableColor(true);
+    tigl::shader->enableColor(false);
 
     for (auto& object : objects) {
         object->draw();
