@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game Components\ScoreComponent.cpp" />
+    <ClCompile Include="Game Components\UiScoreComponent.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game Components\UiScoreComponent.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />

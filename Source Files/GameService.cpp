@@ -1,5 +1,6 @@
 #include "GameService.h"
 #include <iostream>
+
 #include "GameObject.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
@@ -8,10 +9,12 @@
 #include "VisionInput.h"
 #include "I_InputStrategy.h"
 #include "I_ScoreStrategy.h"
+#include "ScoreHolder.h"
+#include "UiScoreComponent.h"
+
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
-#include "ScoreHolder.h"
 #include "tigl.h"
 
 using tigl::Vertex;
@@ -49,7 +52,7 @@ void GameService::init()
         instantiate(blocky);
 
         auto uiObject = std::make_shared<GameObject>("uiObject");
-
+        uiObject->addComponent(std::make_shared<UiScoreComponent>(scoreHolder));
         instantiate(uiObject);
     
 

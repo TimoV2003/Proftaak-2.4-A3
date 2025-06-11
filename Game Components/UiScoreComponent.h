@@ -8,7 +8,7 @@ private:
 	std::shared_ptr<IScoreStrategy> scoreHolder;
 
 public:
-	UiScoreComponent(std::shared_ptr<IScoreStrategy> scoreHolder) : scoreHolder(scoreHolder) {};
+	UiScoreComponent(std::shared_ptr<IScoreStrategy> scoreHolder);
 	~UiScoreComponent() = default;
 
 	virtual void update(float deltaTime) override;
