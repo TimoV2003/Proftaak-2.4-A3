@@ -9,5 +9,5 @@ public:
 	KeyboardInput();
 	~KeyboardInput();
 
-	float handlestrategy(float currentLocation) override;
+	float handlestrategy(float currentLocation, float deltaTime) override;
 };

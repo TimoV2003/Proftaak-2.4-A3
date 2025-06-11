@@ -5,10 +5,18 @@
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
 #include "KeyboardInput.h"
+#include "VisionInput.h"
+#include "EnemyComponent.h"
 #include "I_InputStrategy.h"
+#include "CollisionComponent.h"
+#include "HealthComponent.h"
 #include "tigl.h"
+<<<<<<< HEAD
 #include "HealthComponent.h"
 #include "TimedSuicideComponent.h"
+=======
+
+>>>>>>> Dev
 using tigl::Vertex;
 
 //TESTING please delete when ready
@@ -19,29 +27,30 @@ std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
+std::shared_ptr<IInputStrategy> visionInput;
 
 void GameService::init() 
 {
     keyboardInput = std::make_shared<KeyboardInput>();
+    visionInput = std::make_shared<VisionInput>();
 
     /////  GAME OBJECT CREATION  /////
     Model treeModel;
-    if (ModelLoader::load("Resource Files/Tree/Tree_2.obj", treeModel)) // Make sure this path is correct
+    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+<<<<<<< HEAD
         blocky->addComponent(std::make_shared<HealthComponent>(1));
         blocky->addComponent(std::make_shared<TimedSuicideComponent>(5.0f)); 
+=======
+        auto health = std::make_shared<HealthComponent>(5,1.0f);
+        blocky->addComponent(health);
+>>>>>>> Dev
         instantiate(blocky);
-    
-
-        //test spawner. feel free to delete in entirity
-        auto testSpawner = std::make_shared<GameObject>("testSpawner");
-        testSpawner->addComponent(std::make_shared<TestSpawnerComponent>(treeModel));
-        instantiate(testSpawner);
     }
     else
     {
@@ -81,6 +90,7 @@ void GameService::draw()
 {
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
     glm::mat4 modelMatrix(1);
     glm::mat4 viewMatrix(1);
 
