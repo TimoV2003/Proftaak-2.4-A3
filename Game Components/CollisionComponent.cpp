@@ -5,8 +5,7 @@
 
 bool CollisionComponent::collides(std::shared_ptr<GameObject> other) {
 	if (auto p = this->getParent()) {
-		// hardcoded radius for collision detection, needs to be replaced with actual radii from GameObjects
-		return glm::distance(p->position, other->position) < 4;
+		return glm::distance(p->position, other->position) < (p->getCollisionSize()+other->getCollisionSize());
 	}
 	return false;
 }

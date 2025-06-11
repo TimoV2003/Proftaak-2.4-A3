@@ -18,7 +18,7 @@ void HealthComponent::decreaseHealth() {
 		return;
 	timeSinceHealthReduction = 0.0f;
 
-	std::cout << "Health decreased called" << std::endl;
+	std::cout << "decreaseHealth called" << std::endl;
 
 	health -= 1;
 	if (health <= 0) {
