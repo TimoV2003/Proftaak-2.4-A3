@@ -122,12 +122,6 @@
     <ClInclude Include="Game Components\EnemyComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\I_Observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\TestObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game Components\CollisionComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>

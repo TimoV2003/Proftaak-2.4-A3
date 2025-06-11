@@ -16,7 +16,6 @@ using tigl::Vertex;
 
 //TESTING please delete when ready
 #include "TestSpawnerComponent.h"
-#include "TestObserver.h"
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;

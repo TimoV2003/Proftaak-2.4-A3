@@ -1,6 +1,5 @@
 #pragma once
 #include "CollisionComponent.h"
-#include "I_Observer.h"
 #include <functional>
 #include <memory>
 

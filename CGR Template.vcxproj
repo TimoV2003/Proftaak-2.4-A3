@@ -183,10 +183,8 @@
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
-    <ClInclude Include="Header Files\I_Observer.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
-    <ClInclude Include="Header Files\TestObserver.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
