@@ -12,7 +12,7 @@
 using tigl::Vertex;
 
 //TESTING please delete when ready
-#include "TestSpawnerComponent.h"
+#include "SpawnerComponent.h"
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
@@ -36,6 +36,12 @@ void GameService::init()
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         instantiate(blocky);
+
+
+        //test spawner. feel free to delete in entirity
+        auto testSpawner = std::make_shared<GameObject>("testSpawner");
+        testSpawner->addComponent(std::make_shared<SpawnerComponent>());
+        instantiate(testSpawner);
     }
     else
     {
