@@ -49,6 +49,8 @@ namespace tigl
 		}
 		void setFogColor(const glm::vec3 &color) { setUniform(Uniform::fogColor, color); }
 
+		GLuint getID() const { return programId; }
+
 	private:
 		void addShader(int shaderProgram, GLenum shaderType, const std::string& shader);
 		GLuint programId;
@@ -510,6 +512,7 @@ void main()
 	{
 		return position == other.position && normal == other.normal && color == other.color && texcoord == other.texcoord;
 	}
+
 
 
 

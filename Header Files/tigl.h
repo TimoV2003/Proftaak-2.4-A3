@@ -76,6 +76,10 @@ namespace tigl
 
 			// Sets the color of the fog
 			virtual void setFogColor(const glm::vec3 &color) = 0;
+
+			virtual GLuint getID() const = 0;
+
+			virtual void use() = 0;
 		};
 	}
 	// A simple structure to store vertices. Can store positions, normals, colors and texture coordinats

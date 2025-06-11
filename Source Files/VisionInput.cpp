@@ -25,11 +25,14 @@ float VisionInput::handlestrategy(float currentLocation, float deltaTime)
 			visionPosition = vision::visionPosition;
 		}
 
-		float cameraWidth = 640.0f;
-		float worldMinX = -10.0f, worldMaxxX = 10.0f;
+
 		float normX = visionPosition.x / cameraWidth;
 		normX = glm::clamp(normX, 0.0f, 1.0f);
-		float targetX = worldMinX + normX * (worldMaxxX - worldMinX);
+		float targetX = (normX * worldWidth) - worldOffset;
+
+		if (cameraInversion) {
+			targetX = targetX * -1;
+		}
 
 		float speed = 10.0f;
 		
