@@ -5,6 +5,10 @@
 
 class VisionInput : public IInputStrategy
 {
+	float cameraWidth = 640.0f;
+	float worldWidth = 20.0f;
+	float worldOffset = 10.0f;
+	bool cameraInversion = true;
 public:
 	VisionInput();
 	~VisionInput();
