@@ -63,6 +63,15 @@
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\TreadmillComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\EnemyMillBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\FloorMillBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source Files\VisionInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -116,6 +125,9 @@
     <ClInclude Include="Game Components\TimedSuicideComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lib\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Header Files\VisionInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -123,6 +135,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Components\CollisionComponent.h">
+    <ClInclude Include="Header Files\IEndOfMillBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\TreadmillComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\EnemyMillBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\FloorMillBehavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

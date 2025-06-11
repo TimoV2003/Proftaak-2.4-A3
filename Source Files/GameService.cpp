@@ -31,7 +31,7 @@ void GameService::init()
 
     /////  GAME OBJECT CREATION  /////
     Model treeModel;
-    if (ModelLoader::load("Resource Files/Tree/Tree_2.obj", treeModel)) // Make sure this path is correct
+    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
@@ -41,12 +41,6 @@ void GameService::init()
         auto health = std::make_shared<HealthComponent>(5,1.0f);
         blocky->addComponent(health);
         instantiate(blocky);
-    
-
-        //test spawner. feel free to delete in entirity
-        auto testSpawner = std::make_shared<GameObject>("testSpawner");
-        testSpawner->addComponent(std::make_shared<TestSpawnerComponent>(treeModel));
-        instantiate(testSpawner);
     }
     else
     {
@@ -86,6 +80,7 @@ void GameService::draw()
 {
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
     glm::mat4 modelMatrix(1);
     glm::mat4 viewMatrix(1);
 
