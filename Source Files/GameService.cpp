@@ -26,7 +26,8 @@ using tigl::Vertex;
 #include "TestSpawnerComponent.h"
 #include <ScoreComponent.h>
 
-double lastFrameTime = 0;
+static bool showingDebugMenu = true;
+static double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
@@ -127,18 +128,17 @@ void GameService::draw()
 
 void imgGuiUpdate()
 {
-    std::cout << scoreHolder->getDistanceScore() << std::endl;
+    if (showingDebugMenu) {
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
+        ImGui::SetNextWindowSize(ImVec2(200, 0));
+        ImGui::Begin("DebugMenu", &showingDebugMenu);
 
-    ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
-    ImGui::SetNextWindowSize(ImVec2(200, 0));
-    ImGui::Begin("DebugMenu");
+        ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
+        ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
+        ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
 
-    ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
-    ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
-    ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
-
-    ImGui::End();
-
+        ImGui::End();
+    }
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object)
