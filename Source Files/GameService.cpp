@@ -35,11 +35,9 @@ std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
-std::shared_ptr<IScoreStrategy> scoreHolder;
 
-void imgGuiUpdate();
 
-void GameService::init() 
+void GameService::init()
 {
     keyboardInput = std::make_shared<KeyboardInput>();
     visionInput = std::make_shared<VisionInput>();

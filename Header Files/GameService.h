@@ -4,14 +4,16 @@
 #include <GameObject.h>
 
 class GameObject;
+__interface IScoreStrategy;
 
 class GameService
 {
 private:
 	GLFWwindow* window;
+	std::shared_ptr<IScoreStrategy> scoreHolder;
 
 public:
-	GameService(GLFWwindow* window) : window(window) {}
+	GameService(GLFWwindow* window) : window(window) {};
 	~GameService() = default;
 
 	// these functions are called from main
@@ -50,7 +52,12 @@ public:
 	/// </summary>
 	static float RandomValue(float BoundryMin, float BoundryMax) {
 		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
-	};
+	}
+
+	/// <summary>
+	/// Gets scoreholder. Beware could be nullptr.
+	/// </summary>
+	std::shared_ptr<IScoreStrategy> getScoreHolder() { return scoreHolder; }
 
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
