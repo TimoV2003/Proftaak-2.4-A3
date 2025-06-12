@@ -101,8 +101,6 @@ void GameService::update()
         }
         pendingDeletion.clear();
     }
-
-    imgGuiUpdate();
 }
 
 void GameService::draw()
@@ -128,8 +126,15 @@ void GameService::draw()
     }
 }
 
-void imgGuiUpdate()
+void GameService::imgGuiUpdate()
 {
+    static int lastKeyCode = -1;
+    int keyPressed = glfwGetKey(window, GLFW_KEY_F1);
+    if (keyPressed == GLFW_PRESS && keyPressed != lastKeyCode) {
+        showingDebugMenu = !showingDebugMenu;
+    }
+    lastKeyCode = keyPressed;
+
     if (showingDebugMenu) {
         ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
         ImGui::SetNextWindowSize(ImVec2(200, 0));

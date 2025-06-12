@@ -67,6 +67,7 @@ int main(void)
 
         gameService->update();
         gameService->draw();
+        gameService->imgGuiUpdate();
         
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

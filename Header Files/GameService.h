@@ -18,6 +18,7 @@ public:
 	void init();
 	void update();
 	void draw();
+	void imgGuiUpdate();
 
 
 	// these functions are callable from game components via:
