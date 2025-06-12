@@ -1,8 +1,7 @@
 #pragma once
 #include "GameComponent.h"
-#include "GameEntityFactory.h"
-#include "TreeFactory.h"
-#include "GameObject.h"
+
+class GameEntityFactory;
 
 class SpawnerComponent : public GameComponent
 {

@@ -1,6 +1,8 @@
 #include "SpawnerComponent.h"
 #include "GameService.h"
-
+#include "GameEntityFactory.h"
+#include "TreeFactory.h"
+#include "GameObject.h"
 
 SpawnerComponent::SpawnerComponent() {
 	this->treeFactory = std::make_shared<TreeFactory>();

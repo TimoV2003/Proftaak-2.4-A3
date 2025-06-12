@@ -1,9 +1,6 @@
 #pragma once
 #include "GameEntityFactory.h"
-#include "EntityMillBehavior.h"
-#include "FloorMillBehavior.h"
 #include "MeshComponent.h"
-
 
 class TreeFactory : public GameEntityFactory
 {

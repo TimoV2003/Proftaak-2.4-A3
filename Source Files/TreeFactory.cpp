@@ -1,4 +1,7 @@
+#pragma once
 #include "TreeFactory.h"
+#include "EntityMillBehavior.h"
+#include "FloorMillBehavior.h"
 #include "GameService.h"
 
 TreeFactory::TreeFactory() {
