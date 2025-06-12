@@ -3,7 +3,7 @@
 
 
 SpawnerComponent::SpawnerComponent() {
-	treeFactory = std::make_shared<TreeFactory>();
+	this->treeFactory = std::make_shared<TreeFactory>();
 }
 
 void SpawnerComponent::update(float deltaTime)
@@ -19,6 +19,7 @@ void SpawnerComponent::update(float deltaTime)
 	timeDelay = GameService::RandomValue(1.0f, 10.0f);
 
 	if (auto p = getParent()) {
+		//Never save this as a sharepointer in heap
 		auto NewGameEntity = RandomEntityFromList();
 		p->game->instantiate(NewGameEntity);
 	}
