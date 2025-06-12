@@ -6,6 +6,7 @@
 
 class SpawnerComponent : public GameComponent
 {
+	
 	std::shared_ptr<GameEntityFactory> treeFactory;
 public:
 	SpawnerComponent();

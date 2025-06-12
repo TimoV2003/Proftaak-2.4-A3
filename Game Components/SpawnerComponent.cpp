@@ -6,18 +6,18 @@ SpawnerComponent::SpawnerComponent() {
 	treeFactory = std::make_shared<TreeFactory>();
 }
 
-int random() {
-	return 5 - ((float)(rand()) / (float)(RAND_MAX)) * 10;
-}
-
 void SpawnerComponent::update(float deltaTime)
 {
 	static float timeSinceLast = 0.0f;
+	static float timeDelay;
+
 	timeSinceLast += deltaTime;
-	if (timeSinceLast < 1.0f) return;
+	if (timeSinceLast < timeDelay) return;
 
 	//called on a timer
 	timeSinceLast = 0.0f;
+	timeDelay = GameService::RandomValue(1.0f, 10.0f);
+
 	if (auto p = getParent()) {
 		auto NewGameEntity = RandomEntityFromList();
 		p->game->instantiate(NewGameEntity);

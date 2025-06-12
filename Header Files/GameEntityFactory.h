@@ -14,6 +14,7 @@ public:
 	GameEntityFactory() = default;
 	~GameEntityFactory() = default;
 
+
 	virtual std::shared_ptr<GameObject> CreateEntity() = 0;
 };
 
