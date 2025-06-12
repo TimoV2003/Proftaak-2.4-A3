@@ -5,9 +5,10 @@
 class TreadmillComponent : public GameComponent
 {
 	std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior;
-	int speed = 2;
+	const float maxEndCheckPausedTime = 1.0f;
+	int speed = 20;
 	int deletionDistance = 10;
-	bool ReachedEnd = false;
+	bool UpdatePaused = false;
 public:
 	TreadmillComponent(std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior) : endOfMillBehavior(endOfMillBehavior) {};
 	~TreadmillComponent() = default;
