@@ -171,7 +171,6 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\misc\cpp\imgui_stdlib.cpp" />
-    <ClCompile Include="Source Files\EnemyMillBehavior.cpp" />
     <ClCompile Include="Source Files\FloorMillBehavior.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
@@ -198,7 +197,6 @@
     <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
     <ClInclude Include="Game Components\UiScoreComponent.h" />
-    <ClInclude Include="Header Files\EnemyMillBehavior.h" />
     <ClInclude Include="Header Files\FloorMillBehavior.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />

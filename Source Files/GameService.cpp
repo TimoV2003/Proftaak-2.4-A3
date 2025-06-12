@@ -14,6 +14,8 @@
 #include "I_ScoreStrategy.h"
 #include "ScoreHolder.h"
 #include "UiScoreComponent.h"
+#include "colour_detection.h"
+#include <mutex>
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -136,6 +138,13 @@ void imgGuiUpdate()
         ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
         ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
         ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
+        float visionNormalisedPosition;
+        {
+            std::lock_guard<std::mutex> lock(vision::visionPositionMutex);
+            visionNormalisedPosition = vision::visionNormalisedPosition;
+        }
+        ImGui::Text("vision position: %f ", visionNormalisedPosition);
+        ImGui::Text("object vector size: %i",objects.size());
 
         ImGui::End();
     }
