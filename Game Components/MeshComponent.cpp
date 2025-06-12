@@ -69,14 +69,18 @@ MeshComponent::MeshComponent(const Model& model)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
 
-	// Vertex attribute: position (3 floats)
+	// Vertex attribute: position on index 0 (3 floats)
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
 
-	// Vertex attribute: texcoord (2 floats)
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	// Vertex attribute: texcoord on index 2 (2 floats)
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 
+	//layout(location = 0) in vec3 a_position;
+	//layout(location = 1) in vec4 a_color;
+	//layout(location = 2) in vec2 a_texcoord;
+	//layout(location = 3) in vec3 a_normal;
 	glBindVertexArray(0);
 }
 
@@ -97,15 +101,9 @@ void MeshComponent::draw()
 	for (const auto& batch : drawBatches) {
 		if (batch.material.textureID) {
 			// Enable and bind texture
-			glActiveTexture(GL_TEXTURE0);
+			//glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, batch.material.textureID);
 			tigl::shader->enableTexture(true);
-
-			// Explicitly bind the texture uniform
-			GLuint shaderProgram = tigl::shader->getID();
-			glUseProgram(shaderProgram);
-			GLint textureUniform = glGetUniformLocation(shaderProgram, "s_texture");
-			glUniform1i(textureUniform, 0);
 		}
 		else {
 			// No texture for this batch
