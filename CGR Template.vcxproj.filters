@@ -57,16 +57,10 @@
     <ClCompile Include="Source Files\GameService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game Components\TestSpawnerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\TreadmillComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\EnemyMillBehavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\FloorMillBehavior.cpp">
@@ -111,6 +105,18 @@
     <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\EntityMillBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Components\UiScoreComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Components\SpawnerComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\TreeFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\tigl.h">
@@ -149,9 +155,6 @@
     <ClInclude Include="Header Files\GameService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game Components\TestSpawnerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game Components\TimedSuicideComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -171,9 +174,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\TreadmillComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\EnemyMillBehavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\FloorMillBehavior.h">
@@ -218,7 +218,25 @@
     <ClInclude Include="lib\imgui\backends\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\stb_truetype.h">
+    <ClInclude Include="Header Files\GameEntityFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\EntityMillBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\UiScoreComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\SpawnerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\stb\stb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\TreeFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\MatToTexHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

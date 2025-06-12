@@ -15,7 +15,7 @@ private:
 public:
 	GameService(GLFWwindow* window) : window(window) {};
 	~GameService() = default;
-
+    
 	// these functions are called from main
 	void init();
 	void update();

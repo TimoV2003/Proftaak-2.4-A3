@@ -17,6 +17,22 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	component->setGameObject(shared_from_this());
 }
 
+std::vector<std::string> GameObject::getAllComponentNames()
+{
+	std::vector<std::string> names = {};
+	for (const auto& gameComponent : gameComponents) {
+		if (gameComponent) {
+			names.push_back(typeid(*gameComponent).name());
+		}
+	}
+	for (const auto& drawComponent : drawComponents) {
+		if (drawComponent) {
+			names.push_back(typeid(*drawComponent).name());
+		}
+	}
+	return names;
+}
+
 void GameObject::update(float deltaTime) {
 	for (auto& component : gameComponents) 
 	{

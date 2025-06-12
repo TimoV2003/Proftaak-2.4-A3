@@ -14,9 +14,10 @@
 #include "I_ScoreStrategy.h"
 #include "ScoreHolder.h"
 #include "UiScoreComponent.h"
+#include "MatToTexHelper.h"
 #include "colour_detection.h"
-#include <mutex>
 
+#include <mutex>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -30,6 +31,7 @@ using tigl::Vertex;
 
 static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
+static double deltaTime = 0.0f;
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
@@ -73,12 +75,13 @@ void GameService::init()
     }
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
+	pendingAdding.clear();
 }
 
 void GameService::update()
 {
     double currentFrameTime = glfwGetTime();
-    double deltaTime = currentFrameTime - lastFrameTime;
+    deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
 
     for (auto& object : objects) {
@@ -124,35 +127,6 @@ void GameService::draw()
     }
 }
 
-void GameService::imgGuiUpdate()
-{
-    static int lastKeyCode = -1;
-    int keyPressed = glfwGetKey(window, GLFW_KEY_F1);
-    if (keyPressed == GLFW_PRESS && keyPressed != lastKeyCode) {
-        showingDebugMenu = !showingDebugMenu;
-    }
-    lastKeyCode = keyPressed;
-
-    if (showingDebugMenu) {
-        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - 200, 0));
-        ImGui::SetNextWindowSize(ImVec2(200, 0));
-        ImGui::Begin("DebugMenu", &showingDebugMenu);
-
-        ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
-        ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
-        ImGui::Text("framerate: %.1f FPS", ImGui::GetIO().Framerate);
-        float visionNormalisedPosition;
-        {
-            std::lock_guard<std::mutex> lock(vision::visionPositionMutex);
-            visionNormalisedPosition = vision::visionNormalisedPosition;
-        }
-        ImGui::Text("vision position: %f ", visionNormalisedPosition);
-        ImGui::Text("object vector size: %i",objects.size());
-
-        ImGui::End();
-    }
-}
-
 void GameService::instantiate(std::shared_ptr<GameObject> object)
 {
     //TODO add nullptr check, should to this to a lot of functions
@@ -179,6 +153,76 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object)
     }
 }
 
+void GameService::imgGuiUpdate()
+{
+    static int lastKeyCode = -1;
+    int keyPressed = glfwGetKey(window, GLFW_KEY_F1);
+    if (keyPressed == GLFW_PRESS && keyPressed != lastKeyCode) {
+        showingDebugMenu = !showingDebugMenu;
+    }
+    lastKeyCode = keyPressed;
+
+    int imGuiWindowSize = 300;
+    if (showingDebugMenu) {
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x - imGuiWindowSize, 0));
+        ImGui::SetNextWindowSize(ImVec2(imGuiWindowSize, 0));
+        ImGui::Begin("DebugMenu", &showingDebugMenu);
+
+		// this is for displaying the framerates and delta time
+        ImGui::Text("imgui fps: %.1f FPS", ImGui::GetIO().Framerate);
+        ImGui::Text("game delta time: %.3f ms", deltaTime);
+        ImGui::Text("game fps: %.1f FPS", 1.0f / deltaTime);
+        ImGui::Spacing();
+
+		//this is for displaying the score
+        ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
+        ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
+        ImGui::Spacing();
+
+		// this mess is for displaying game objects and their components
+        if (ImGui::CollapsingHeader("Object list", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::Text("amount of objects: %i", objects.size());
+            ImGui::BeginChild("objects", ImVec2(0, 200), ImGuiChildFlags_FrameStyle);
+            int index = 0;
+            for (const auto& object : objects) {
+                if (object) {
+                    std::string objectTag = object->getTag();
+                    if (objectTag.empty()) objectTag = "Unnamed";
+
+                    std::string childId = "##object_child_" + std::to_string(index);
+                    std::string label = "Object with tag: " + objectTag;
+
+                    ImGui::Text("%s", label.c_str());
+
+                    ImGui::BeginChild(childId.c_str(), ImVec2(0, 0), ImGuiChildFlags_FrameStyle | ImGuiChildFlags_AutoResizeY);
+                    for (const auto& name : object->getAllComponentNames()) {
+                        ImGui::Text("    component: %s", name.c_str());
+                    }
+                    ImGui::EndChild();
+                    ++index;
+                }
+            }
+            ImGui::EndChild();
+        }
+        ImGui::Spacing();
+
+		// this is for displaying the opencv camera view
+        if (ImGui::CollapsingHeader("OpenCV Camera View", ImGuiTreeNodeFlags_DefaultOpen)) {
+            float visionNormalisedPosition;
+            {
+                std::lock_guard<std::mutex> lock(vision::visionPositionMutex);
+                visionNormalisedPosition = vision::visionNormalisedPosition;
+            }
+            ImGui::Text("vision position: %f ", visionNormalisedPosition);
+            int imgSize = imGuiWindowSize - 20;
+            GLuint textureID = GetTexFromVision(imgSize);
+            ImGui::Image(textureID, ImVec2(imgSize, imgSize));
+        }
+        ImGui::Spacing();
+
+        ImGui::End();
+    }
+}
 
 
 

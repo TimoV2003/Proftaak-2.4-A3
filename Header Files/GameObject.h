@@ -48,6 +48,11 @@ public:
 	template<typename T2> 
 	std::shared_ptr<T2> getComponent();
 
+	/// <summary>
+	/// used primarily for debugging purposes. only returns the names of all components.
+	/// </summary>
+	std::vector<std::string> getAllComponentNames();
+
 	void update(float deltaTime);
 	void draw();
 

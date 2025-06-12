@@ -206,6 +206,7 @@
     <ClInclude Include="Header Files\I_InputStrategy.h" />
     <ClInclude Include="Header Files\I_ScoreStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
+    <ClInclude Include="Header Files\MatToTexHelper.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
