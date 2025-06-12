@@ -9,26 +9,15 @@
 
 extern GLFWwindow* window;
 
-VisionInput::VisionInput()
-{
-}
-
-VisionInput::~VisionInput()
-{
-}
-
-float VisionInput::handlestrategy(float currentLocation, float deltaTime)
-{
-		cv::Point visionPosition;
+float VisionInput::handlestrategy(float currentLocation, float deltaTime) {
+		float visionNormalisedPosition;
 		{
 			std::lock_guard<std::mutex> lock(vision::visionPositionMutex);
-			visionPosition = vision::visionPosition;
+			visionNormalisedPosition = vision::visionNormalisedPosition;
 		}
 
 
-		float normX = visionPosition.x / cameraWidth;
-		normX = glm::clamp(normX, 0.0f, 1.0f);
-		float targetX = (normX * worldWidth) - worldOffset;
+		float targetX = (visionNormalisedPosition * worldWidth) - worldOffset;
 
 		if (cameraInversion) {
 			targetX = targetX * -1;
