@@ -1,11 +1,11 @@
 #pragma once
 #include "IEndOfMillBehavior.h"
 
-class EnemyMillBehavior : public IEndOfMillBehavior
+class EntityMillBehavior : public IEndOfMillBehavior
 {
 public:
-	EnemyMillBehavior() = default;
-	~EnemyMillBehavior() = default;
+	EntityMillBehavior() = default;
+	~EntityMillBehavior() = default;
 
 	void ReachedEndOfMill(std::shared_ptr<GameObject> parent) override;
 };

@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\EntityMillBehavior.cpp" />
     <ClCompile Include="Game Components\CollisionComponent.cpp" />
     <ClCompile Include="Game Components\EnemyComponent.cpp" />
     <ClCompile Include="Source Files\EnemyMillBehavior.cpp" />
@@ -174,12 +175,15 @@
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\colour_detection.cpp" />
-    <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
+    <ClCompile Include="Game Components\SpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
     <ClCompile Include="Source Files\TreadmillComponent.cpp" />
     <ClCompile Include="Source Files\VisionInput.cpp" />
+    <ClCompile Include="Source Files\TreeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header Files\GameEntityFactory.h" />
+    <ClInclude Include="Header Files\EntityMillBehavior.h" />
     <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
     <ClInclude Include="Header Files\EnemyMillBehavior.h" />
@@ -197,11 +201,12 @@
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
     <ClInclude Include="Header Files\colour_detection.h" />
-    <ClInclude Include="Game Components\TestSpawnerComponent.h" />
+    <ClInclude Include="Game Components\SpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
     <ClInclude Include="lib\stb\stb_image.h" />
     <ClInclude Include="Header Files\VisionInput.h" />
     <ClInclude Include="Header Files\TreadmillComponent.h" />
+    <ClInclude Include="Header Files\TreeFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
