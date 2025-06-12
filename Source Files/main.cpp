@@ -35,6 +35,9 @@ int main(void)
         throw "Could not initialize glwf";
     }
     glfwMakeContextCurrent(window);
+	
+    //disable V-sync = 0, enable V-sync = 1
+    glfwSwapInterval(0);
 
     GLenum err = glewInit();
     if (err != GLEW_OK) {
