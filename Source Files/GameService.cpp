@@ -23,8 +23,8 @@
 using tigl::Vertex;
 
 //TESTING please delete when ready
-#include "TestSpawnerComponent.h"
 #include <ScoreComponent.h>
+#include "SpawnerComponent.h"
 
 static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
@@ -50,7 +50,7 @@ void GameService::init()
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
+        blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         auto health = std::make_shared<HealthComponent>(5,1.0f);
         blocky->addComponent(health);
@@ -60,11 +60,11 @@ void GameService::init()
         auto uiObject = std::make_shared<GameObject>("uiObject");
         uiObject->addComponent(std::make_shared<UiScoreComponent>(scoreHolder));
         instantiate(uiObject);
-    
+
 
         //test spawner. feel free to delete in entirity
         auto testSpawner = std::make_shared<GameObject>("testSpawner");
-        testSpawner->addComponent(std::make_shared<TestSpawnerComponent>(treeModel));
+        testSpawner->addComponent(std::make_shared<SpawnerComponent>());
         instantiate(testSpawner);
     }
     else
