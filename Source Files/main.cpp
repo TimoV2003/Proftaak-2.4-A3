@@ -80,7 +80,9 @@ int main(void)
             break;
         }
     }
-        //TODO: send a signal to vision to close. then wait for it to stop.
+	visionShouldStop = true;
+	if (visionThread.joinable())
+		visionThread.join(); 
 
         glfwTerminate();
         return 0;
