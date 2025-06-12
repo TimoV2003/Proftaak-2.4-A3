@@ -5,13 +5,14 @@
 
 class VisionInput : public IInputStrategy
 {
-	float cameraWidth = 640.0f;
-	float worldWidth = 20.0f;
-	float worldOffset = 10.0f;
+	float worldWidth;
+	float worldOffset;
 	bool cameraInversion = true;
 public:
-	VisionInput();
-	~VisionInput();
+	
+	/// <param name="worldWidth">bounds player movement to the width of the world</param>
+	VisionInput(float worldWidth = 20.0f) : worldWidth(worldWidth) { worldOffset = worldWidth / 2.0f; };
+	~VisionInput() = default;
 
 	float handlestrategy(float currentLocation, float deltaTime) override;
 };

@@ -6,7 +6,7 @@
 
 TreeFactory::TreeFactory() {
 	endOfMillbehavior = std::make_shared<EntityMillBehavior>();
-	ModelLoader::load("Resource Files/Tree/Tree_2.obj", model);
+	ModelLoader::load("Resource Files/Tree/Tree_1.obj", model);
 }
 
 std::shared_ptr<GameObject> TreeFactory::CreateEntity() {
