@@ -1,156 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Game Objects">
-      <UniqueIdentifier>{0e144dad-0d09-421f-872b-3bac8292be56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Components">
-      <UniqueIdentifier>{5072055c-d0a8-489e-8976-a78db757aa1d}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Source Files\AudioPlayer.cpp" />
+    <ClCompile Include="Game Components\CollisionComponent.cpp" />
+    <ClCompile Include="Game Components\EnemyComponent.cpp" />
+    <ClCompile Include="Source Files\EnemyMillBehavior.cpp" />
+    <ClCompile Include="Source Files\FloorMillBehavior.cpp" />
+    <ClCompile Include="Source Files\GameService.cpp" />
+    <ClCompile Include="Source Files\GameObject.cpp" />
+    <ClCompile Include="Game Components\HealthComponent.cpp" />
+    <ClCompile Include="Source Files\KeyboardInput.cpp" />
+    <ClCompile Include="Game Components\MeshComponent.cpp" />
+    <ClCompile Include="Source Files\ModelLoader.cpp" />
+    <ClCompile Include="Source Files\DrawComponent.cpp" />
+    <ClCompile Include="Source Files\GameComponent.cpp" />
+    <ClCompile Include="Source Files\main.cpp" />
+    <ClCompile Include="Source Files\PlayerComponent.cpp" />
+    <ClCompile Include="Source Files\tigl.cpp" />
+    <ClCompile Include="Source Files\colour_detection.cpp" />
+    <ClCompile Include="Game Components\TestSpawnerComponent.cpp" />
+    <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
+    <ClCompile Include="Source Files\TreadmillComponent.cpp" />
+    <ClCompile Include="Source Files\VisionInput.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source Files\tigl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\GameComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\DrawComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\ModelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Components\MeshComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Components\HealthComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\KeyboardInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\PlayerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\colour_detection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\GameService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Components\TestSpawnerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Components\TimedSuicideComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\TreadmillComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\EnemyMillBehavior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\FloorMillBehavior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\VisionInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\AudioPlayer.cpp">
-    <ClCompile Include="Game Components\EnemyComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Components\CollisionComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Header Files\tigl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\GameComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\DrawComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\ModelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Components\MeshComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\I_InputStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\KeyboardInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\PlayerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Components\HealthComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\colour_detection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\GameService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Components\TestSpawnerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Components\TimedSuicideComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\stb\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\VisionInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\AudioPlayer.h">
-    <ClInclude Include="Game Components\EnemyComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Components\CollisionComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\IEndOfMillBehavior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\TreadmillComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\EnemyMillBehavior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\FloorMillBehavior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Header Files\AudioPlayer.h" />
+    <ClInclude Include="Game Components\CollisionComponent.h" />
+    <ClInclude Include="Game Components\EnemyComponent.h" />
+    <ClInclude Include="Header Files\EnemyMillBehavior.h" />
+    <ClInclude Include="Header Files\FloorMillBehavior.h" />
+    <ClInclude Include="Header Files\GameService.h" />
+    <ClInclude Include="Header Files\DrawComponent.h" />
+    <ClInclude Include="Header Files\GameComponent.h" />
+    <ClInclude Include="Header Files\GameObject.h" />
+    <ClInclude Include="Header Files\IEndOfMillBehavior.h" />
+    <ClInclude Include="Header Files\I_InputStrategy.h" />
+    <ClInclude Include="Header Files\KeyboardInput.h" />
+    <ClInclude Include="Header Files\PlayerComponent.h" />
+    <ClInclude Include="Header Files\tigl.h" />
+    <ClInclude Include="Header Files\ModelLoader.h" />
+    <ClInclude Include="Game Components\MeshComponent.h" />
+    <ClInclude Include="Game Components\HealthComponent.h" />
+    <ClInclude Include="Header Files\colour_detection.h" />
+    <ClInclude Include="Game Components\TestSpawnerComponent.h" />
+    <ClInclude Include="Game Components\TimedSuicideComponent.h" />
+    <ClInclude Include="lib\stb\stb_image.h" />
+    <ClInclude Include="Header Files\VisionInput.h" />
+    <ClInclude Include="Header Files\TreadmillComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

@@ -1,5 +1,8 @@
 #include "GameService.h"
 #include <iostream>
+#include <thread>
+
+#include "AudioPlayer.h"
 #include "GameObject.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
@@ -31,11 +34,11 @@ void GameService::init()
 
     /////  GAME OBJECT CREATION  /////
     Model treeModel;
-    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
+    if (ModelLoader::load("Resource Files/Custom/House1.obj", treeModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
-        blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
+        blocky->scale = glm::vec3(0.8f, 0.8f, 0.8f);
         blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         auto health = std::make_shared<HealthComponent>(5,1.0f);
@@ -46,6 +49,10 @@ void GameService::init()
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
+
+    // Somewhere in your main function
+    std::thread audioThread(playMusicInThread);
+    audioThread.detach();  // Let it run independently
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 }
@@ -125,7 +132,18 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object)
     }
 }
 
+void GameService::playMusicInThread() {
+    AudioPlayer player;
+    if (player.load("Resource Files/Soundtrack/Faint Glow.mp3")) {
+        player.play();
 
+        // Keep the thread alive while the audio plays
+        std::this_thread::sleep_for(std::chrono::seconds(1000));
+    }
+    else {
+        std::cerr << "Failed to load audio." << std::endl;
+    }
+}
 
 
 

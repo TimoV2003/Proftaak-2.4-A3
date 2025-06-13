@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma comment(lib, "bass.lib")
+
 #include <string>
 #include "bass.h"
 

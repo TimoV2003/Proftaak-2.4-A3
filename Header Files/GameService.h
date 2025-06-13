@@ -45,5 +45,7 @@ public:
 
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
+
+	static void playMusicInThread();
 };
 
