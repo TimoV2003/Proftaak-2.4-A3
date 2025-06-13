@@ -158,10 +158,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source Files\EntityMillBehavior.cpp" />
+    <ClCompile Include="patterns\strategy\treadmill_strategies\EntityMillBehavior.cpp" />
     <ClCompile Include="Game Components\CollisionComponent.cpp" />
     <ClCompile Include="Game Components\EnemyComponent.cpp" />
-    <ClCompile Include="Source Files\FloorMillBehavior.cpp" />
+    <ClCompile Include="patterns\strategy\treadmill_strategies\FloorMillBehavior.cpp" />
     <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
@@ -176,21 +176,21 @@
     <ClCompile Include="Source Files\colour_detection.cpp" />
     <ClCompile Include="Game Components\SpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
-    <ClCompile Include="Source Files\TreadmillComponent.cpp" />
+    <ClCompile Include="Game Components\TreadmillComponent.cpp" />
     <ClCompile Include="Source Files\VisionInput.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
-    <ClInclude Include="Header Files\EntityMillBehavior.h" />
+    <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\EntityMillBehavior.h" />
     <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
-    <ClInclude Include="Header Files\FloorMillBehavior.h" />
+    <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\FloorMillBehavior.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
-    <ClInclude Include="Header Files\IEndOfMillBehavior.h" />
+    <ClInclude Include="patterns\strategy\interfaces\IEndOfMillBehavior.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
@@ -203,7 +203,7 @@
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
     <ClInclude Include="lib\stb\stb_image.h" />
     <ClInclude Include="Header Files\VisionInput.h" />
-    <ClInclude Include="Header Files\TreadmillComponent.h" />
+    <ClInclude Include="Game Components\TreadmillComponent.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\TreeFactory.h" />
   </ItemGroup>
   <ItemGroup>

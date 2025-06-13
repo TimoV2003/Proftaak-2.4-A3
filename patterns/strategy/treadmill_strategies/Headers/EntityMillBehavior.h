@@ -1,5 +1,6 @@
 #pragma once
-#include "IEndOfMillBehavior.h"
+// this include section is needed for the treadmill strategy
+#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 
 class EntityMillBehavior : public IEndOfMillBehavior
 {
