@@ -27,7 +27,7 @@ public:
 	glm::vec3 rotation = glm::vec3(0, 0, 0);
 	glm::vec3 scale = glm::vec3(1, 1, 1);
 
-	GameObject(const std::string tag, float collisionSize = 1.0f) : tag(tag), game(nullptr), collisionSize(collisionSize) {}
+	GameObject(const std::string tag, float collisionSize = 1.0f);
 	~GameObject();
 
 	void addComponent(std::shared_ptr<GameComponent> component);
@@ -47,6 +47,11 @@ public:
 	/// <returns>component object or nullptr</returns>
 	template<typename T2> 
 	std::shared_ptr<T2> getComponent();
+
+	/// <summary>
+	/// used primarily for debugging purposes. only returns the names of all components.
+	/// </summary>
+	std::vector<std::string> getAllComponentNames();
 
 	void update(float deltaTime);
 	void draw();

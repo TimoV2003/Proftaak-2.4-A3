@@ -4,11 +4,17 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+
+#ifdef _DEBUG
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+#endif
+
 #include <thread>
 #include "colour_detection.h"
 #include "GameService.h"
 #include "tigl.h"
-#include <atomic>
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -37,6 +43,9 @@ int main(void)
         throw "Could not initialize glwf";
     }
     glfwMakeContextCurrent(window);
+	
+    //disable V-sync = 0, enable V-sync = 1
+    glfwSwapInterval(0);
 
     GLenum err = glewInit();
     if (err != GLEW_OK) {
@@ -46,6 +55,17 @@ int main(void)
 
     tigl::init();
     plagueRunInit();
+
+#ifdef _DEBUG
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(nullptr);
+#endif
 
     // TODO: possibly move this while loop to game service, 
     // Have rushed the coding so now its still here
@@ -59,6 +79,14 @@ int main(void)
         case GameState::Playing:
             gameService->update();
             gameService->draw();
+#ifdef _DEBUG
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+            gameService->imgGuiUpdate();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            ImGui::Render();
+#endif
             gameService->gameOverMessageShown = false;
             if (gameService->gameOver) {
                 currentState = GameState::GameOver;

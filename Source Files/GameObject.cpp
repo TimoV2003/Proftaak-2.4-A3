@@ -1,10 +1,20 @@
 #include "GameObject.h"
 #include "tigl.h"
 #include <iostream>
+#if _DEBUG
+#include "DebugReferenceCounter.h"
+#endif
 
-GameObject::~GameObject()
-{
-	std::cout << "Object deleted, tag: " << tag << std::endl;
+GameObject::GameObject(const std::string tag, float collisionSize) : tag(tag), game(nullptr), collisionSize(collisionSize) {
+#if _DEBUG
+	DebugReferenceCounter::IncrementObjectReferenceCounter();
+#endif
+}
+
+GameObject::~GameObject() {
+#if _DEBUG
+	DebugReferenceCounter::DecrementObjectReferenceCounter();
+#endif
 }
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
@@ -15,6 +25,21 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	}
 	gameComponents.push_back(component);
 	component->setGameObject(shared_from_this());
+}
+
+std::vector<std::string> GameObject::getAllComponentNames() {
+	std::vector<std::string> names = {};
+	for (const auto& gameComponent : gameComponents) {
+		if (gameComponent) {
+			names.push_back(typeid(*gameComponent).name());
+		}
+	}
+	for (const auto& drawComponent : drawComponents) {
+		if (drawComponent) {
+			names.push_back(typeid(*drawComponent).name());
+		}
+	}
+	return names;
 }
 
 void GameObject::update(float deltaTime) {
