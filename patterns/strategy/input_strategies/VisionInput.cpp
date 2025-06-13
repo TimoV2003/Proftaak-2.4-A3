@@ -1,10 +1,12 @@
-#include "VisionInput.h"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
 #include "colour_detection.h"
 #include <mutex>
 #include <algorithm>
+
+// this include section is needed for the input strategy
+#include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
 
 
 extern GLFWwindow* window;
