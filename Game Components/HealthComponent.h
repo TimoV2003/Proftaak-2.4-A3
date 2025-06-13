@@ -14,5 +14,9 @@ public:
 	//notify death
 	void notifyDeath();
 	virtual void update(float deltaTime) override;
+
+#ifdef _DEBUG
+	short getHealthDebug() { return health; }
+#endif
 };
 

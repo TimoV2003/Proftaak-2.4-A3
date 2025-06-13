@@ -190,8 +190,12 @@ void GameService::imgGuiUpdate()
 		//this is for displaying the score
         ImGui::Text("distance score: %.1f", distanceScoreHolder->getScore());
         ImGui::Text("potion score: %.1f", potionScoreHolder->getScore());
+        auto player = getGameObject("blocky");
+        if (player) {
+			short health = player->getComponent<HealthComponent>()->getHealthDebug();
+            ImGui::Text("player health: %i", health);
+        }
         ImGui::Spacing();
-
 
 		static bool isCurrentlyUsingVision = true;
         if (isCurrentlyUsingVision) {
