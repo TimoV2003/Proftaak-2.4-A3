@@ -109,6 +109,7 @@ void MeshComponent::draw()
 			// No texture for this batch
 			tigl::shader->enableTexture(false);
 		}
+		
 
 		// Draw elements (triangles)
 		glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
