@@ -13,6 +13,7 @@ public:
 	void decreaseHealth();
 	//notify death
 	void notifyDeath();
+	void drawUI(int screenWidth, int screenHeight) const;
 	virtual void update(float deltaTime) override;
 };
 

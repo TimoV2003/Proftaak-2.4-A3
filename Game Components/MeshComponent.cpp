@@ -77,6 +77,11 @@ MeshComponent::MeshComponent(const Model& model)
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 
+	// Vertex attribute: color on index 1 (4 floats)
+	glEnableVertexAttribArray(1); 
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr); 
+
+
 	//layout(location = 0) in vec3 a_position;
 	//layout(location = 1) in vec4 a_color;
 	//layout(location = 2) in vec2 a_texcoord;

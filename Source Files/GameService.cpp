@@ -42,10 +42,7 @@ void GameService::init()
 		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
 		blocky->addComponent(health);
 
-        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
-
         instantiate(blocky);
-
     }
     else
     {
@@ -101,6 +98,19 @@ void GameService::draw()
 
     for (auto& object : objects) {
         object->draw();
+    }
+    
+    tigl::shader->setProjectionMatrix(glm::ortho(0.0f, (float)width, (float)height, 0.0f));
+    tigl::shader->setViewMatrix(glm::mat4(1.0f));
+    tigl::shader->setModelMatrix(glm::mat4(1.0f));
+    tigl::shader->enableColor(true);
+
+    auto player = getGameObject("blocky");
+    if (player) {
+        auto health = player->getComponent<HealthComponent>();
+        if (health) {
+            health->drawUI(width, height);
+        }
     }
 }
 
