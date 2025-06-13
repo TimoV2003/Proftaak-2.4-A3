@@ -36,7 +36,7 @@ public:
 	/// </summary>
 	/// <param name="tag">tag identifier of object you want to find</param>
 	/// <returns>gameObject pointer or nullptr</returns>
-	std::shared_ptr<GameObject> getGameObject(std::string tag);
+	static std::shared_ptr<GameObject> getGameObject(std::string tag);
 
 	/// <summary>
 	/// queues given object to be deleted. best used on own object.
