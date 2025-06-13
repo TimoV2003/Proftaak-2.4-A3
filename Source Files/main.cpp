@@ -73,20 +73,20 @@ int main(void)
     {
         glfwSwapBuffers(window);
         glfwPollEvents();
-#ifdef _DEBUG
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        gameService->imgGuiUpdate();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        ImGui::Render();
-#endif
 
         switch (currentState)
         {
         case GameState::Playing:
             gameService->update();
             gameService->draw();
+#ifdef _DEBUG
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+            gameService->imgGuiUpdate();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            ImGui::Render();
+#endif
             gameService->gameOverMessageShown = false;
             if (gameService->gameOver) {
                 currentState = GameState::GameOver;

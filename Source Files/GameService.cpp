@@ -18,12 +18,9 @@
 #include "I_InputStrategy.h"
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
-#include "tigl.h"
-#include "HealthComponent.h"
 #include "ScoreStrategy.h"
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
-#include "TimedSuicideComponent.h"
 using tigl::Vertex;
 
 static bool showingDebugMenu = true;
@@ -63,12 +60,6 @@ void GameService::init()
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
-
-    auto testSpawner = std::make_shared<GameObject>("testSpawner");
-    float Spawnerdistance = -50.0f;
-	testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
-    testSpawner->addComponent(std::make_shared<SpawnerComponent>(1.0f, 5.0f));
-    instantiate(testSpawner);
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 	pendingAdding.clear();

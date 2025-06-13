@@ -111,6 +111,7 @@
     <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\DebugRefferenceCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\ScoreStrategy.cpp">
@@ -119,7 +120,6 @@
     <ClCompile Include="Source Files\GameService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\DebugRefferenceCounter.cpp">
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\tigl.h">
@@ -183,6 +183,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Game Components\DistanceScoreComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
