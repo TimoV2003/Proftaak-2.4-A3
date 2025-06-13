@@ -15,12 +15,12 @@
 #include "colour_detection.h"
 #include "MatToTexHelper.h" 
 
-
 //this include section is needed for the components
 #include "SpawnerComponent.h"
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
 #include "HealthComponent.h"
+#include "distanceScoreComponent.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
@@ -60,6 +60,7 @@ void GameService::init()
 		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
 		blocky->addComponent(health);
         blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
 
     }
