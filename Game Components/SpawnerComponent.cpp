@@ -1,7 +1,7 @@
 #include "SpawnerComponent.h"
 #include "GameService.h"
 #include "GameEntityFactory.h"
-#include "TreeFactory.h"
+#include "../Factories/Headers/TreeFactory.h"
 #include "GameObject.h"
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) : 
@@ -24,7 +24,7 @@ void SpawnerComponent::update(float deltaTime)
 	timeSinceLast += deltaTime;
 	if (timeSinceLast < timeDelay) return;
 
-	//called on a timer
+	//reset the timer
 	timeSinceLast = 0.0f;
 	timeDelay = GameService::RandomValue(this->minimumSpawndelay, this->maximumSpawndelay);
 
