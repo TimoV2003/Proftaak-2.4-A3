@@ -17,6 +17,8 @@
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
 
+#include "DebugRefferenceCounter.h"
+
 #include <mutex>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -168,6 +170,9 @@ void GameService::imgGuiUpdate()
         ImGui::SetNextWindowSize(ImVec2(imGuiWindowSize, 0));
         ImGui::Begin("DebugMenu", &showingDebugMenu);
 
+		ImGui::Text("(F1) to close/open");
+        ImGui::Spacing();
+
 		// this is for displaying the framerates and delta time
         ImGui::Text("imgui fps: %.1f FPS", ImGui::GetIO().Framerate);
         ImGui::Text("game delta time: %.3f ms", deltaTime);
@@ -181,6 +186,10 @@ void GameService::imgGuiUpdate()
 
 		// this mess is for displaying game objects and their components
         if (ImGui::CollapsingHeader("Object list", ImGuiTreeNodeFlags_DefaultOpen)) {
+			ImGui::Text("Reff counts (if increasing = memory leak)");
+			ImGui::Text("ObjectReffecences: %i", DebugRefferenceCounter::GetObjectReferenceCounter());
+            ImGui::Text("ComponentReffecences: %i", DebugRefferenceCounter::GetComponentReferenceCounter());
+			ImGui::Spacing();
             ImGui::Text("amount of objects: %i", objects.size());
             ImGui::BeginChild("objects", ImVec2(0, 200), ImGuiChildFlags_FrameStyle);
             int index = 0;

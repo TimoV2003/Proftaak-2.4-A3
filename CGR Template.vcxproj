@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
     <ClCompile Include="Source Files\EntityMillBehavior.cpp" />
     <ClCompile Include="Game Components\CollisionComponent.cpp" />
     <ClCompile Include="Game Components\EnemyComponent.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Source Files\TreeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header Files\DebugRefferenceCounter.h" />
     <ClInclude Include="Header Files\GameEntityFactory.h" />
     <ClInclude Include="Header Files\EntityMillBehavior.h" />
     <ClInclude Include="Game Components\CollisionComponent.h" />
