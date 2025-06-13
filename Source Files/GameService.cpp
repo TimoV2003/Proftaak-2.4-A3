@@ -1,6 +1,13 @@
 #include "GameService.h"
 #include <iostream>
-
+#include <mutex>
+#include "tigl.h"
+#ifdef DEBUG
+#include "DebugReferenceCounter.h"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+#endif
 #include "GameObject.h"
 #include "ModelLoader.h"
 #include "MeshComponent.h"
@@ -16,14 +23,6 @@
 #include "UiScoreComponent.h"
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
-
-#include "DebugReferenceCounter.h"
-
-#include <mutex>
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-#include "tigl.h"
 
 using tigl::Vertex;
 
@@ -155,6 +154,7 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object)
     }
 }
 
+#ifdef DEBUG
 void GameService::imgGuiUpdate()
 {
     static int lastKeyCode = -1;
@@ -232,6 +232,7 @@ void GameService::imgGuiUpdate()
         ImGui::End();
     }
 }
+#endif
 
 
 

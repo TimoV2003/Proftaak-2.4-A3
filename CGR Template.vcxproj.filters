@@ -117,6 +117,9 @@
     <ClCompile Include="Source Files\TreeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\DebugRefferenceCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\tigl.h">
@@ -239,7 +242,7 @@
     <ClInclude Include="Header Files\MatToTexHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\DebugReffenceCounter.h">
+    <ClInclude Include="Header Files\DebugReferenceCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,7 +20,9 @@ public:
 	void init();
 	void update();
 	void draw();
+#ifdef DEBUG
 	void imgGuiUpdate();
+#endif
 
 
 	// these functions are callable from game components via:

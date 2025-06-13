@@ -1,3 +1,4 @@
+#ifdef DEBUG
 #include "DebugReferenceCounter.h"
 
 namespace DebugReferenceCounter {
@@ -29,3 +30,4 @@ namespace DebugReferenceCounter {
 		return componentReferenceCounter;
 	}
 }
+#endif

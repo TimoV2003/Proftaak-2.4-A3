@@ -4,9 +4,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+
+#ifdef DEBUG
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#endif
+
 #include <thread>
 #include "colour_detection.h"
 #include "GameService.h"
@@ -48,6 +52,7 @@ int main(void)
     tigl::init();
     plagueRunInit();
 
+#ifdef DEBUG
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -56,6 +61,7 @@ int main(void)
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(nullptr);
+#endif
 
     // TODO: possibly move this while loop to game service, 
     // Have rushed the coding so now its still here
@@ -63,17 +69,18 @@ int main(void)
 	{
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+        
+        gameService->update();
+        gameService->draw();
 
+#ifdef DEBUG
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        gameService->update();
-        gameService->draw();
         gameService->imgGuiUpdate();
-        
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif
 	}
 
 	visionShouldStop = true; // Signal the vision thread to stop

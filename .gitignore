@@ -9,3 +9,4 @@ PropertySheet.props
 CGR Template.vcxproj.user
 
 imgui.ini
+PropertySheetRelease.props

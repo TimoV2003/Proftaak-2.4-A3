@@ -1,3 +1,4 @@
+#ifdef DEBUG
 #pragma once  
 #include "colour_detection.h"  
 #include <opencv2/imgcodecs.hpp>  
@@ -35,3 +36,4 @@ GLuint GetTexFromVision(const int& resizeTo)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return textureID;
 }
+#endif

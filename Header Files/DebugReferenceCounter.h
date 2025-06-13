@@ -1,5 +1,5 @@
+#ifdef DEBUG
 #pragma once
-
 namespace DebugReferenceCounter {
 	void IncrementObjectReferenceCounter();
 	void DecrementObjectReferenceCounter();
@@ -8,3 +8,4 @@ namespace DebugReferenceCounter {
 	int GetObjectReferenceCounter();
 	int GetComponentReferenceCounter();
 }
+#endif
