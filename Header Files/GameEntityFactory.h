@@ -10,6 +10,7 @@ class GameEntityFactory
 
 protected:
 	std::shared_ptr<IEndOfMillBehavior> endOfMillbehavior;
+
 public:
 	GameEntityFactory() = default;
 	~GameEntityFactory() = default;

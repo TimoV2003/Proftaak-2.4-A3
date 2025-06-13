@@ -4,8 +4,10 @@
 #include "TreeFactory.h"
 #include "GameObject.h"
 
-SpawnerComponent::SpawnerComponent() {
+SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) {
 	this->treeFactory = std::make_shared<TreeFactory>();
+	this->minimumSpawndelay = initMinimumSpawndelay;
+	this->maximumSpawndelay = initMaximumSpawndelay;
 }
 
 void SpawnerComponent::update(float deltaTime)
@@ -18,12 +20,14 @@ void SpawnerComponent::update(float deltaTime)
 
 	//called on a timer
 	timeSinceLast = 0.0f;
-	timeDelay = GameService::RandomValue(1.0f, 10.0f);
+	timeDelay = GameService::RandomValue(this->minimumSpawndelay, this->maximumSpawndelay);
 
-	if (auto p = getParent()) {
+	if (auto weakParent = getParent()) {
+		
+
 		//Never save this as a sharepointer in heap
 		auto NewGameEntity = RandomEntityFromList();
-		p->game->instantiate(NewGameEntity);
+		weakParent->game->instantiate(NewGameEntity);
 	}
 }
 

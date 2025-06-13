@@ -19,7 +19,6 @@ void TreadmillComponent::update(float deltaTime) {
 
 	if (weakParent->position.z > deletionDistance) {
 		EndCheckPaused = true;
-		std::cout << "Enemy has reached the end of the mill!" << std::endl;
 		endOfMillBehavior->ReachedEndOfMill(weakParent);
 	}
 }
