@@ -15,10 +15,14 @@ using tigl::Vertex;
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 
+enum class GameState{ Playing,GameOver };
+GameState currentState = GameState::Playing;
+
 GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
 std::atomic<bool> visionShouldStop{ false };
+
 
 void plagueRunInit();
 
@@ -50,28 +54,40 @@ int main(void)
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        if (!gameService->gameOver) {
+        switch (currentState)
+        {
+        case GameState::Playing:
             gameService->update();
             gameService->draw();
             gameService->gameOverMessageShown = false;
-        }
-        else {
+            if (gameService->gameOver) {
+                currentState = GameState::GameOver;
+            }
+            break;
+
+        case GameState::GameOver:
             if (!gameService->gameOverMessageShown) {
-                std::cout << "Game Over!  Druk op R om opnieuw te starten." << std::endl;
+                std::cout << "Game Over! Press R to restart." << std::endl;
                 gameService->gameOverMessageShown = true;
             }
-            if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+            if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+            {
                 gameService->reset();
                 gameService->gameOver = false;
                 gameService->gameOverMessageShown = false;
+                currentState = GameState::Playing;
             }
+            break;
         }
     }
-    //TODO: send a signal to vision to close. then wait for it to stop.
+	visionShouldStop = true;
+	if (visionThread.joinable())
+		visionThread.join(); 
 
-    glfwTerminate();
-    return 0;
+        glfwTerminate();
+        return 0;
 }
+
 
 
 void plagueRunInit()
