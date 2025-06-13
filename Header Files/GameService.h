@@ -46,7 +46,17 @@ public:
 	/// </summary>
 	void queueDelete(std::shared_ptr<GameObject>& object);
 
+
+	/// <summary>
+	/// Generates a random number between the given bounds
+	/// </summary>
+	static float RandomValue(float BoundryMin, float BoundryMax) {
+		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
+	};
+
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
+
+
 };
 

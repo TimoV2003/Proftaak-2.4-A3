@@ -4,7 +4,7 @@
 
 class KeyboardInput : public IInputStrategy
 {
-	float speed = 0.1f;
+	float speed = 4.0f;
 public:
 	KeyboardInput();
 	~KeyboardInput();
