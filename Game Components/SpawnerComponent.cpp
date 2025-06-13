@@ -1,8 +1,11 @@
 #include "SpawnerComponent.h"
 #include "GameService.h"
+#include "GameObject.h"
+
+// this include section is needed for the factory method pattern
 #include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
 #include "../patterns/factory_method/entity_factories/Headers/TreeFactory.h"
-#include "GameObject.h"
+
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) : 
 	minimumSpawndelay(initMinimumSpawndelay), maximumSpawndelay(initMaximumSpawndelay) {
