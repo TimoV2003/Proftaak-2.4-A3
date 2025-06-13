@@ -18,7 +18,10 @@ public:
 	void init();
 	void update();
 	void draw();
+	void reset();
 
+	bool gameOver = false;
+	bool gameOverMessageShown = false;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }

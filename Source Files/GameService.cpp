@@ -11,7 +11,8 @@
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
 #include "tigl.h"
-
+#include "HealthComponent.h"
+#include "TimedSuicideComponent.h"
 using tigl::Vertex;
 
 //TESTING please delete when ready
@@ -38,8 +39,11 @@ void GameService::init()
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto health = std::make_shared<HealthComponent>(5,1.0f);
-        blocky->addComponent(health);
+		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
+		blocky->addComponent(health);
+
+        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+
         instantiate(blocky);
     }
     else
@@ -121,6 +125,14 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
     }
     return nullptr;
 }
+
+void GameService::reset() {
+	objects.clear();
+	pendingAdding.clear();
+	pendingDeletion.clear();
+    init();
+	gameOverMessageShown = false;
+    }
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object)
 {
