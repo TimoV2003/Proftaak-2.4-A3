@@ -178,10 +178,10 @@
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
     <ClCompile Include="Source Files\TreadmillComponent.cpp" />
     <ClCompile Include="Source Files\VisionInput.cpp" />
-    <ClCompile Include="Factories\TreeFactory.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header Files\GameEntityFactory.h" />
+    <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
     <ClInclude Include="Header Files\EntityMillBehavior.h" />
     <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
@@ -204,7 +204,7 @@
     <ClInclude Include="lib\stb\stb_image.h" />
     <ClInclude Include="Header Files\VisionInput.h" />
     <ClInclude Include="Header Files\TreadmillComponent.h" />
-    <ClInclude Include="Factories\Headers\TreeFactory.h" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\TreeFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

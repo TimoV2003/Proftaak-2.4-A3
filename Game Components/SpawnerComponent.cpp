@@ -1,7 +1,7 @@
 #include "SpawnerComponent.h"
 #include "GameService.h"
-#include "GameEntityFactory.h"
-#include "../Factories/Headers/TreeFactory.h"
+#include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
+#include "../patterns/factory_method/entity_factories/Headers/TreeFactory.h"
 #include "GameObject.h"
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) : 

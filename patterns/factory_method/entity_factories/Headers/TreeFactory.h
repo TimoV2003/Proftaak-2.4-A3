@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEntityFactory.h"
+#include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
 #include "MeshComponent.h"
 
 class TreeFactory : public GameEntityFactory
