@@ -161,12 +161,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\GameService.cpp" />
+    <ClCompile Include="Source Files\ScoreStrategy.cpp" />
     <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
     <ClCompile Include="Source Files\EntityMillBehavior.cpp" />
     <ClCompile Include="Game Components\CollisionComponent.cpp" />
     <ClCompile Include="Game Components\EnemyComponent.cpp" />
-    <ClCompile Include="Game Components\ScoreComponent.cpp" />
-    <ClCompile Include="Game Components\UiScoreComponent.cpp" />
+    <ClCompile Include="Game Components\DistanceScoreComponent.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="lib\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui.cpp" />
@@ -176,7 +177,6 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="Source Files\FloorMillBehavior.cpp" />
-    <ClCompile Include="Source Files\GameService.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
     <ClCompile Include="Source Files\KeyboardInput.cpp" />
@@ -186,7 +186,6 @@
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Source Files\PlayerComponent.cpp" />
-    <ClCompile Include="Source Files\ScoreHolder.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\colour_detection.cpp" />
     <ClCompile Include="Game Components\SpawnerComponent.cpp" />
@@ -201,7 +200,6 @@
     <ClInclude Include="Header Files\EntityMillBehavior.h" />
     <ClInclude Include="Game Components\CollisionComponent.h" />
     <ClInclude Include="Game Components\EnemyComponent.h" />
-    <ClInclude Include="Game Components\UiScoreComponent.h" />
     <ClInclude Include="Header Files\FloorMillBehavior.h" />
     <ClInclude Include="Header Files\GameService.h" />
     <ClInclude Include="Header Files\DrawComponent.h" />
@@ -209,7 +207,7 @@
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="Header Files\IEndOfMillBehavior.h" />
     <ClInclude Include="Header Files\I_InputStrategy.h" />
-    <ClInclude Include="Header Files\I_ScoreStrategy.h" />
+    <ClInclude Include="Header Files\ScoreStrategy.h" />
     <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\MatToTexHelper.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
@@ -223,8 +221,7 @@
     <ClInclude Include="lib\stb\stb_image.h" />
     <ClInclude Include="Header Files\VisionInput.h" />
     <ClInclude Include="Header Files\TreadmillComponent.h" />
-    <ClInclude Include="Game Components\ScoreComponent.h" />
-    <ClInclude Include="Header Files\ScoreHolder.h" />
+    <ClInclude Include="Game Components\DistanceScoreComponent.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="lib\imgui\backends\imgui_impl_opengl3_loader.h" />

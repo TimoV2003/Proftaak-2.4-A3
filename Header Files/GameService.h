@@ -10,8 +10,6 @@ class GameService
 {
 private:
 	GLFWwindow* window;
-	std::shared_ptr<IScoreStrategy> scoreHolder;
-
 public:
 	GameService(GLFWwindow* window) : window(window) {};
 	~GameService() = default;
@@ -23,7 +21,6 @@ public:
 #ifdef _DEBUG
 	void imgGuiUpdate();
 #endif
-
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -48,7 +45,6 @@ public:
 	/// </summary>
 	void queueDelete(std::shared_ptr<GameObject>& object);
 
-
 	/// <summary>
 	/// Generates a random number between the given bounds
 	/// </summary>
@@ -56,14 +52,8 @@ public:
 		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
 	}
 
-	/// <summary>
-	/// Gets scoreholder. Beware could be nullptr.
-	/// </summary>
-	std::shared_ptr<IScoreStrategy> getScoreHolder() { return scoreHolder; }
-
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
-
 
 };
 

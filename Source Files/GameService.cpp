@@ -18,17 +18,12 @@
 #include "I_InputStrategy.h"
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
-#include "I_ScoreStrategy.h"
-#include "ScoreHolder.h"
-#include "UiScoreComponent.h"
+#include "ScoreStrategy.h"
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
-
-using tigl::Vertex;
-
-//TESTING please delete when ready
-#include <ScoreComponent.h>
+#include "DistanceScoreComponent.h"
 #include "SpawnerComponent.h"
+using tigl::Vertex;
 
 static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
@@ -38,13 +33,15 @@ std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
-
+std::shared_ptr<ScoreStrategy> distanceScoreHolder;
+std::shared_ptr<ScoreStrategy> potionScoreHolder;
 
 void GameService::init()
 {
     keyboardInput = std::make_shared<KeyboardInput>();
     visionInput = std::make_shared<VisionInput>();
-    scoreHolder = std::make_shared<ScoreHolder>();
+	distanceScoreHolder = std::make_shared<ScoreStrategy>();
+	potionScoreHolder = std::make_shared<ScoreStrategy>();
 
     /////  GAME OBJECT CREATION  /////
     Model treeModel;
@@ -57,13 +54,8 @@ void GameService::init()
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
         auto health = std::make_shared<HealthComponent>(5,1.0f);
         blocky->addComponent(health);
-        blocky->addComponent(std::make_shared<DistanceScoreComponent>(scoreHolder));
+        blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
-
-        auto uiObject = std::make_shared<GameObject>("uiObject");
-        uiObject->addComponent(std::make_shared<UiScoreComponent>(scoreHolder));
-        instantiate(uiObject);
-
 
         //test spawner. feel free to delete in entirity
         auto testSpawner = std::make_shared<GameObject>("testSpawner");
@@ -180,8 +172,8 @@ void GameService::imgGuiUpdate()
         ImGui::Spacing();
 
 		//this is for displaying the score
-        ImGui::Text("distance score: %.1f", scoreHolder->getDistanceScore());
-        ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
+        ImGui::Text("distance score: %.1f", distanceScoreHolder->getScore());
+        ImGui::Text("potion score: %.1f", potionScoreHolder->getScore());
         ImGui::Spacing();
 
 

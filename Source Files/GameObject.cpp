@@ -27,8 +27,7 @@ void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
 	component->setGameObject(shared_from_this());
 }
 
-std::vector<std::string> GameObject::getAllComponentNames()
-{
+std::vector<std::string> GameObject::getAllComponentNames() {
 	std::vector<std::string> names = {};
 	for (const auto& gameComponent : gameComponents) {
 		if (gameComponent) {

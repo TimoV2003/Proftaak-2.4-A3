@@ -1,13 +1,13 @@
 #pragma once
 #include "GameComponent.h"
-#include "I_ScoreStrategy.h"
+class ScoreStrategy;
 
 class DistanceScoreComponent : public GameComponent
 {
 private:
-	std::shared_ptr<IScoreStrategy> scoreHolder;
+	std::shared_ptr<ScoreStrategy> scoreHolder;
 public:
-	DistanceScoreComponent(std::shared_ptr<IScoreStrategy> scoreHolder) : scoreHolder(scoreHolder) {}
+	DistanceScoreComponent(std::shared_ptr<ScoreStrategy> scoreHolder) : scoreHolder(scoreHolder) {}
 	~DistanceScoreComponent() = default;
 
 	virtual void update(float deltaTime) override;
