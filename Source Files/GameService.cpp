@@ -17,7 +17,7 @@
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
 
-#include "DebugRefferenceCounter.h"
+#include "DebugReferenceCounter.h"
 
 #include <mutex>
 #include <imgui.h>
@@ -187,8 +187,8 @@ void GameService::imgGuiUpdate()
 		// this mess is for displaying game objects and their components
         if (ImGui::CollapsingHeader("Object list", ImGuiTreeNodeFlags_DefaultOpen)) {
 			ImGui::Text("Reff counts (if increasing = memory leak)");
-			ImGui::Text("ObjectReffecences: %i", DebugRefferenceCounter::GetObjectReferenceCounter());
-            ImGui::Text("ComponentReffecences: %i", DebugRefferenceCounter::GetComponentReferenceCounter());
+			ImGui::Text("ObjectReffecences: %i", DebugReferenceCounter::GetObjectReferenceCounter());
+            ImGui::Text("ComponentReffecences: %i", DebugReferenceCounter::GetComponentReferenceCounter());
 			ImGui::Spacing();
             ImGui::Text("amount of objects: %i", objects.size());
             ImGui::BeginChild("objects", ImVec2(0, 200), ImGuiChildFlags_FrameStyle);

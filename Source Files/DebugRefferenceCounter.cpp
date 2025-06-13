@@ -1,6 +1,6 @@
-#include "DebugRefferenceCounter.h"
+#include "DebugReferenceCounter.h"
 
-namespace DebugRefferenceCounter {
+namespace DebugReferenceCounter {
 	static int objectReferenceCounter = 0;
 	static int componentReferenceCounter = 0;
 

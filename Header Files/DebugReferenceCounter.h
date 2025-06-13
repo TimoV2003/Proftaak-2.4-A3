@@ -1,6 +1,6 @@
 #pragma once
 
-namespace DebugRefferenceCounter {
+namespace DebugReferenceCounter {
 	void IncrementObjectReferenceCounter();
 	void DecrementObjectReferenceCounter();
 	void IncrementComponentReferenceCounter();

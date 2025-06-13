@@ -1,12 +1,12 @@
 #include "GameComponent.h"
-#include "DebugRefferenceCounter.h"
+#include "DebugReferenceCounter.h"
 
 GameComponent::GameComponent() {
-	DebugRefferenceCounter::IncrementComponentReferenceCounter();
+	DebugReferenceCounter::IncrementComponentReferenceCounter();
 }
 
 GameComponent::~GameComponent() {
-	DebugRefferenceCounter::DecrementComponentReferenceCounter();
+	DebugReferenceCounter::DecrementComponentReferenceCounter();
 }
 
 std::shared_ptr<GameObject> GameComponent::getParent() {
