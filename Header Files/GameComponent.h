@@ -15,7 +15,7 @@ protected:
 	/// this automatically gets the right reference to parent without a cyclical reffence.
 	/// </summary>
 	/// <returns>parent GameObject ptr or nullptr</returns>
-	std::shared_ptr<GameObject> getParent();
+	std::shared_ptr<GameObject> getParent() ;
 
 public:
 	GameComponent() = default;

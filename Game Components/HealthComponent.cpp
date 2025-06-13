@@ -15,17 +15,23 @@ void HealthComponent::update(float deltaTime) {
 	if (timeSinceHealthReduction < invincibilityTime) {
 		timeSinceHealthReduction += deltaTime;
 	}
-}
 
+	autoDamageTimer += deltaTime;
+	if (autoDamageTimer >= autoDamageInterval) {
+		autoDamageTimer = 0.0f;
+		decreaseHealth();
+	}
+}
 void HealthComponent::decreaseHealth() {
 	if (!(timeSinceHealthReduction > invincibilityTime))
 		return;
 	timeSinceHealthReduction = 0.0f;
 
-	std::cout << "decreaseHealth called" << std::endl;
+	if (health > 0)
+		health -= 1;
 
-	health -= 1;
 	if (health <= 0) {
+		health = 0;
 		notifyDeath();
 	}
 }
@@ -36,25 +42,28 @@ void HealthComponent::notifyDeath() {
 			p->game->gameOver = true;
 		}
 	}
-	//TODO notify something that health is 0
+	// TODO: Notify other components or systems about the death event
 }
 
 void HealthComponent::drawUI(int screenWidth, int screenHeight) const
 {
+	if (health <= 0 )
+		return;
+
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, screenWidth, screenHeight, 0, -1, 1); 
+	glOrtho(0, screenWidth, screenHeight, 0, -1, 1);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glBegin(GL_QUADS);
 	glColor4f(1.0f, 0.0f, 0.0f, 1.0f); 
 
+	glBegin(GL_QUADS);
 	for (int i = 0; i < health; ++i) {
 		float x = 20 + i * 50;
 		float y = 20;
@@ -69,4 +78,6 @@ void HealthComponent::drawUI(int screenWidth, int screenHeight) const
 
 	glEnable(GL_DEPTH_TEST);
 }
+
+
 

@@ -6,6 +6,11 @@ private:
 	short health;
 	float invincibilityTime;
 	float timeSinceHealthReduction;
+
+	// Testing
+	float autoDamageTimer = 0.0f;
+	const float autoDamageInterval = 10.0f;
+
 public:
 	HealthComponent(short playerHealth, float invincibilityTime);
 	~HealthComponent() = default;
