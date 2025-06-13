@@ -18,7 +18,10 @@ public:
 	void init();
 	void update();
 	void draw();
+	void reset();
 
+	bool gameOver = false;
+	bool gameOverMessageShown = false;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -36,14 +39,24 @@ public:
 	/// </summary>
 	/// <param name="tag">tag identifier of object you want to find</param>
 	/// <returns>gameObject pointer or nullptr</returns>
-	std::shared_ptr<GameObject> getGameObject(std::string tag);
+	static std::shared_ptr<GameObject> getGameObject(std::string tag);
 
 	/// <summary>
 	/// queues given object to be deleted. best used on own object.
 	/// </summary>
 	void queueDelete(std::shared_ptr<GameObject>& object);
 
+
+	/// <summary>
+	/// Generates a random number between the given bounds
+	/// </summary>
+	static float RandomValue(float BoundryMin, float BoundryMax) {
+		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
+	};
+
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
+
+
 };
 

@@ -6,13 +6,17 @@
 #include "PlayerComponent.h"
 #include "KeyboardInput.h"
 #include "VisionInput.h"
+#include "EnemyComponent.h"
 #include "I_InputStrategy.h"
+#include "CollisionComponent.h"
+#include "HealthComponent.h"
 #include "tigl.h"
-
+#include "HealthComponent.h"
+#include "TimedSuicideComponent.h"
 using tigl::Vertex;
 
 //TESTING please delete when ready
-#include "TestSpawnerComponent.h"
+#include "SpawnerComponent.h"
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
@@ -30,17 +34,29 @@ void GameService::init()
     Model treeModel;
     if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
-        auto blocky = std::make_shared<GameObject>("blocky");
+        auto blocky = std::make_shared<GameObject>("blocky",2);
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
+		blocky->addComponent(health);
+
+        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+
         instantiate(blocky);
+
     }
     else
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
+
+    auto testSpawner = std::make_shared<GameObject>("testSpawner");
+    float Spawnerdistance = -50.0f;
+	testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
+    testSpawner->addComponent(std::make_shared<SpawnerComponent>(1.0f, 5.0f));
+    instantiate(testSpawner);
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 }
@@ -87,7 +103,7 @@ void GameService::draw()
     tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
     tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
     tigl::shader->setModelMatrix(modelMatrix);
-    tigl::shader->enableColor(true);
+    tigl::shader->enableColor(false);
 
     for (auto& object : objects) {
         object->draw();
@@ -110,6 +126,14 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
     }
     return nullptr;
 }
+
+void GameService::reset() {
+	objects.clear();
+	pendingAdding.clear();
+	pendingDeletion.clear();
+    init();
+	gameOverMessageShown = false;
+    }
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object)
 {

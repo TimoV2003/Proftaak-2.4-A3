@@ -15,6 +15,7 @@ class GameObject : public std::enable_shared_from_this<GameObject>
 private:
 	std::vector<std::shared_ptr<GameComponent>> gameComponents;
 	std::vector<std::shared_ptr<DrawComponent>> drawComponents;
+	float collisionSize;
 	std::string tag;
 public:
 	// TODO: Should have game be private and game being inserted into gamecomponents.
@@ -26,7 +27,7 @@ public:
 	glm::vec3 rotation = glm::vec3(0, 0, 0);
 	glm::vec3 scale = glm::vec3(1, 1, 1);
 
-	GameObject(const std::string tag) : tag(tag), game(nullptr) {}
+	GameObject(const std::string tag, float collisionSize = 1.0f) : tag(tag), game(nullptr), collisionSize(collisionSize) {}
 	~GameObject();
 
 	void addComponent(std::shared_ptr<GameComponent> component);
@@ -50,6 +51,7 @@ public:
 	void update(float deltaTime);
 	void draw();
 
+	float getCollisionSize() { return collisionSize; }
 	std::string getTag();
 };
 
