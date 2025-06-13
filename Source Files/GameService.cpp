@@ -2,7 +2,7 @@
 #include <iostream>
 #include <mutex>
 #include "tigl.h"
-#ifdef DEBUG
+#ifdef _DEBUG
 #include "DebugReferenceCounter.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -154,7 +154,7 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object)
     }
 }
 
-#ifdef DEBUG
+#ifdef _DEBUG
 void GameService::imgGuiUpdate()
 {
     static int lastKeyCode = -1;

@@ -1,4 +1,4 @@
-#ifdef DEBUG
+#ifdef _DEBUG
 #include "DebugReferenceCounter.h"
 
 namespace DebugReferenceCounter {

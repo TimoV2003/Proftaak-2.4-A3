@@ -20,7 +20,7 @@ public:
 	void init();
 	void update();
 	void draw();
-#ifdef DEBUG
+#ifdef _DEBUG
 	void imgGuiUpdate();
 #endif
 

@@ -1,16 +1,16 @@
 #include "GameComponent.h"
-#if DEBUG
+#if _DEBUG
 #include "DebugReferenceCounter.h"
 #endif
 
 GameComponent::GameComponent() {
-#if DEBUG
+#if _DEBUG
 	DebugReferenceCounter::IncrementComponentReferenceCounter();
 #endif
 }
 
 GameComponent::~GameComponent() {
-#if DEBUG
+#if _DEBUG
 	DebugReferenceCounter::DecrementComponentReferenceCounter();
 #endif
 }

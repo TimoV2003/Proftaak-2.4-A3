@@ -1,18 +1,18 @@
 #include "GameObject.h"
 #include "tigl.h"
 #include <iostream>
-#if DEBUG
+#if _DEBUG
 #include "DebugReferenceCounter.h"
 #endif
 
 GameObject::GameObject(const std::string tag, float collisionSize) : tag(tag), game(nullptr), collisionSize(collisionSize) {
-#if DEBUG
+#if _DEBUG
 	DebugReferenceCounter::IncrementObjectReferenceCounter();
 #endif
 }
 
 GameObject::~GameObject() {
-#if DEBUG
+#if _DEBUG
 	DebugReferenceCounter::DecrementObjectReferenceCounter();
 #endif
 }
