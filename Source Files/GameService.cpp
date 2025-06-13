@@ -4,10 +4,7 @@
 #include "ModelLoader.h"
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
-#include "KeyboardInput.h"
-#include "VisionInput.h"
 #include "EnemyComponent.h"
-#include "I_InputStrategy.h"
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
 #include "tigl.h"
@@ -17,6 +14,11 @@ using tigl::Vertex;
 
 //TESTING please delete when ready
 #include "SpawnerComponent.h"
+
+// this include section is needed for the input strategy
+#include "../patterns/strategy/interfaces/I_InputStrategy.h"
+#include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
+#include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;

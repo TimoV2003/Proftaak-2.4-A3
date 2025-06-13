@@ -1,10 +1,14 @@
 #pragma once
-#include "Headers/TreeFactory.h"
-#include "../Header Files/EntityMillBehavior.h"
-#include "FloorMillBehavior.h"
 #include "GameService.h"
 #include "EnemyComponent.h" 
 #include "HealthComponent.h"
+
+//this include section is needed for the factory method pattern
+#include "Headers/TreeFactory.h"
+
+//this include section is needed for the treadmill strategy
+#include "../patterns/strategy/treadmill_strategies/Headers/EntityMillBehavior.h"
+#include "../patterns/strategy/treadmill_strategies/Headers/FloorMillBehavior.h"
 
 TreeFactory::TreeFactory() {
 	endOfMillbehavior = std::make_shared<EntityMillBehavior>();

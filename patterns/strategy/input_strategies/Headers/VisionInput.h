@@ -1,7 +1,8 @@
 #pragma once
-#pragma once
-#include "I_InputStrategy.h"
 #include <GLFW/glfw3.h>
+
+// this include section is needed for the input strategy
+#include "../patterns/strategy/interfaces/I_InputStrategy.h"
 
 class VisionInput : public IInputStrategy
 {

@@ -1,14 +1,7 @@
-#include "KeyboardInput.h"
+// this include section is needed for the input strategy
+#include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h" 
 
 extern GLFWwindow* window;
-
-KeyboardInput::KeyboardInput()
-{
-}
-
-KeyboardInput::~KeyboardInput()
-{
-}
 
 float KeyboardInput::handlestrategy(float currentLocation, float deltaTime)
 {
