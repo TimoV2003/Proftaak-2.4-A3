@@ -37,7 +37,7 @@ void GameService::init()
         auto blocky = std::make_shared<GameObject>("blocky");
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
+        blocky->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
 		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
 		blocky->addComponent(health);
@@ -80,6 +80,7 @@ void GameService::update()
 
 void GameService::draw()
 {
+
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
@@ -110,9 +111,9 @@ void GameService::draw()
         auto health = player->getComponent<HealthComponent>();
         if (health) {
             health->drawUI(width, height);
+            }
         }
     }
-}
 
 void GameService::instantiate(std::shared_ptr<GameObject> object)
 {
