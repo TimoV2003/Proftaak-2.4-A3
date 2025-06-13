@@ -21,10 +21,14 @@ using tigl::Vertex;
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 
+enum class GameState{ Playing,GameOver };
+GameState currentState = GameState::Playing;
+
 GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
 std::atomic<bool> visionShouldStop{ false };
+
 
 void plagueRunInit();
 
@@ -65,32 +69,53 @@ int main(void)
 
     // TODO: possibly move this while loop to game service, 
     // Have rushed the coding so now its still here
-	while (!glfwWindowShouldClose(window))
-	{
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-        
-        gameService->update();
-        gameService->draw();
-
+    while (!glfwWindowShouldClose(window))
+    {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
 #ifdef _DEBUG
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         gameService->imgGuiUpdate();
-        ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        ImGui::Render();
 #endif
-	}
 
-	visionShouldStop = true; // Signal the vision thread to stop
-	visionThread.join(); // Wait for the vision thread to finish
+        switch (currentState)
+        {
+        case GameState::Playing:
+            gameService->update();
+            gameService->draw();
+            gameService->gameOverMessageShown = false;
+            if (gameService->gameOver) {
+                currentState = GameState::GameOver;
+            }
+            break;
 
-    //TODO: send a signal to vision to close. then wait for it to stop.
+        case GameState::GameOver:
+            if (!gameService->gameOverMessageShown) {
+                std::cout << "Game Over! Press R to restart." << std::endl;
+                gameService->gameOverMessageShown = true;
+            }
+            if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+            {
+                gameService->reset();
+                gameService->gameOver = false;
+                gameService->gameOverMessageShown = false;
+                currentState = GameState::Playing;
+            }
+            break;
+        }
+    }
+	visionShouldStop = true;
+	if (visionThread.joinable())
+		visionThread.join(); 
 
-	glfwTerminate();
-    return 0;
+        glfwTerminate();
+        return 0;
 }
+
 
 
 void plagueRunInit()

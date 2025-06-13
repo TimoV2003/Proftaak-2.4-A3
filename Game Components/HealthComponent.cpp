@@ -1,5 +1,7 @@
 #include "HealthComponent.h"
 #include <iostream>
+#include "GameObject.h"
+#include "GameService.h"
 
 HealthComponent::HealthComponent(short playerHealth, float invincibilityTime){
 	this->health = playerHealth;
@@ -27,5 +29,11 @@ void HealthComponent::decreaseHealth() {
 }
 
 void HealthComponent::notifyDeath() {
+	if (auto p = getParent()) {
+		if (p->game) {
+			p->game->gameOver = true;
+		}
+	}
+
 	//TODO notify something that health is 0
 }

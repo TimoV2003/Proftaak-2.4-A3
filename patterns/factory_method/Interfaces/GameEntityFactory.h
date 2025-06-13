@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
-#include "IEndOfMillBehavior.h"
+
+// this include section is needed for the treadmill strategy
+#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "TreadmillComponent.h"
 
 
@@ -10,6 +12,7 @@ class GameEntityFactory
 
 protected:
 	std::shared_ptr<IEndOfMillBehavior> endOfMillbehavior;
+
 public:
 	GameEntityFactory() = default;
 	~GameEntityFactory() = default;

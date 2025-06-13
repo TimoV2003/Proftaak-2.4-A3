@@ -1,10 +1,12 @@
 #pragma once
-#include "GameEntityFactory.h"
 #include "MeshComponent.h"
+
+// this include section is needed for the factory method pattern
+#include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
+
 
 class TreeFactory : public GameEntityFactory
 {
-	float Spawndistance = -10.0f;
 	Model model;
 
 public:

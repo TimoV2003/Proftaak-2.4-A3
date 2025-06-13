@@ -18,11 +18,12 @@
 #include "I_InputStrategy.h"
 #include "CollisionComponent.h"
 #include "HealthComponent.h"
+#include "tigl.h"
+#include "HealthComponent.h"
 #include "ScoreStrategy.h"
 #include "MatToTexHelper.h"
 #include "colour_detection.h"
-#include "DistanceScoreComponent.h"
-#include "SpawnerComponent.h"
+#include "TimedSuicideComponent.h"
 using tigl::Vertex;
 
 static bool showingDebugMenu = true;
@@ -47,25 +48,27 @@ void GameService::init()
     Model treeModel;
     if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
-        auto blocky = std::make_shared<GameObject>("blocky");
+        auto blocky = std::make_shared<GameObject>("blocky",2);
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto health = std::make_shared<HealthComponent>(5,1.0f);
-        blocky->addComponent(health);
-        blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
+		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
+		blocky->addComponent(health);
+        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
         instantiate(blocky);
 
-        //test spawner. feel free to delete in entirity
-        auto testSpawner = std::make_shared<GameObject>("testSpawner");
-        testSpawner->addComponent(std::make_shared<SpawnerComponent>());
-        instantiate(testSpawner);
     }
     else
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
+
+    auto testSpawner = std::make_shared<GameObject>("testSpawner");
+    float Spawnerdistance = -50.0f;
+	testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
+    testSpawner->addComponent(std::make_shared<SpawnerComponent>(1.0f, 5.0f));
+    instantiate(testSpawner);
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 	pendingAdding.clear();
@@ -136,6 +139,14 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag)
     }
     return nullptr;
 }
+
+void GameService::reset() {
+	objects.clear();
+	pendingAdding.clear();
+	pendingDeletion.clear();
+    init();
+	gameOverMessageShown = false;
+    }
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object)
 {

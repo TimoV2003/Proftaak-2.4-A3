@@ -18,9 +18,13 @@ public:
 	void init();
 	void update();
 	void draw();
+	void reset();
 #ifdef _DEBUG
 	void imgGuiUpdate();
 #endif
+
+	bool gameOver = false;
+	bool gameOverMessageShown = false;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -38,7 +42,7 @@ public:
 	/// </summary>
 	/// <param name="tag">tag identifier of object you want to find</param>
 	/// <returns>gameObject pointer or nullptr</returns>
-	std::shared_ptr<GameObject> getGameObject(std::string tag);
+	static std::shared_ptr<GameObject> getGameObject(std::string tag);
 
 	/// <summary>
 	/// queues given object to be deleted. best used on own object.
