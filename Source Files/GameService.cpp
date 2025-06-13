@@ -184,6 +184,30 @@ void GameService::imgGuiUpdate()
         ImGui::Text("potion score: %.1f", scoreHolder->getPotionScore());
         ImGui::Spacing();
 
+
+		static bool isCurrentlyUsingVision = true;
+        if (isCurrentlyUsingVision) {
+            if (ImGui::Button("Set Keyboard Input")) {
+				auto player = getGameObject("blocky");
+				if (player) {
+					player->removeComponent<PlayerComponent>();
+					player->addComponent(std::make_shared<PlayerComponent>(keyboardInput));
+				}
+				isCurrentlyUsingVision = false;
+            }
+        }
+        else {
+            if (ImGui::Button("Set Vision Input ")) {
+                auto player = getGameObject("blocky");
+                if (player) {
+                    player->removeComponent<PlayerComponent>();
+                    player->addComponent(std::make_shared<PlayerComponent>(visionInput));
+                }
+                isCurrentlyUsingVision = true;
+            }
+        }
+        ImGui::Spacing();
+
 		// this mess is for displaying game objects and their components
         if (ImGui::CollapsingHeader("Object list", ImGuiTreeNodeFlags_DefaultOpen)) {
 			ImGui::Text("Reff counts (if increasing = memory leak)");
@@ -215,7 +239,9 @@ void GameService::imgGuiUpdate()
         }
         ImGui::Spacing();
 
+
 		// this is for displaying the opencv camera view
+        static GLuint textureID = 0;
         if (ImGui::CollapsingHeader("OpenCV Camera View", ImGuiTreeNodeFlags_DefaultOpen)) {
             float visionNormalisedPosition;
             {
@@ -224,8 +250,9 @@ void GameService::imgGuiUpdate()
             }
             ImGui::Text("vision position: %f ", visionNormalisedPosition);
             int imgSize = imGuiWindowSize - 20;
-            GLuint textureID = GetTexFromVision(imgSize);
+            GetTexFromVision(textureID, imgSize);
             ImGui::Image(textureID, ImVec2(imgSize, imgSize));
+            //glDeleteTextures(1, &textureID);
         }
         ImGui::Spacing();
 
