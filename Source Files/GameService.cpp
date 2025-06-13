@@ -34,7 +34,7 @@ void GameService::init()
     Model treeModel;
     if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
     {
-        auto blocky = std::make_shared<GameObject>("blocky");
+        auto blocky = std::make_shared<GameObject>("blocky",2);
         blocky->position = glm::vec3(0, 0, 0);
         blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
