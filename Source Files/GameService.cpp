@@ -10,22 +10,29 @@
 #endif
 #include "GameObject.h"
 #include "ModelLoader.h"
+#include "tigl.h"
+#include "ScoreStrategy.h"
+#include "colour_detection.h"
+#include "MatToTexHelper.h" 
+
+
+//this include section is needed for the components
+#include "SpawnerComponent.h"
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
-#include "KeyboardInput.h"
-#include "VisionInput.h"
-#include "EnemyComponent.h"
-#include "I_InputStrategy.h"
-#include "CollisionComponent.h"
 #include "HealthComponent.h"
-#include "ScoreStrategy.h"
-#include "MatToTexHelper.h"
-#include "colour_detection.h"
+
+// this include section is needed for the input strategy
+#include "../patterns/strategy/interfaces/I_InputStrategy.h"
+#include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
+#include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
+
 using tigl::Vertex;
 
 static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
+
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
@@ -60,6 +67,12 @@ void GameService::init()
     {
         std::cerr << "Failed to load tree model!" << std::endl;
     }
+
+    auto testSpawner = std::make_shared<GameObject>("testSpawner");
+    float Spawnerdistance = -50.0f;
+    testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
+    testSpawner->addComponent(std::make_shared<SpawnerComponent>(1.0f, 5.0f));
+    instantiate(testSpawner);
 
     objects.insert(objects.end(), pendingAdding.begin(), pendingAdding.end());
 	pendingAdding.clear();
@@ -246,7 +259,6 @@ void GameService::imgGuiUpdate()
             int imgSize = imGuiWindowSize - 20;
             GetTexFromVision(textureID, imgSize);
             ImGui::Image(textureID, ImVec2(imgSize, imgSize));
-            //glDeleteTextures(1, &textureID);
         }
         ImGui::Spacing();
 

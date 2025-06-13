@@ -179,7 +179,7 @@
     <ClCompile Include="lib\imgui\imgui_demo.cpp" />
     <ClCompile Include="Source Files\GameObject.cpp" />
     <ClCompile Include="Game Components\HealthComponent.cpp" />
-    <ClCompile Include="Source Files\KeyboardInput.cpp" />
+    <ClCompile Include="patterns\strategy\input_strategies\KeyboardInput.cpp" />
     <ClCompile Include="Game Components\MeshComponent.cpp" />
     <ClCompile Include="Source Files\ModelLoader.cpp" />
     <ClCompile Include="Source Files\DrawComponent.cpp" />
@@ -191,7 +191,7 @@
     <ClCompile Include="Game Components\SpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
     <ClCompile Include="Game Components\TreadmillComponent.cpp" />
-    <ClCompile Include="Source Files\VisionInput.cpp" />
+    <ClCompile Include="patterns\strategy\input_strategies\VisionInput.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +206,9 @@
     <ClInclude Include="Header Files\GameComponent.h" />
     <ClInclude Include="Header Files\GameObject.h" />
     <ClInclude Include="patterns\strategy\interfaces\IEndOfMillBehavior.h" />
-    <ClInclude Include="Header Files\I_InputStrategy.h" />
+    <ClInclude Include="patterns\strategy\interfaces\I_InputStrategy.h" />
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\KeyboardInput.h" />
     <ClInclude Include="Header Files\ScoreStrategy.h" />
-    <ClInclude Include="Header Files\KeyboardInput.h" />
     <ClInclude Include="Header Files\MatToTexHelper.h" />
     <ClInclude Include="Header Files\PlayerComponent.h" />
     <ClInclude Include="Header Files\tigl.h" />
@@ -219,7 +219,7 @@
     <ClInclude Include="Game Components\SpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
     <ClInclude Include="lib\stb\stb_image.h" />
-    <ClInclude Include="Header Files\VisionInput.h" />
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\VisionInput.h" />
     <ClInclude Include="Game Components\TreadmillComponent.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\TreeFactory.h" />
     <ClInclude Include="Game Components\DistanceScoreComponent.h" />
