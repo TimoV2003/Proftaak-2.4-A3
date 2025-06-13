@@ -1,5 +1,7 @@
 #pragma once
 #include "GameService.h"
+
+//this include section is needed for the components
 #include "EnemyComponent.h" 
 #include "HealthComponent.h"
 

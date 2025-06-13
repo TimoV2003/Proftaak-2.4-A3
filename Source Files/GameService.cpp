@@ -2,23 +2,20 @@
 #include <iostream>
 #include "GameObject.h"
 #include "ModelLoader.h"
+#include "tigl.h"
+
+//this include section is needed for the components
+#include "SpawnerComponent.h"
 #include "MeshComponent.h"
 #include "PlayerComponent.h"
-#include "EnemyComponent.h"
-#include "CollisionComponent.h"
 #include "HealthComponent.h"
-#include "tigl.h"
-#include "HealthComponent.h"
-#include "TimedSuicideComponent.h"
-using tigl::Vertex;
-
-//TESTING please delete when ready
-#include "SpawnerComponent.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
 #include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
 #include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
+
+using tigl::Vertex;
 
 double lastFrameTime = 0;
 std::vector<std::shared_ptr<GameObject>> objects;
