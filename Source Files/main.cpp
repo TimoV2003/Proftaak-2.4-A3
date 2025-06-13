@@ -84,8 +84,8 @@ int main(void)
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
             gameService->imgGuiUpdate();
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
             ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
             gameService->gameOverMessageShown = false;
             if (gameService->gameOver) {

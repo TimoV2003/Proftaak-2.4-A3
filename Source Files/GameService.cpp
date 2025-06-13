@@ -253,7 +253,6 @@ void GameService::imgGuiUpdate()
             int imgSize = imGuiWindowSize - 20;
             GetTexFromVision(textureID, imgSize);
             ImGui::Image(textureID, ImVec2(imgSize, imgSize));
-            //glDeleteTextures(1, &textureID);
         }
         ImGui::Spacing();
 
