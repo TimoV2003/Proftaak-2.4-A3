@@ -46,14 +46,6 @@ void GameService::init()
 
         instantiate(blocky);
 
-        // test enemy for collision testing
-        auto testEnemy = std::make_shared<GameObject>("testEnemy");
-        testEnemy->position = glm::vec3(5, 0, 0);
-        testEnemy->scale = glm::vec3(0.2f, 0.2f, 0.2f);
-        testEnemy->addComponent(std::make_shared<MeshComponent>(treeModel));
-        auto enemy = std::make_shared<EnemyComponent>(blocky, [health]() { health->decreaseHealth(); });
-        testEnemy->addComponent(enemy);
-        instantiate(testEnemy);
     }
     else
     {
