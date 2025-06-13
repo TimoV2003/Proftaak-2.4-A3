@@ -8,10 +8,11 @@ class SpawnerComponent : public GameComponent
 {
 	float minimumSpawndelay;
 	float maximumSpawndelay;
-	bool randomizeSpawnXLocation = true;
+	bool spawnXlocationIsRandom;
 	std::shared_ptr<GameEntityFactory> treeFactory;
 public:
 	SpawnerComponent(float minimumSpawndelay, float maximumSpawndelay);
+	SpawnerComponent(float minimumSpawndelay, float maximumSpawndelay, bool randomizeSpawnXLocation);
 	~SpawnerComponent() = default;
 
 	virtual void update(float deltaTime) override;

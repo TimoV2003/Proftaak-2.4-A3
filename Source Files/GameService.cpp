@@ -45,6 +45,7 @@ void GameService::init()
         blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
 
         instantiate(blocky);
+
     }
     else
     {

@@ -4,7 +4,6 @@
 
 class TreeFactory : public GameEntityFactory
 {
-	float Spawndistance = -50.0f;
 	Model model;
 
 public:

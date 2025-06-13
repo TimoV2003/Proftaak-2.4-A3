@@ -10,11 +10,7 @@ TreeFactory::TreeFactory() {
 }
 
 std::shared_ptr<GameObject> TreeFactory::CreateEntity() {
-	float randomXPosition = GameService::RandomValue(-10.0f, 10.0f);
-
-
 	auto tree = std::make_shared<GameObject>("tree");
-	tree->position = glm::vec3(randomXPosition, 0, Spawndistance);
 	tree->scale = glm::vec3(0.05f, 0.05f, 0.05f);
 	tree->addComponent(std::make_shared<MeshComponent>(model));
 	tree->addComponent(std::make_shared<TreadmillComponent>(endOfMillbehavior));
