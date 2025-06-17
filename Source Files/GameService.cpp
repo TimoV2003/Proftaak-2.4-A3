@@ -89,6 +89,37 @@ void GameService::init()
         }
         
     }
+
+    Model LeftHouse1;
+    if (ModelLoader::load("Resource Files/House/House1.obj", LeftHouse1)) // Make sure this path is correct
+    {
+        for (size_t i = 0; i < 20; i++)
+        {
+            auto house = std::make_shared<GameObject>("house", 1);
+            house->position = glm::vec3(-21, -1, 15.0f + (i * -15.0f));
+            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+            house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
+            house->addComponent(std::make_shared<MeshComponent>(LeftHouse1));
+            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
+            instantiate(house);
+        }
+            
+    }
+    Model RightHouse1;
+    if (ModelLoader::load("Resource Files/House/House1.obj", RightHouse1)) // Make sure this path is correct
+    {
+        for (size_t i = 0; i < 20; i++)
+        {
+            auto house = std::make_shared<GameObject>("house", 1);
+            house->position = glm::vec3(21, -1, 15.0f + (i * -15.0f));
+            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+            house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
+            house->addComponent(std::make_shared<MeshComponent>(RightHouse1));
+            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
+            instantiate(house);
+        }
+
+    }
     auto testSpawner = std::make_shared<GameObject>("testSpawner");
     float Spawnerdistance = -50.0f;
     testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
