@@ -8,5 +8,5 @@
 
 void FloorMillBehavior::ReachedEndOfMill(std::shared_ptr<GameObject> parent)
 {
-	parent->position.z = -300 + fmod(parent->position.z, 300.0f);
+	parent->position.z = -200 + fmod(parent->position.z, 200.0f);
 }

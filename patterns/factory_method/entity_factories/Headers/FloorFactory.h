@@ -5,12 +5,12 @@
 #include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
 
 
-class TreeFactory : public GameEntityFactory
+class FloorFactory : public GameEntityFactory
 {
 	Model model;
 public:
-	TreeFactory();
-	~TreeFactory() = default;
+	FloorFactory();
+	~FloorFactory() = default;
 
 	std::shared_ptr<GameObject> CreateEntity() override;
 };

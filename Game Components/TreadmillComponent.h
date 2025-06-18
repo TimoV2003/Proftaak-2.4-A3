@@ -7,7 +7,6 @@
 
 class TreadmillComponent : public GameComponent {
 	std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior;
-	const float maxEndCheckPausedTime;
 	const int speed;
 	const int deletionDistance;
 public:
