@@ -11,7 +11,7 @@ namespace vision {
 	float visionNormalisedPosition = 0;
 	std::mutex visionPositionMutex;
 
-	cv::Mat img;
+	cv::Mat imgMain;
 	cv::VideoCapture cap(0);
 
 	std::vector<std::vector<int>> myColors{ {0, 0, 0, 180, 255, 50} };
@@ -39,7 +39,7 @@ namespace vision {
 				myPoint.x = boundRect[i].x + boundRect[i].width / 2;
 				myPoint.y = boundRect[i].y + boundRect[i].height / 2;
 
-				cv::rectangle(img, boundRect[i].tl(), boundRect[i].br(), cv::Scalar(255, 255, 255), 2);
+				cv::rectangle(imgMain, boundRect[i].tl(), boundRect[i].br(), cv::Scalar(255, 255, 255), 2);
 			}
 		}
 		return myPoint;
@@ -86,7 +86,7 @@ namespace vision {
 	}
 
 	void drawContour(ContourWithBoundingRect contour) {
-		cv::rectangle(img, contour.second.tl(), contour.second.br(), cv::Scalar(255, 255, 255), 2);
+		cv::rectangle(imgMain, contour.second.tl(), contour.second.br(), cv::Scalar(255, 255, 255), 2);
 	}
 
 	cv::Mat extractColor(cv::Mat image, std::vector<int> color) {
@@ -105,21 +105,20 @@ namespace vision {
 
 	void color_detection_loop(std::atomic<bool>& shouldStop) {
 		while (!shouldStop) {
-			cap.read(img);
-			auto mask = extractColor(img, myColors[0]);
+			cap.read(imgMain);
+			auto mask = extractColor(imgMain, myColors[0]);
 			auto biggestContour = getBiggestContourByArea(mask, 1000);
 			if (!biggestContour.first.empty()) {
 				cv::Point centreOfBiggestContour;
 				centreOfBiggestContour = getCentreOfContour(biggestContour);
-				int widthOfImage = img.cols;
+				int widthOfImage = imgMain.cols;
 				{
 					std::lock_guard<std::mutex> lock(visionPositionMutex);
 					visionNormalisedPosition = centreOfBiggestContour.x / (float)widthOfImage;
 				}
 				drawContour(biggestContour);
 			}
-
-			cv::imshow("Image", img);
+			
 			if (cv::waitKey(1) == 27) { break; }
 		}
 	}

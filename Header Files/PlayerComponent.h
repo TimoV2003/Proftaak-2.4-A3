@@ -1,8 +1,10 @@
 #pragma once
 
-#include "I_InputStrategy.h"
 #include "GameComponent.h"
 #include "GameObject.h"
+
+// this include section is needed for the input strategy
+#include "../patterns/strategy/interfaces/I_InputStrategy.h"
 
 class PlayerComponent : public GameComponent
 {

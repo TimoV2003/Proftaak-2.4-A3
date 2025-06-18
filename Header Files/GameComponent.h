@@ -18,8 +18,8 @@ protected:
 	std::shared_ptr<GameObject> getParent() ;
 
 public:
-	GameComponent() = default;
-	~GameComponent() = default;
+	GameComponent();
+	~GameComponent();
 
 	virtual void update(float deltaTime) {};
 	inline void setGameObject(std::shared_ptr<GameObject> gameObject) { parent = gameObject; };
