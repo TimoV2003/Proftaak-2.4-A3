@@ -5,11 +5,13 @@
 // this include section is needed for the factory method pattern
 #include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
 #include "../patterns/factory_method/entity_factories/Headers/TreeFactory.h"
+#include "../patterns/factory_method/entity_factories/Headers/FloorFactory.h"
 
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) : 
 	minimumSpawndelay(initMinimumSpawndelay), maximumSpawndelay(initMaximumSpawndelay) {
 	this->treeFactory = std::make_shared<TreeFactory>();
+	this->floorFactory = std::make_shared<FloorFactory>();
 	this->spawnXlocationIsRandom = true;
 }
 
@@ -51,7 +53,18 @@ void SpawnerComponent::update(float deltaTime)
 }
 
 std::shared_ptr<GameObject> SpawnerComponent::RandomEntityFromList() {
-	auto newEntity = treeFactory->CreateEntity();
-
+	auto newEntity = selectItemFromLootTable();
+	
 	return newEntity;
+}
+
+
+std::shared_ptr<GameObject> SpawnerComponent::selectItemFromLootTable() {
+	int randomGeneratedValue = GameService::RandomValue(0, 10);
+
+	switch (randomGeneratedValue)
+	{
+	default:
+		return treeFactory->CreateEntity();
+	}
 }
