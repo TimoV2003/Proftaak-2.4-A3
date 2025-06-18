@@ -80,7 +80,7 @@ void GameService::init()
     if (ModelLoader::load("Resource Files/PlayerModel/PlayerPlauge.obj", PlayerModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky",2);
-        blocky->position = glm::vec3(0, 0, 6);
+        blocky->position = glm::vec3(0, 0, 4);
         blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
@@ -98,25 +98,24 @@ void GameService::init()
     }*/
     
 
-    for (size_t i = 0; i < 9; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         auto ground = floorFactory->CreateEntity();
-        ground->position = glm::vec3(0, -1, 25.0f + (i * -50.0f));
+        ground->position = glm::vec3(0, -1, 50.0f + (i * -50.0f));
         instantiate(ground);
     }
 
-    for (size_t i = 0; i < 20; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         auto house = houseFactory->CreateEntity();
-        house->position = glm::vec3(-21, -1, 15.0f + (i * -15.0f));
+        house->position = glm::vec3(-20, -1, 20.0f + (i * -20.0f));
         house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
         instantiate(house);
     }
-
-    for (size_t i = 0; i < 20; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         auto house = houseFactory->CreateEntity();
-        house->position = glm::vec3(21, -1, 15.0f + (i * -15.0f));
+        house->position = glm::vec3(20, -1, 20.0f + (i * -20.0f));
         house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
         instantiate(house);
     }

@@ -14,7 +14,7 @@
 HouseFactory::HouseFactory() {
 	endOfMillbehavior = std::make_shared<FloorMillBehavior>();
 	ModelLoader::load("Resource Files/House/House1.obj", model);
-	modelScaleUniform = 3.0f;
+	modelScaleUniform = 3.75f;
 }
 
 std::shared_ptr<GameObject> HouseFactory::CreateEntity() {
