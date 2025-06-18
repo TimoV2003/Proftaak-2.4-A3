@@ -16,6 +16,7 @@ void HealthComponent::update(float deltaTime) {
 		timeSinceHealthReduction += deltaTime;
 	}
 
+	// This is for testing, remove this before merging
 	autoDamageTimer += deltaTime;
 	if (autoDamageTimer >= autoDamageInterval) {
 		autoDamageTimer = 0.0f;
@@ -29,17 +30,19 @@ void HealthComponent::decreaseHealth() {
 
 	if (health > 0)
 		health -= 1;
-
-	if (health <= 0) {
+	if (health < 0) 
 		health = 0;
+	if (health == 0) {
 		notifyDeath();
 	}
 }
+
 
 void HealthComponent::notifyDeath() {
 	if (auto p = getParent()) {
 		if (p->game) {
 			p->game->gameOver = true;
+			p->game->queueDelete(p);
 		}
 	}
 	// TODO: Notify other components or systems about the death event
@@ -61,14 +64,17 @@ void HealthComponent::drawUI(int screenWidth, int screenHeight) const
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	float size = 48.0f;
+	float spacing = 70.0f;
+	float totalWidth = health * size + (health - 1) * (spacing - size);
+	float startX = (screenWidth - totalWidth) / 2.0f;	
+	float y = 24.0f; 
+
 	glColor4f(1.0f, 0.0f, 0.0f, 1.0f); 
 
 	glBegin(GL_QUADS);
 	for (int i = 0; i < health; ++i) {
-		float x = 20 + i * 50;
-		float y = 20;
-		float size = 40;
-
+		float x = startX + i * spacing;
 		glVertex2f(x, y);
 		glVertex2f(x + size, y);
 		glVertex2f(x + size, y + size);
