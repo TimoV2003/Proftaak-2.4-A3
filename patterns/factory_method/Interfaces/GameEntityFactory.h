@@ -12,12 +12,17 @@ class GameEntityFactory
 
 protected:
 	std::shared_ptr<IEndOfMillBehavior> endOfMillbehavior;
-
+	float modelScaleX;
+	float modelScaleY;
+	float modelScaleZ;
+	float modelScaleUniform;
 public:
 	GameEntityFactory() = default;
 	~GameEntityFactory() = default;
 
 
 	virtual std::shared_ptr<GameObject> CreateEntity() = 0;
+
+
 };
 

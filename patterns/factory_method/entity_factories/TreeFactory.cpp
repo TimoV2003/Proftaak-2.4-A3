@@ -10,16 +10,16 @@
 
 //this include section is needed for the treadmill strategy
 #include "../patterns/strategy/treadmill_strategies/Headers/EntityMillBehavior.h"
-#include "../patterns/strategy/treadmill_strategies/Headers/FloorMillBehavior.h"
 
 TreeFactory::TreeFactory() {
 	endOfMillbehavior = std::make_shared<EntityMillBehavior>();
 	ModelLoader::load("Resource Files/Tree/Tree1.obj", model);
+	modelScaleUniform = 1.5f;
 }
 
 std::shared_ptr<GameObject> TreeFactory::CreateEntity() {
 	auto tree = std::make_shared<GameObject>("tree",1);
-	tree->scale = glm::vec3(1.5f, 1.5f, 1.5f);
+	tree->scale = glm::vec3(modelScaleUniform, modelScaleUniform, modelScaleUniform);
 	tree->addComponent(std::make_shared<MeshComponent>(model));
 	tree->addComponent(std::make_shared<TreadmillComponent>(endOfMillbehavior));
 

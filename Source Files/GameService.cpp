@@ -25,9 +25,11 @@
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
-#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
 #include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
+
+// this include section is needed for the Treadmill strategy
+#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "../patterns/strategy/treadmill_strategies/Headers/FloorMillBehavior.h"
 
 using tigl::Vertex;
@@ -36,12 +38,19 @@ static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
+//Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
+
+//Input Variables
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
+
+//Mill Variables
 std::shared_ptr<IEndOfMillBehavior> floormillBehavior;
+
+//Score Variables
 std::shared_ptr<ScoreStrategy> distanceScoreHolder;
 std::shared_ptr<ScoreStrategy> potionScoreHolder;
 
