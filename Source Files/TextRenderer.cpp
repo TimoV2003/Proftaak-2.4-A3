@@ -1,8 +1,7 @@
 #include "TextRenderer.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <memory>
 
-//uint32_t vaoID, vboID, eboID;
-constexpr size_t VBO_SIZE = 600000 * sizeof(Vertex);
 const uint32_t codePointOfFirstChar = 32;
 const uint32_t codePointOfLastChar = 122;
 constexpr uint32_t charsToIncludeInFontAtlas = codePointOfFirstChar + codePointOfLastChar;
@@ -14,15 +13,14 @@ stbtt_packedchar packedChars[charsToIncludeInFontAtlas];
 stbtt_aligned_quad alignedQuads[charsToIncludeInFontAtlas];
 
 float fontSize = 64.0f;
-uint32_t vertexIndex;
 
 
-static void setupVAOAndVBO(uint32_t &vboId, uint32_t &vaoId)
+static void setupVAOAndVBO(const size_t size, uint32_t &vboId, uint32_t &vaoId)
 {
 	// Setting up the VAO and VBO: -----------------------
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, VBO_SIZE, nullptr, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 
 	glGenVertexArrays(1, &vaoId);
 	glBindVertexArray(vaoId);
@@ -69,7 +67,7 @@ static void setupFontTexture(uint8_t* fontAtlasBitmap, const uint32_t fontAtlasW
 	fontData.fontAtlasTextureID = fontAtlasTextureID; // Store the texture ID in the FontData struct
 }
 
-static uint8_t* loadFont(const std::string fontName, const std::filesystem::path& fontPath, FontData& fontData) {
+static std::shared_ptr<uint8_t> loadFont(const std::string fontName, const std::filesystem::path& fontPath, FontData& fontData) {
 	// Load the font file into memory
 	std::ifstream fontFile(fontPath, std::ios::binary);
 	if (!fontFile) {
@@ -88,13 +86,13 @@ static uint8_t* loadFont(const std::string fontName, const std::filesystem::path
 
 	constexpr uint32_t fontAtlasSize = fontAtlasWidth * fontAtlasHeight;
 
-	uint8_t* fontAtlasBitmap = new uint8_t[fontAtlasSize]; // Allocate memory for the font atlas bitmap
+	std::shared_ptr<uint8_t> fontAtlasBitmap(new uint8_t[fontAtlasSize]); // Allocate memory for the font atlas bitmap
 
 	stbtt_pack_context ctx;
 
 	stbtt_PackBegin(
 		&ctx,                                     // stbtt_pack_context (this call will initialize it) 
-		(unsigned char*)fontAtlasBitmap,          // Font Atlas bitmap data
+		(unsigned char*)fontAtlasBitmap.get(),          // Font Atlas bitmap data
 		fontAtlasWidth,                           // Width of the font atlas texture
 		fontAtlasHeight,                          // Height of the font atlas texture
 		0,                                        // Stride in bytes
@@ -134,13 +132,11 @@ void TextRenderer::initFont(const std::string fontName, const std::filesystem::p
 
 	FontData fontData(fontName);
 
-	uint8_t* fontAtlasBitmap = loadFont(fontName, fontPath, fontData);
+	std::shared_ptr<uint8_t> fontAtlasBitmap = loadFont(fontName, fontPath, fontData);
 
-	setupFontTexture(fontAtlasBitmap, fontAtlasWidth, fontAtlasHeight, fontData);
+	setupFontTexture(fontAtlasBitmap.get(), fontAtlasWidth, fontAtlasHeight, fontData);
 
 	this->fonts.insert({ fontName, fontData });
-
-	delete[] fontAtlasBitmap; // Free the memory allocated for the font atlas bitmap
 }
 
 uint32_t TextRenderer::createTextFrame(uint16_t size) {
@@ -149,7 +145,8 @@ uint32_t TextRenderer::createTextFrame(uint16_t size) {
 	}
 
 	TextFrame textFrame = TextFrame();
-	setupVAOAndVBO(textFrame.vboID, textFrame.vaoID);
+	textFrame.bufferSize = size * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
+	setupVAOAndVBO(textFrame.bufferSize, textFrame.vboID, textFrame.vaoID);
 
 	size_t position = this->textFrames.size();
 	this->textFrames.push_back(textFrame);
@@ -162,7 +159,9 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 	FontData font = this->fonts.at(this->activeFontName);
 	glm::vec4& color = this->activeColor;
 
+	//TODO: tweak size
 	float size = 160.0f;
+	uint32_t vertexIndex = 0;
 
 	const int order[6] = { 0, 1, 2, 0, 2, 3 };
 	float pixelScale = 1.0f / this->windowHeight;
@@ -193,13 +192,6 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 				height * pixelScale * size
 			};
 
-			//TODO: nalopen of de berekeningen logisch zijn.
-			//glm::vec2 glyphBoundingBoxBottomLeft =
-			//{
-			//	localPosition.x + (packedChar->xoff * pixelScale * size),
-			//	localPosition.y - (packedChar->yoff + height) * pixelScale * size
-			//};
-
 			glm::vec2 glyphBoundingBoxBottomLeft =
 			{
 				localPosition.x,
@@ -224,23 +216,16 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 				{ alignedQuad->s1, alignedQuad->t1 },
 			};
 
-			//glm::vec2 glyphTextureCoords[4] =
-			//{
-			//	{ alignedQuad->s1, alignedQuad->t1 },
-			//	{ alignedQuad->s0, alignedQuad->t1 },
-			//	{ alignedQuad->s0, alignedQuad->t0 },
-			//	{ alignedQuad->s1, alignedQuad->t0 },
-			//};
-
 			// We need to fill the vertex buffer by 6 vertices to render a quad as we are rendering a quad as 2 triangles
 			// The order used is in the 'order' array
 			// order = [0, 1, 2, 0, 2, 3] is meant to represent 2 triangles: 
 			// one by glyphVertices[0], glyphVertices[1], glyphVertices[2] and one by glyphVertices[0], glyphVertices[2], glyphVertices[3]
 			for (int i = 0; i < 6; i++)
 			{
-				vertices[vertexIndex + i].position = glm::vec3(glyphVertices[order[i]], 0);
-				vertices[vertexIndex + i].color = color;
-				vertices[vertexIndex + i].texCoord = glyphTextureCoords[order[i]];
+				Vertex& vertex = vertices[vertexIndex + i];
+				vertex.position = glm::vec3(glyphVertices[order[i]], 0);
+				vertex.color = color;
+				vertex.texCoord = glyphTextureCoords[order[i]];
 			}
 
 			vertexIndex += 6;
@@ -258,10 +243,10 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 		}
 	}
 
-	TextFrame textFrame = this->textFrames.at(textFrameId);
+	TextFrame &textFrame = this->textFrames.at(textFrameId);
 	textFrame.vertexCount = vertices.size();
-	this->textFrames[textFrameId] = textFrame; // Update the text frame with the new vertex count
-	size_t sizeOfVertices = vertices.size() * sizeof(Vertex);
+	const int vertexSize = sizeof(Vertex);
+	size_t sizeOfVertices = vertices.size() * vertexSize;
 
 	const Vertex* data = vertices.data();
 
@@ -270,12 +255,12 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 	glBufferSubData(GL_ARRAY_BUFFER,
 		0,
 		sizeOfVertices,
-		data);
+		vertices.data());
 	glBindVertexArray(0); // Unbind the VAO after updating the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind the VBO after updating it
 }
 
-void TextRenderer::flushFrame() {
+void TextRenderer::draw() {
 	FontData font = this->fonts.at(this->activeFontName);
 
 	tigl::shader->use();
@@ -298,33 +283,6 @@ void TextRenderer::flushFrame() {
 		glDrawArrays(GL_TRIANGLES, 0, textFrame.vertexCount);
 		glBindVertexArray(0); // Unbind the VAO after drawing
 	}
-
-	//size_t sizeOfVertices = vertices.size() * sizeof(Vertex);
-	//uint32_t drawCallCount = (sizeOfVertices / VBO_SIZE) + 1; // aka number of chunks.
-
-	//// Render each chunk of vertex data.
-	//for (int i = 0; i < drawCallCount; i++)
-	//{
-	//	const Vertex* data = vertices.data() + i * VBO_SIZE;
-
-	//	uint32_t vertexCount =
-	//		i == drawCallCount - 1 ?
-	//		(sizeOfVertices % VBO_SIZE) / sizeof(Vertex) :
-	//		VBO_SIZE / (sizeof(Vertex) * 6);
-
-	//	//int uniformLocation = glGetUniformLocation(shaderProgramID, "uViewProjectionMat");
-	//	//glUniformMatrix4fv(uniformLocation, 1, GL_TRUE, glm::value_ptr(viewProjectionMat));
-
-	//	glBindVertexArray(font.vaoID);
-	//	glBindBuffer(GL_ARRAY_BUFFER, font.vboID);
-	//	glBufferSubData(GL_ARRAY_BUFFER,
-	//		0,
-	//		i == drawCallCount - 1 ? sizeOfVertices % VBO_SIZE : VBO_SIZE,
-	//		data);
-
-	//	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-	//}
-
 }
 
 void TextRenderer::setActiveFont(const std::string& fontName) {

@@ -21,6 +21,7 @@ struct TextFrame {
 	uint32_t vaoID;
 	uint32_t vboID;
 	size_t vertexCount;
+	size_t bufferSize;
 };
 
 struct Vertex
@@ -53,6 +54,6 @@ public:
 	uint32_t createTextFrame(uint16_t size);
 	void writeText(uint32_t textFrameId, const std::string& text, const glm::vec2& position);
 	void startFrame();
-	void flushFrame();
+	void draw();
 	
 };
