@@ -3,7 +3,7 @@
 #include "GameComponent.h"
 #include <glm/glm.hpp>
 
-void EnemyComponent::update(float deltaTime) {
+void EnemyComponent::update(const float& deltaTime) {
     if (this->collides(this->player)) {
 		this->onPlayerCollision();
     }

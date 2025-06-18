@@ -1,6 +1,6 @@
 #ifdef _DEBUG
 #pragma once  
-#include "colour_detection.h"  
+#include "ColourDetection.h"  
 #include <opencv2/imgcodecs.hpp>  
 #include <opencv2/highgui.hpp>  
 #include <opencv2/imgproc.hpp>  

@@ -9,5 +9,5 @@ public:
 		baseScale(baseScale), scaleFactor(scaleFactor), cyclePeriod(cyclePeriod), animationSpeedMult(animationSpeedMult) {};
 	~WalkAnimationComponent() = default;
 
-	virtual void update(float deltaTime) override;
+	virtual void update(const float& deltaTime) override;
 };
