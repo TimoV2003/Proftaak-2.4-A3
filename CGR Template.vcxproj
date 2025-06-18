@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game Components\HealthUI.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\FloorFactory.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\HouseFactory.cpp" />
     <ClCompile Include="Game Components\WalkAnimationComponent.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />
     <ClInclude Include="Game Components\WalkAnimationComponent.h" />
+    <ClInclude Include="Game Components\HealthUI.h" />
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
     <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\EntityMillBehavior.h" />
     <ClInclude Include="Header Files\DebugReferenceCounter.h" />

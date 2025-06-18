@@ -25,6 +25,7 @@
 #include "distanceScoreComponent.h"
 #include "TreadmillComponent.h"
 #include "WalkAnimationComponent.h"
+#include "HealthUI.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
@@ -84,11 +85,12 @@ void GameService::init() {
         blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
-        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+		auto healthComponent = std::make_shared<HealthComponent>(5, 1.0f);
+        blocky->addComponent(healthComponent);
+		blocky->addComponent(std::make_shared<HealthUI>(healthComponent, window));
 		blocky->addComponent(std::make_shared<WalkAnimationComponent>());
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
-
     }
     
 
@@ -148,6 +150,7 @@ void GameService::draw() {
     glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    tigl::shader->use();
     glm::mat4 modelMatrix(1);
     glm::mat4 viewMatrix(1);
 
@@ -170,7 +173,20 @@ void GameService::draw() {
     tigl::shader->setLightDiffuse(0, diffuseLight);
 
     for (auto& object : objects) {
+        tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
+        tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+        tigl::shader->setModelMatrix(modelMatrix);
+        tigl::shader->enableColor(false);
         object->draw();
+    }
+
+    // sub-optimal, but this forces ui to be drawn last
+	auto player = GameService::getGameObject("blocky");
+    if (player) {
+        auto ui = player->getComponent<HealthUI>();
+		if (ui) {
+			ui->draw();
+		}
     }
 }
 

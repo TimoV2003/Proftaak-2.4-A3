@@ -14,17 +14,17 @@ void HealthComponent::update(const float& deltaTime) {
 		this->timeSinceHealthReduction += deltaTime;
 	}
 }
-
 void HealthComponent::decreaseHealth() {
 	if (!(this->timeSinceHealthReduction > this->invincibilityTime)) {
 		return;
 	}
 	this->timeSinceHealthReduction = 0.0f;
 
-	std::cout << "decreaseHealth called" << std::endl;
-
-	this->health -= 1;
-	if (this->health <= 0) {
+	if (health > 0)
+		health -= 1;
+	if (health < 0) 
+		health = 0;
+	if (health == 0) {
 		notifyDeath();
 	}
 }
@@ -33,8 +33,7 @@ void HealthComponent::notifyDeath() {
 	if (auto p = getParent()) {
 		if (p->game) {
 			p->game->gameOver = true;
+			p->game->queueDelete(p);
 		}
 	}
-
-	//TODO notify something that health is 0
 }

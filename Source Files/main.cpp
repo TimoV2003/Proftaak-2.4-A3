@@ -76,8 +76,8 @@ int main(void)
     // Have rushed the coding so now its still here
     while (!glfwWindowShouldClose(window))
     {
-        glfwSwapBuffers(window);
         glfwPollEvents();
+        glfwSwapBuffers(window);
 
         switch (currentState)
         {
@@ -99,6 +99,16 @@ int main(void)
             break;
 
         case GameState::GameOver:
+			// continue drawing the game but not updating
+            gameService->draw();
+#ifdef _DEBUG 
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+            gameService->imgGuiUpdate();
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif 
             if (!gameService->gameOverMessageShown) {
                 std::cout << "Game Over! Press R to restart." << std::endl;
                 gameService->gameOverMessageShown = true;
