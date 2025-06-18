@@ -21,11 +21,14 @@
 #include "PlayerComponent.h"
 #include "HealthComponent.h"
 #include "distanceScoreComponent.h"
+#include "TreadmillComponent.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
+#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
 #include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
+#include "../patterns/strategy/treadmill_strategies/Headers/FloorMillBehavior.h"
 
 using tigl::Vertex;
 
@@ -38,6 +41,7 @@ std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
+std::shared_ptr<IEndOfMillBehavior> floormillBehavior;
 std::shared_ptr<ScoreStrategy> distanceScoreHolder;
 std::shared_ptr<ScoreStrategy> potionScoreHolder;
 
@@ -47,16 +51,17 @@ void GameService::init()
     visionInput = std::make_shared<VisionInput>();
 	distanceScoreHolder = std::make_shared<ScoreStrategy>();
 	potionScoreHolder = std::make_shared<ScoreStrategy>();
+	floormillBehavior = std::make_shared<FloorMillBehavior>();
 
     /////  GAME OBJECT CREATION  /////
-    Model treeModel;
-    if (ModelLoader::load("Resource Files/Tree/Tree_1.obj", treeModel)) // Make sure this path is correct
+    Model PlayerModel;
+    if (ModelLoader::load("Resource Files/PlayerModel/PlayerPlauge.obj", PlayerModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky",2);
-        blocky->position = glm::vec3(0, 0, 0);
-        blocky->scale = glm::vec3(0.2f, 0.2f, 0.2f);
+        blocky->position = glm::vec3(0, 0, 6);
+        blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
-        blocky->addComponent(std::make_shared<MeshComponent>(treeModel));
+        blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
 		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
 		blocky->addComponent(health);
         blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
@@ -64,11 +69,57 @@ void GameService::init()
         instantiate(blocky);
 
     }
-    else
+    //TODO make this debug
+    /*else
     {
         std::cerr << "Failed to load tree model!" << std::endl;
+    }*/
+    
+    Model GroundPlane;
+    if (ModelLoader::load("Resource Files/GroundPlane/GroundTile.obj", GroundPlane)) // Make sure this path is correct
+    {
+        for (size_t i = 0; i < 9; i++)
+        {
+            auto ground = std::make_shared<GameObject>("ground", 1);
+            ground->position = glm::vec3(0, -1, 25.0f + (i * -50.0f));
+            ground->scale = glm::vec3(10.0f, 1.0f, 10.0f);
+            ground->addComponent(std::make_shared<MeshComponent>(GroundPlane));
+            ground->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
+            instantiate(ground);
+        }
+        
     }
 
+    Model LeftHouse1;
+    if (ModelLoader::load("Resource Files/House/House1.obj", LeftHouse1)) // Make sure this path is correct
+    {
+        for (size_t i = 0; i < 20; i++)
+        {
+            auto house = std::make_shared<GameObject>("house", 1);
+            house->position = glm::vec3(-21, -1, 15.0f + (i * -15.0f));
+            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+            house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
+            house->addComponent(std::make_shared<MeshComponent>(LeftHouse1));
+            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
+            instantiate(house);
+        }
+            
+    }
+    Model RightHouse1;
+    if (ModelLoader::load("Resource Files/House/House1.obj", RightHouse1)) // Make sure this path is correct
+    {
+        for (size_t i = 0; i < 20; i++)
+        {
+            auto house = std::make_shared<GameObject>("house", 1);
+            house->position = glm::vec3(21, -1, 15.0f + (i * -15.0f));
+            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
+            house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
+            house->addComponent(std::make_shared<MeshComponent>(RightHouse1));
+            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
+            instantiate(house);
+        }
+
+    }
     auto testSpawner = std::make_shared<GameObject>("testSpawner");
     float Spawnerdistance = -50.0f;
     testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
