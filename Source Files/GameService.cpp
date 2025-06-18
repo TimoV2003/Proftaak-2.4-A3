@@ -156,7 +156,7 @@ void GameService::update()
 
 void GameService::draw()
 {
-    glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
+    glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glm::mat4 modelMatrix(1);
@@ -171,6 +171,14 @@ void GameService::draw()
     tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
     tigl::shader->setModelMatrix(modelMatrix);
     tigl::shader->enableColor(false);
+    tigl::shader->enableFog(true);
+    tigl::shader->setFogColor(skyColor);
+    tigl::shader->enableLighting(true);
+    tigl::shader->setLightCount(1);
+    tigl::shader->setLightDirectional(0, true);
+    tigl::shader->setLightPosition(0, lightPos);
+    tigl::shader->setLightAmbient(0, ambientLight);
+    tigl::shader->setLightDiffuse(0, diffuseLight);
 
     for (auto& object : objects) {
         object->draw();
