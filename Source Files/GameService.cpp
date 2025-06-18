@@ -92,22 +92,18 @@ void GameService::init() {
     }
     
 
-    for (size_t i = 0; i < 4; i++)
-    {
+    for (size_t i = 0; i < 4; i++) {
         auto ground = floorFactory->CreateEntity();
         ground->position = glm::vec3(0, -1, 50.0f + (i * -50.0f));
         instantiate(ground);
     }
-
-    for (size_t i = 0; i < 10; i++)
-    {
+    for (size_t i = 0; i < 10; i++) {
         auto house = houseFactory->CreateEntity();
         house->position = glm::vec3(-20, -1, 20.0f + (i * -20.0f));
         house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
         instantiate(house);
     }
-    for (size_t i = 0; i < 10; i++)
-    {
+    for (size_t i = 0; i < 10; i++) {
         auto house = houseFactory->CreateEntity();
         house->position = glm::vec3(20, -1, 20.0f + (i * -20.0f));
         house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
