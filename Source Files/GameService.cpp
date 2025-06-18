@@ -62,8 +62,6 @@ void GameService::init()
         blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
-		auto health = std::make_shared<HealthComponent>(5, 1.0f); 
-		blocky->addComponent(health);
         blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
