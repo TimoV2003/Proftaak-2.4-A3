@@ -10,8 +10,7 @@ struct DrawBatch {
 	Material material;
 };
 
-class MeshComponent : public DrawComponent
-{
+class MeshComponent : public DrawComponent {
 	private:
 		GLuint vao = 0;
 		GLuint vbo = 0;

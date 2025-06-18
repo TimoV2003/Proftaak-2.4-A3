@@ -3,8 +3,7 @@
 #include "tigl.h"
 
 // Constructor: Builds the mesh from model data
-MeshComponent::MeshComponent(const Model& model)
-{
+MeshComponent::MeshComponent(const Model& model) {
 	std::vector<GLfloat> vertexData;
 	std::vector<GLuint> indexData;
 	std::map<int, std::vector<GLuint>> materialToIndices; // Maps material index to triangle indices
@@ -90,16 +89,14 @@ MeshComponent::MeshComponent(const Model& model)
 }
 
 // Destructor: Clean up OpenGL resources
-MeshComponent::~MeshComponent()
-{
+MeshComponent::~MeshComponent() {
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
 }
 
 // Draw the mesh with correct material textures
-void MeshComponent::draw()
-{
+void MeshComponent::draw() {
 	tigl::shader->use();
 	glBindVertexArray(vao);
 
@@ -115,7 +112,6 @@ void MeshComponent::draw()
 			tigl::shader->enableTexture(false);
 		}
 		
-
 		// Draw elements (triangles)
 		glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
 	}

@@ -3,7 +3,7 @@
 #include <mutex>
 
 namespace vision {
-	void color_detection_loop(std::atomic<bool>& shouldStop);
+	void color_detection_loop(const std::atomic<bool>& shouldStop);
 	extern float visionNormalisedPosition;
 	extern std::mutex visionPositionMutex;
 	extern cv::Mat imgMain;

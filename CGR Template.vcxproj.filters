@@ -45,10 +45,10 @@
     <ClCompile Include="Source Files\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\PlayerComponent.cpp">
+    <ClCompile Include="Game Components\PlayerComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\colour_detection.cpp">
+    <ClCompile Include="Source Files\ColourDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\GameService.cpp">
@@ -152,7 +152,7 @@
     <ClInclude Include="Game Components\HealthComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\colour_detection.h">
+    <ClInclude Include="Header Files\ColourDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\GameService.h">

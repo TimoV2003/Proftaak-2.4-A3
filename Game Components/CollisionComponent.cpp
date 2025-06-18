@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-bool CollisionComponent::collides(std::shared_ptr<GameObject> other) {
+bool CollisionComponent::collides(std::shared_ptr<GameObject> other) const {
 	if (auto p = this->getParent()) {
 		auto x = p->position.x - other->position.x;
 		auto z = p->position.z - other->position.z;

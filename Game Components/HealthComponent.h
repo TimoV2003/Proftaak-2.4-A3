@@ -1,8 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include "GameComponent.h"
-class HealthComponent : public GameComponent
-{
+class HealthComponent : public GameComponent {
 private:
 	short health;
 	float invincibilityTime;
@@ -19,7 +18,7 @@ public:
 	void decreaseHealth();
 	//notify death
 	void notifyDeath();
-	virtual void update(float deltaTime) override;
+	virtual void update(const float& deltaTime) override;
 	short getHealth() { return health; }
 
 #ifdef _DEBUG

@@ -9,15 +9,16 @@ HealthComponent::HealthComponent(short playerHealth, float invincibilityTime){
 	this->timeSinceHealthReduction = 0.0f;
 }
 
-void HealthComponent::update(float deltaTime) {
-	if (timeSinceHealthReduction < invincibilityTime) {
-		timeSinceHealthReduction += deltaTime;
+void HealthComponent::update(const float& deltaTime) {
+	if (this->timeSinceHealthReduction < this->invincibilityTime) {
+		this->timeSinceHealthReduction += deltaTime;
 	}
 }
 void HealthComponent::decreaseHealth() {
-	if (!(timeSinceHealthReduction > invincibilityTime))
+	if (!(this->timeSinceHealthReduction > this->invincibilityTime)) {
 		return;
-	timeSinceHealthReduction = 0.0f;
+	}
+	this->timeSinceHealthReduction = 0.0f;
 
 	if (health > 0)
 		health -= 1;

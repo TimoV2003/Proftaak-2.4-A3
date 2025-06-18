@@ -189,9 +189,9 @@
     <ClCompile Include="Source Files\DrawComponent.cpp" />
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
-    <ClCompile Include="Source Files\PlayerComponent.cpp" />
+    <ClCompile Include="Game Components\PlayerComponent.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
-    <ClCompile Include="Source Files\colour_detection.cpp" />
+    <ClCompile Include="Source Files\ColourDetection.cpp" />
     <ClCompile Include="Game Components\SpawnerComponent.cpp" />
     <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
     <ClCompile Include="Game Components\TreadmillComponent.cpp" />
@@ -218,12 +218,12 @@
     <ClInclude Include="patterns\strategy\input_strategies\Headers\KeyboardInput.h" />
     <ClInclude Include="Header Files\ScoreStrategy.h" />
     <ClInclude Include="Header Files\MatToTexHelper.h" />
-    <ClInclude Include="Header Files\PlayerComponent.h" />
+    <ClInclude Include="Game Components\PlayerComponent.h" />
     <ClInclude Include="Header Files\tigl.h" />
     <ClInclude Include="Header Files\ModelLoader.h" />
     <ClInclude Include="Game Components\MeshComponent.h" />
     <ClInclude Include="Game Components\HealthComponent.h" />
-    <ClInclude Include="Header Files\colour_detection.h" />
+    <ClInclude Include="Header Files\ColourDetection.h" />
     <ClInclude Include="Game Components\SpawnerComponent.h" />
     <ClInclude Include="Game Components\TimedSuicideComponent.h" />
     <ClInclude Include="lib\stb\stb_image.h" />
