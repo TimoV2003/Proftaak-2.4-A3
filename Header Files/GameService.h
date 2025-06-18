@@ -55,9 +55,5 @@ public:
 	static float RandomValue(float BoundryMin, float BoundryMax) {
 		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
 	}
-
-	//TODO get gameObjects plural function
-	//TODO queue delete based on tag
-
 };
 
