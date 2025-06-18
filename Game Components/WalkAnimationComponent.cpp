@@ -13,13 +13,13 @@ void WalkAnimationComponent::update(float deltaTime) {
 	}
 	
 	static float time = 0.0f;
-	time += deltaTime*3;  
-	if (time >= 2.0f) {  
-		time -= 2.0f;  
+	time += deltaTime*animationSpeedMult;  
+	if (time >= cyclePeriod) {  
+		time -= cyclePeriod;  
 	}
 	if (auto p = getParent()) {  
-		float scaleFactor =  sin(time * PI);
-		glm::vec3 newScale = initialScale * (1.0f + scaleFactor * 0.03f);
+		float scaler =  sin(time * PI);
+		glm::vec3 newScale = initialScale * (baseScale + scaler * scaleFactor);
 		p->scale = newScale;
 	}  
 }
