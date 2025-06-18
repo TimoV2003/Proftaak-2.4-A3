@@ -22,6 +22,7 @@
 #include "HealthComponent.h"
 #include "distanceScoreComponent.h"
 #include "TreadmillComponent.h"
+#include "WalkAnimationComponent.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
@@ -85,6 +86,7 @@ void GameService::init()
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
         blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+		blocky->addComponent(std::make_shared<WalkAnimationComponent>());
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
 

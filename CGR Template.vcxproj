@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClCompile Include="patterns\factory_method\entity_factories\FloorFactory.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\HouseFactory.cpp" />
+    <ClCompile Include="Game Components\WalkAnimationComponent.cpp" />
     <ClCompile Include="patterns\strategy\treadmill_strategies\EntityMillBehavior.cpp" />
     <ClCompile Include="Source Files\ScoreStrategy.cpp" />
     <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
@@ -199,6 +200,7 @@
   <ItemGroup>
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />
+    <ClInclude Include="Game Components\WalkAnimationComponent.h" />
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
     <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\EntityMillBehavior.h" />
     <ClInclude Include="Header Files\DebugReferenceCounter.h" />
