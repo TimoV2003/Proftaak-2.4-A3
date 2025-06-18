@@ -8,14 +8,14 @@ float KeyboardInput::handlestrategy(float currentLocation, float deltaTime)
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
 		
 		currentLocation -= (this->speed * deltaTime);
-		if (currentLocation < -11.0f) {
-			currentLocation = -11.0f;
+		if (currentLocation < -worldWidth / 2) {
+			currentLocation = -worldWidth / 2;
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
 		currentLocation += (this->speed * deltaTime);
-		if (currentLocation > 11.0f) {
-			currentLocation = 11.0f;
+		if (currentLocation > worldWidth / 2) {
+			currentLocation = worldWidth / 2;
 		}
 	}
 
