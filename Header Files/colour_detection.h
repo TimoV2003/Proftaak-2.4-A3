@@ -4,6 +4,7 @@
 
 namespace vision {
 	void color_detection_loop(std::atomic<bool>& shouldStop);
-	extern cv::Point visionPosition;
+	extern float visionNormalisedPosition;
 	extern std::mutex visionPositionMutex;
+	extern cv::Mat imgMain;
 }

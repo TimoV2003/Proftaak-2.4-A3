@@ -4,21 +4,27 @@
 #include <GameObject.h>
 
 class GameObject;
+__interface IScoreStrategy;
 
 class GameService
 {
 private:
 	GLFWwindow* window;
-
 public:
-	GameService(GLFWwindow* window) : window(window) {}
+	GameService(GLFWwindow* window) : window(window) {};
 	~GameService() = default;
-
+    
 	// these functions are called from main
 	void init();
 	void update();
 	void draw();
+	void reset();
+#ifdef _DEBUG
+	void imgGuiUpdate();
+#endif
 
+	bool gameOver = false;
+	bool gameOverMessageShown = false;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -36,12 +42,19 @@ public:
 	/// </summary>
 	/// <param name="tag">tag identifier of object you want to find</param>
 	/// <returns>gameObject pointer or nullptr</returns>
-	std::shared_ptr<GameObject> getGameObject(std::string tag);
+	static std::shared_ptr<GameObject> getGameObject(std::string tag);
 
 	/// <summary>
 	/// queues given object to be deleted. best used on own object.
 	/// </summary>
 	void queueDelete(std::shared_ptr<GameObject>& object);
+
+	/// <summary>
+	/// Generates a random number between the given bounds
+	/// </summary>
+	static float RandomValue(float BoundryMin, float BoundryMax) {
+		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
+	}
 
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
