@@ -13,12 +13,13 @@
 
 FloorFactory::FloorFactory() {
 	endOfMillbehavior = std::make_shared<FloorMillBehavior>();
-	ModelLoader::load("Resource Files/GroundPlane/GroundTile", model);
+	ModelLoader::load("Resource Files/GroundPlane/GroundTile.obj", model);
 	modelScaleUniform = 10.0f;
 	modelScaleY = 1.0f;
 }
 
 std::shared_ptr<GameObject> FloorFactory::CreateEntity() {
+
 	auto tree = std::make_shared<GameObject>("floor", 1);
 	tree->scale = glm::vec3(modelScaleUniform, modelScaleY, modelScaleUniform);
 	tree->addComponent(std::make_shared<MeshComponent>(model));
