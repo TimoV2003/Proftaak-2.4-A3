@@ -56,32 +56,33 @@ MeshComponent::MeshComponent(const Model& model)
 
 	indexCount = static_cast<GLsizei>(indexData.size());
 
-	// Create OpenGL buffers and VAO
+	// Create OpenGL VAO, VBO, and EBO
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glGenBuffers(1, &ebo);
 
+	//1. Bind the Vertex Array Object (VAO)
 	glBindVertexArray(vao);
 
+	//2. Bind the Vertex Buffer Object (VBO) and copy vertex data
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
 
+	//3. Bind the Element Buffer Object (EBO) and copy index data
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
 
-	// Vertex attribute: position on index 0 (3 floats)
+	//4. Define vertex attribute 0 (shader): vec3 a_position (3 floats)
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
 
-	// Vertex attribute: texcoord on index 2 (2 floats)
+	//5. Define vertex attribute 2 (shader): vec2 a_texcoord (2 floats)
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 
-	//layout(location = 0) in vec3 a_position;
-	//layout(location = 1) in vec4 a_color;
-	//layout(location = 2) in vec2 a_texcoord;
-	//layout(location = 3) in vec3 a_normal;
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 // Destructor: Clean up OpenGL resources

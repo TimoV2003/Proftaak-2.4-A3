@@ -174,9 +174,9 @@ void GameService::draw()
     tigl::shader->setModelMatrix(modelMatrix);
     tigl::shader->enableColor(false);
 
-    for (auto& object : objects) {
-        object->draw();
-    }
+    //for (auto& object : objects) {
+    //    object->draw();
+    //}
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object)

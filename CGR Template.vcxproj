@@ -193,6 +193,7 @@
     <ClCompile Include="Game Components\TreadmillComponent.cpp" />
     <ClCompile Include="patterns\strategy\input_strategies\VisionInput.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
+    <ClCompile Include="Source Files\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="lib\stb\stb_truetype.h" />
+    <ClInclude Include="Header Files\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\imgui\misc\debuggers\imgui.natstepfilter" />

@@ -1,9 +1,14 @@
+#pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#define STB_TRUETYPE_IMPLEMENTATION 
+
 #include <iostream>
 #include <ostream>
 #include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "TextRenderer.h"
 
 #ifdef _DEBUG
 #include <imgui.h>
@@ -28,6 +33,7 @@ GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
 std::atomic<bool> visionShouldStop{ false };
+TextRenderer textRenderer;
 
 
 void plagueRunInit();
@@ -53,8 +59,8 @@ int main(void)
         return -1;
     }
 
-    tigl::init();
     plagueRunInit();
+    tigl::init();
 
 #ifdef _DEBUG
     IMGUI_CHECKVERSION();
@@ -79,6 +85,7 @@ int main(void)
         case GameState::Playing:
             gameService->update();
             gameService->draw();
+            textRenderer.writeText("Hello World", "times", glm::vec4(100, 0, 0, 1));
 #ifdef _DEBUG
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
@@ -128,8 +135,10 @@ void plagueRunInit()
             glfwSetWindowShouldClose(window, true);
     });
 
+	textRenderer.loadFont("times", "c:/windows/fonts/times.ttf");
+
     gameService = std::make_unique<GameService>(window);
     gameService->init();
 
-    visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
+    //visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
 }
