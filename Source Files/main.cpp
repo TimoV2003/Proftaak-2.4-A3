@@ -36,14 +36,19 @@ int main(void)
 {
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1400, 800, "Plague Run", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
         throw "Could not initialize glwf";
     }
     glfwMakeContextCurrent(window);
-	
+
+	// set callback for window resize
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+        glViewport(0, 0, width, height);
+    });
+
     //disable V-sync = 0, enable V-sync = 1
     glfwSwapInterval(0);
 
