@@ -2,6 +2,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GameObject.h>
+#include <thread>
+
+#include "AudioPlayer.h"
 
 class GameObject;
 __interface IScoreStrategy;
@@ -25,6 +28,10 @@ public:
 
 	bool gameOver = false;
 	bool gameOverMessageShown = false;
+
+	std::thread musicThread;
+	std::atomic<bool> stopMusicThread = false;
+	AudioPlayer audioPlayer;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -59,6 +66,7 @@ public:
 	//TODO get gameObjects plural function
 	//TODO queue delete based on tag
 
-	static void playMusicInThread();
+	void playMusicInThread(const std::string& filepath);
+	void switchMusic(const std::string& newTrackPath);
 };
 

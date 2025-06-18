@@ -39,6 +39,8 @@ static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
+bool switched = false;
+
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
@@ -56,8 +58,8 @@ void GameService::init()
 	potionScoreHolder = std::make_shared<ScoreStrategy>();
 	floormillBehavior = std::make_shared<FloorMillBehavior>();
 
-    std::thread audioThread(playMusicInThread);
-    audioThread.detach(); 
+    stopMusicThread = false;
+    playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
 
     /////  GAME OBJECT CREATION  /////
     Model PlayerModel;
@@ -138,6 +140,12 @@ void GameService::init()
 
 void GameService::update()
 {
+    if (!switched)
+    {
+        switchMusic("Resource Files/Soundtrack/Faint Glow.mp3");
+		switched = true;
+    }
+
     double currentFrameTime = glfwGetTime();
     deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
@@ -219,17 +227,30 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object)
     }
 }
 
-void GameService::playMusicInThread() {
-    AudioPlayer player;
-    if (player.load("Resource Files/Soundtrack/Faint Glow.mp3")) {
-        player.play();
+void GameService::playMusicInThread(const std::string& filepath) {
+    stopMusicThread = false;
+    musicThread = std::thread([this, filepath]() {
+        if (audioPlayer.load(filepath)) {
+            audioPlayer.play();
 
-        // Keep the thread alive while the audio plays
-        std::this_thread::sleep_for(std::chrono::seconds(1000));
-    }
-    else {
-        std::cerr << "Failed to load audio." << std::endl;
-    }
+            while (!stopMusicThread) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+
+            audioPlayer.stop();
+        }
+        else {
+            std::cerr << "Failed to load: " << filepath << std::endl;
+        }
+        });
+}
+
+void GameService::switchMusic(const std::string& newTrackPath) {
+    stopMusicThread = true;
+    if (musicThread.joinable())
+        musicThread.join();
+
+    playMusicInThread(newTrackPath);
 }
 
 #ifdef _DEBUG
