@@ -80,7 +80,7 @@ void GameService::init()
     if (ModelLoader::load("Resource Files/PlayerModel/PlayerPlauge.obj", PlayerModel)) // Make sure this path is correct
     {
         auto blocky = std::make_shared<GameObject>("blocky",2);
-        blocky->position = glm::vec3(0, 0, 4);
+        blocky->position = glm::vec3(0, 0, 6);
         blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
