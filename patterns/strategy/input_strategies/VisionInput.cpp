@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
-#include "colour_detection.h"
+#include "ColourDetection.h"
 #include <mutex>
 #include <algorithm>
 

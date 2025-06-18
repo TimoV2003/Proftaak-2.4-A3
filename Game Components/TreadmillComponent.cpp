@@ -1,25 +1,28 @@
 #include "TreadmillComponent.h"
 #include <iostream>
  
-void TreadmillComponent::update(float deltaTime) {
+
+
+void TreadmillComponent::update(const float& deltaTime) {
 	static float PauseEndCheckTime = 0;
+	static bool EndCheckPaused = false;
 
 	if (auto weakParent = getParent()) {
-		weakParent->position.z += (speed * deltaTime);
+		weakParent->position.z += this->speed * deltaTime;
 
-	if (PauseEndCheckTime >= maxEndCheckPausedTime) {
-		PauseEndCheckTime = 0;
-		EndCheckPaused = false;
-	}
+		if (PauseEndCheckTime >= this->maxEndCheckPausedTime) {
+			PauseEndCheckTime = 0;
+			EndCheckPaused = false;
+		}
 
-	if (EndCheckPaused) {
-		PauseEndCheckTime += deltaTime;
-		return;
-	}
+		if (EndCheckPaused) {
+			PauseEndCheckTime += deltaTime;
+			return;
+		}
 
-	if (weakParent->position.z > deletionDistance) {
-		EndCheckPaused = true;
-		endOfMillBehavior->ReachedEndOfMill(weakParent);
+		if (weakParent->position.z > this->deletionDistance) {
+			EndCheckPaused = true;
+			this->endOfMillBehavior->ReachedEndOfMill(weakParent);
+		}
 	}
-}
 }

@@ -103,7 +103,7 @@ namespace vision {
 		return mask;
 	}
 
-	void color_detection_loop(std::atomic<bool>& shouldStop) {
+	void color_detection_loop(const std::atomic<bool>& shouldStop) {
 		while (!shouldStop) {
 			cap.read(imgMain);
 			auto mask = extractColor(imgMain, myColors[0]);

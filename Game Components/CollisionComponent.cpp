@@ -3,9 +3,9 @@
 #include <glm/glm.hpp>
 
 
-bool CollisionComponent::collides(std::shared_ptr<GameObject> other) {
+bool CollisionComponent::collides(std::shared_ptr<GameObject> other) const {
 	if (auto p = this->getParent()) {
-		return glm::distance(p->position, other->position) < (p->getCollisionSize()+other->getCollisionSize());
+		return glm::distance(p->position, other->position) < (p->getCollisionSize() + other->getCollisionSize());
 	}
 	return false;
 }

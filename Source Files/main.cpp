@@ -12,7 +12,7 @@
 #endif
 
 #include <thread>
-#include "colour_detection.h"
+#include "ColourDetection.h"
 #include "GameService.h"
 #include "tigl.h"
 using tigl::Vertex;

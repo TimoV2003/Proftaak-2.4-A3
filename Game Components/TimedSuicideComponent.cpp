@@ -2,8 +2,7 @@
 #include "GameService.h"
 #include "HealthComponent.h"
 
-void TimedSuicideComponent::update(float deltaTime)
-{
+void TimedSuicideComponent::update(const float& deltaTime) {
 	timer -= deltaTime;
 	if (timer > 0) return;
 

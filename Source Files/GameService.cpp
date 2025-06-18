@@ -12,7 +12,7 @@
 #include "ModelLoader.h"
 #include "tigl.h"
 #include "ScoreStrategy.h"
-#include "colour_detection.h"
+#include "ColourDetection.h"
 #include "MatToTexHelper.h" 
 
 //this include section is needed for the components
@@ -314,7 +314,7 @@ void GameService::imgGuiUpdate()
             ImGui::Text("vision position: %f ", visionNormalisedPosition);
             int imgSize = imGuiWindowSize - 20;
             GetTexFromVision(textureID, imgSize);
-            ImGui::Image(textureID, ImVec2(imgSize, imgSize));
+            ImGui::Image(textureID, ImVec2((float)imgSize, (float)imgSize));
         }
         ImGui::Spacing();
 

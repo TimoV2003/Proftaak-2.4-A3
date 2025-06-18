@@ -4,8 +4,7 @@
 
 class GameEntityFactory;
 
-class SpawnerComponent : public GameComponent
-{
+class SpawnerComponent : public GameComponent {
 	float minimumSpawndelay;
 	float maximumSpawndelay;
 	bool spawnXlocationIsRandom;
@@ -15,7 +14,7 @@ public:
 	SpawnerComponent(float minimumSpawndelay, float maximumSpawndelay, bool randomizeSpawnXLocation);
 	~SpawnerComponent() = default;
 
-	virtual void update(float deltaTime) override;
+	virtual void update(const float& deltaTime) override;
 	std::shared_ptr<GameObject> RandomEntityFromList();
 };
 
