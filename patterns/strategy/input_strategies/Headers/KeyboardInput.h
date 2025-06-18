@@ -7,6 +7,7 @@
 class KeyboardInput : public IInputStrategy
 {
 	float speed = 4.0f;
+	float worldWidth = 10.0f;
 public:
 	KeyboardInput() = default;
 	~KeyboardInput() = default;
