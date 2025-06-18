@@ -13,6 +13,7 @@ private:
 	glm::vec3 skyColor = glm::vec3(0.18f, 0.24f, 0.36f);
 	glm::vec3 ambientLight = glm::vec3(0.6f, 0.6f, 0.6f);
 	glm::vec3 diffuseLight = glm::vec3(0.6f, 0.6f, 0.6f);
+	glm::vec3 lightPos = glm::vec3(1, 1, 1);
 public:
 	GameService(GLFWwindow* window) : window(window) {};
 	~GameService() = default;

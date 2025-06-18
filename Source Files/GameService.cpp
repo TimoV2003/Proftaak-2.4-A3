@@ -178,7 +178,7 @@ void GameService::draw()
     tigl::shader->enableLighting(true);
     tigl::shader->setLightCount(1);
     tigl::shader->setLightDirectional(0, true);
-    tigl::shader->setLightPosition(0, glm::vec3(1, 1, 1));
+    tigl::shader->setLightPosition(0, lightPos);
     tigl::shader->setLightAmbient(0, ambientLight);
     tigl::shader->setLightDiffuse(0, diffuseLight);
 
