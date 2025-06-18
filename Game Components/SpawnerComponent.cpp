@@ -1,6 +1,8 @@
 #include "SpawnerComponent.h"
 #include "GameService.h"
 #include "GameObject.h"
+#include "DistanceScoreComponent.h"
+#include "ScoreStrategy.h"
 
 // this include section is needed for the factory method pattern
 #include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
@@ -9,15 +11,17 @@
 
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay, float initMaximumSpawndelay) : 
-	minimumSpawndelay(initMinimumSpawndelay), maximumSpawndelay(initMaximumSpawndelay) {
+	minimumSpawndelay(initMinimumSpawndelay), initialMaximumSpawnDelay(initMaximumSpawndelay) {
 	this->treeFactory = std::make_shared<TreeFactory>();
 	this->floorFactory = std::make_shared<FloorFactory>();
 	this->spawnXlocationIsRandom = true;
+	maximumSpawndelay = initialMaximumSpawnDelay;
 }
 
 SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay,float initMaximumSpawndelay,bool randomizeSpawnXLocation) : 
-	minimumSpawndelay(initMinimumSpawndelay), maximumSpawndelay(initMaximumSpawndelay), spawnXlocationIsRandom(randomizeSpawnXLocation){
+	minimumSpawndelay(initMinimumSpawndelay), initialMaximumSpawnDelay(initMaximumSpawndelay), spawnXlocationIsRandom(randomizeSpawnXLocation){
 	this->treeFactory = std::make_shared<TreeFactory>();
+	maximumSpawndelay = initialMaximumSpawnDelay;
 }
 
 void SpawnerComponent::update(float deltaTime)
@@ -31,6 +35,7 @@ void SpawnerComponent::update(float deltaTime)
 
 	//reset the timer
 	timeSinceLast = 0.0f;
+	maximumSpawndelay = newMaximumSpawnDelay();
 	timeDelay = GameService::RandomValue(this->minimumSpawndelay, this->maximumSpawndelay);
 
 	
@@ -68,3 +73,10 @@ std::shared_ptr<GameObject> SpawnerComponent::selectItemFromLootTable() {
 		return treeFactory->CreateEntity();
 	}
 }
+float SpawnerComponent::newMaximumSpawnDelay() {
+	auto player = GameService::getGameObject("blocky");
+	auto scoreComponent = player ? player->getComponent<DistanceScoreComponent>() : nullptr;
+	float points = scoreComponent->getScoreHolder()->getScore();
+	return (initialMaximumSpawnDelay-minimumSpawndelay) * pow(2.718,(-0.01 * points)) + minimumSpawndelay;
+}
+

@@ -11,5 +11,6 @@ public:
 	~DistanceScoreComponent() = default;
 
 	virtual void update(float deltaTime) override;
+	std::shared_ptr<ScoreStrategy> getScoreHolder() { return scoreHolder; };
 };
 

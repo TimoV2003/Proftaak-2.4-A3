@@ -8,12 +8,14 @@
 class TreadmillComponent : public GameComponent
 {
 	std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior;
-	int speed = 20;
+	int speed = 0;
+	int initialSpeed = 10;
 	int deletionDistance = 50;
 public:
 	TreadmillComponent(std::shared_ptr<IEndOfMillBehavior> endOfMillBehavior) : endOfMillBehavior(endOfMillBehavior) {};
 	~TreadmillComponent() = default;
 
 	virtual void update(float deltaTime) override;
+	float updateMovementSpeed();
 };
 

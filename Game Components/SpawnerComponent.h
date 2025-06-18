@@ -8,6 +8,7 @@ class SpawnerComponent : public GameComponent
 private:
 	float minimumSpawndelay;
 	float maximumSpawndelay;
+	float initialMaximumSpawnDelay;
 	bool spawnXlocationIsRandom;
 	std::shared_ptr<GameEntityFactory> treeFactory;
 	std::shared_ptr<GameEntityFactory> floorFactory;
@@ -19,4 +20,5 @@ public:
 	virtual void update(float deltaTime) override;
 	std::shared_ptr<GameObject> RandomEntityFromList();
 	std::shared_ptr<GameObject> selectItemFromLootTable();
+	float newMaximumSpawnDelay();
 };
