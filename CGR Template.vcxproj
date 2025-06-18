@@ -163,6 +163,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\AudioPlayer.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\FloorFactory.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\HouseFactory.cpp" />
+    <ClCompile Include="Game Components\WalkAnimationComponent.cpp" />
     <ClCompile Include="patterns\strategy\treadmill_strategies\EntityMillBehavior.cpp" />
     <ClCompile Include="Source Files\ScoreStrategy.cpp" />
     <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
@@ -198,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\AudioPlayer.h" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />
+    <ClInclude Include="Game Components\WalkAnimationComponent.h" />
     <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
     <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\EntityMillBehavior.h" />
     <ClInclude Include="Header Files\DebugReferenceCounter.h" />
@@ -240,7 +246,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\imgui\misc\debuggers\imgui.natstepfilter" />
-    <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="lib\imgui\misc\debuggers\imgui.natvis" />
