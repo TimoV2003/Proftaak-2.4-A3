@@ -12,7 +12,7 @@ class VisionInput : public IInputStrategy
 public:
 	
 	/// <param name="worldWidth">bounds player movement to the width of the world</param>
-	VisionInput(float worldWidth = 20.0f) : worldWidth(worldWidth) { worldOffset = worldWidth / 2.0f; };
+	VisionInput(float worldWidth = 10.0f) : worldWidth(worldWidth) { worldOffset = worldWidth / 2.0f; };
 	~VisionInput() = default;
 
 	float handlestrategy(float currentLocation, float deltaTime) override;
