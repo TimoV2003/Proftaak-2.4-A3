@@ -22,6 +22,7 @@
 #include "HealthComponent.h"
 #include "distanceScoreComponent.h"
 #include "TreadmillComponent.h"
+#include "HealthUI.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
@@ -62,7 +63,9 @@ void GameService::init()
         blocky->scale = glm::vec3(0.7f, 0.7f, 0.7f);
         blocky->addComponent(std::make_shared<PlayerComponent>(visionInput));
         blocky->addComponent(std::make_shared<MeshComponent>(PlayerModel));
-        blocky->addComponent(std::make_shared<HealthComponent>(5, 1.0f));
+		auto healthComponent = std::make_shared<HealthComponent>(5, 1.0f);
+        blocky->addComponent(healthComponent);
+		blocky->addComponent(std::make_shared<HealthUI>(healthComponent, window));
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
     }
@@ -159,7 +162,7 @@ void GameService::draw()
     glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-	tigl::shader->use();
+    tigl::shader->use();
     glm::mat4 modelMatrix(1);
     glm::mat4 viewMatrix(1);
 
@@ -168,28 +171,23 @@ void GameService::draw()
     glfwGetFramebufferSize(window, &width, &height);
     float aspect = width / (float)height;
 
-    tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
-    tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
-    tigl::shader->setModelMatrix(modelMatrix);
-    tigl::shader->enableColor(false);
-
     for (auto& object : objects) {
+        tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
+        tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+        tigl::shader->setModelMatrix(modelMatrix);
+        tigl::shader->enableColor(false);
         object->draw();
     }
-    
-    tigl::shader->setProjectionMatrix(glm::ortho(0.0f, (float)width, (float)height, 0.0f));
-    tigl::shader->setViewMatrix(glm::mat4(1.0f));
-    tigl::shader->setModelMatrix(glm::mat4(1.0f));
-    tigl::shader->enableColor(true);
 
-    auto player = getGameObject("blocky");
+    // sub-optimal, but this forces ui to be drawn last
+	auto player = GameService::getGameObject("blocky");
     if (player) {
-        auto health = player->getComponent<HealthComponent>();
-        if (health) {
-            health->drawUI(width, height);
-            }
-        }
+        auto ui = player->getComponent<HealthUI>();
+		if (ui) {
+			ui->draw();
+		}
     }
+}
 
 
 void GameService::instantiate(std::shared_ptr<GameObject> object)
