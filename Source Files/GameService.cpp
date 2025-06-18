@@ -22,14 +22,22 @@
 #include "HealthComponent.h"
 #include "distanceScoreComponent.h"
 #include "TreadmillComponent.h"
+#include "WalkAnimationComponent.h"
 #include "HealthUI.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
-#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "../patterns/strategy/input_strategies/Headers/KeyboardInput.h"
 #include "../patterns/strategy/input_strategies/Headers/VisionInput.h"
+
+// this include section is needed for the Treadmill strategy
+#include "../patterns/strategy/interfaces/IEndOfMillBehavior.h"
 #include "../patterns/strategy/treadmill_strategies/Headers/FloorMillBehavior.h"
+
+// this include section is needed for the Treadmill strategy
+#include "../patterns/factory_method/Interfaces/GameEntityFactory.h"
+#include "../patterns/factory_method/entity_factories/Headers/FloorFactory.h"
+#include "../patterns/factory_method/entity_factories/Headers/HouseFactory.h"
 
 using tigl::Vertex;
 
@@ -37,14 +45,27 @@ static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
+//Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
 std::vector<std::shared_ptr<GameObject>> pendingDeletion;
+
+//Input Variables
 std::shared_ptr<IInputStrategy> keyboardInput;
 std::shared_ptr<IInputStrategy> visionInput;
+
+//Mill Variables
 std::shared_ptr<IEndOfMillBehavior> floormillBehavior;
+
+//Score Variables
 std::shared_ptr<ScoreStrategy> distanceScoreHolder;
 std::shared_ptr<ScoreStrategy> potionScoreHolder;
+
+//Factory Variables
+std::shared_ptr<GameEntityFactory> houseFactory;
+std::shared_ptr<GameEntityFactory> floorFactory;
+
+
 
 void GameService::init()
 {
@@ -53,6 +74,8 @@ void GameService::init()
 	distanceScoreHolder = std::make_shared<ScoreStrategy>();
 	potionScoreHolder = std::make_shared<ScoreStrategy>();
 	floormillBehavior = std::make_shared<FloorMillBehavior>();
+    houseFactory = std::make_shared<HouseFactory>();
+    floorFactory = std::make_shared<FloorFactory>();
 
     /////  GAME OBJECT CREATION  /////
     Model PlayerModel;
@@ -66,6 +89,7 @@ void GameService::init()
 		auto healthComponent = std::make_shared<HealthComponent>(5, 1.0f);
         blocky->addComponent(healthComponent);
 		blocky->addComponent(std::make_shared<HealthUI>(healthComponent, window));
+		blocky->addComponent(std::make_shared<WalkAnimationComponent>());
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
         instantiate(blocky);
     }
@@ -75,51 +99,29 @@ void GameService::init()
         std::cerr << "Failed to load tree model!" << std::endl;
     }*/
     
-    Model GroundPlane;
-    if (ModelLoader::load("Resource Files/GroundPlane/GroundTile.obj", GroundPlane)) // Make sure this path is correct
+
+    for (size_t i = 0; i < 4; i++)
     {
-        for (size_t i = 0; i < 9; i++)
-        {
-            auto ground = std::make_shared<GameObject>("ground", 1);
-            ground->position = glm::vec3(0, -1, 25.0f + (i * -50.0f));
-            ground->scale = glm::vec3(10.0f, 1.0f, 10.0f);
-            ground->addComponent(std::make_shared<MeshComponent>(GroundPlane));
-            ground->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
-            instantiate(ground);
-        }
-        
+        auto ground = floorFactory->CreateEntity();
+        ground->position = glm::vec3(0, -1, 50.0f + (i * -50.0f));
+        instantiate(ground);
     }
 
-    Model LeftHouse1;
-    if (ModelLoader::load("Resource Files/House/House1.obj", LeftHouse1)) // Make sure this path is correct
+    for (size_t i = 0; i < 10; i++)
     {
-        for (size_t i = 0; i < 20; i++)
-        {
-            auto house = std::make_shared<GameObject>("house", 1);
-            house->position = glm::vec3(-21, -1, 15.0f + (i * -15.0f));
-            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
-            house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
-            house->addComponent(std::make_shared<MeshComponent>(LeftHouse1));
-            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
-            instantiate(house);
-        }
-            
+        auto house = houseFactory->CreateEntity();
+        house->position = glm::vec3(-20, -1, 20.0f + (i * -20.0f));
+        house->rotation = glm::vec3(0.0f, 1.57f, 0.0f);
+        instantiate(house);
     }
-    Model RightHouse1;
-    if (ModelLoader::load("Resource Files/House/House1.obj", RightHouse1)) // Make sure this path is correct
+    for (size_t i = 0; i < 10; i++)
     {
-        for (size_t i = 0; i < 20; i++)
-        {
-            auto house = std::make_shared<GameObject>("house", 1);
-            house->position = glm::vec3(21, -1, 15.0f + (i * -15.0f));
-            house->scale = glm::vec3(3.0f, 3.0f, 3.0f);
-            house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
-            house->addComponent(std::make_shared<MeshComponent>(RightHouse1));
-            house->addComponent(std::make_shared<TreadmillComponent>(floormillBehavior));
-            instantiate(house);
-        }
+        auto house = houseFactory->CreateEntity();
+        house->position = glm::vec3(20, -1, 20.0f + (i * -20.0f));
+        house->rotation = glm::vec3(0.0f, -1.57f, 0.0f);
+        instantiate(house);
+    }
 
-    }
     auto testSpawner = std::make_shared<GameObject>("testSpawner");
     float Spawnerdistance = -50.0f;
     testSpawner->position = glm::vec3(0, 0, Spawnerdistance);
@@ -158,8 +160,7 @@ void GameService::update()
 
 void GameService::draw()
 {
-
-    glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
+    glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     tigl::shader->use();
@@ -170,6 +171,19 @@ void GameService::draw()
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     float aspect = width / (float)height;
+
+    tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
+    tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 5, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+    tigl::shader->setModelMatrix(modelMatrix);
+    tigl::shader->enableColor(false);
+    tigl::shader->enableFog(true);
+    tigl::shader->setFogColor(skyColor);
+    tigl::shader->enableLighting(true);
+    tigl::shader->setLightCount(1);
+    tigl::shader->setLightDirectional(0, true);
+    tigl::shader->setLightPosition(0, lightPos);
+    tigl::shader->setLightAmbient(0, ambientLight);
+    tigl::shader->setLightDiffuse(0, diffuseLight);
 
     for (auto& object : objects) {
         tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(70.0f), aspect, 0.1f, 100.0f));
