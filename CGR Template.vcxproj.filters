@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClCompile Include="Source Files\AudioPlayer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Source Files\tigl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Header Files\AudioPlayer.h">
       <Filter>Header Files</Filter>
+    </ClCompile>
     <ClInclude Include="Header Files\tigl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
