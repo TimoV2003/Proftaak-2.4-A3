@@ -51,7 +51,7 @@ public:
 
 	// Load a font from a file
 	void initFont(const std::string fontName, const std::filesystem::path &fontPath);
-	uint32_t createTextFrame(uint16_t size);
+	uint32_t createTextFrame(uint16_t characterCount);
 	void writeText(uint32_t textFrameId, const std::string& text, const float fontSize, const glm::vec2& position);
 	void startFrame();
 	void draw();

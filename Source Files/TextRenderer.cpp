@@ -139,13 +139,13 @@ void TextRenderer::initFont(const std::string fontName, const std::filesystem::p
 	this->fonts.insert({ fontName, fontData });
 }
 
-uint32_t TextRenderer::createTextFrame(uint16_t size) {
-	if (size <= 0) {
+uint32_t TextRenderer::createTextFrame(uint16_t characterCount) {
+	if (characterCount <= 0) {
 		throw std::runtime_error("Text frame size must be greater than 0");
 	}
 
 	TextFrame textFrame = TextFrame();
-	textFrame.bufferSize = size * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
+	textFrame.bufferSize = characterCount * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
 	setupVAOAndVBO(textFrame.bufferSize, textFrame.vboID, textFrame.vaoID);
 
 	size_t position = this->textFrames.size();
