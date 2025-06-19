@@ -27,5 +27,4 @@ void UiScoreComponent::update(const float& deltaTime) {
 
 void UiScoreComponent::drawLate() {
 	this->textRenderer->writeText(textFrameId, uiText, 16, glm::vec2(20, 40));
-	this->textRenderer->draw();
 }

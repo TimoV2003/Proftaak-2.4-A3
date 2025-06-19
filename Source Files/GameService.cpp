@@ -216,6 +216,8 @@ void GameService::draw() {
             distanceUi->drawLate();
         }
     }
+
+    textRenderer.draw();
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object) {
