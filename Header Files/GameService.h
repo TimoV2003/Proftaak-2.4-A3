@@ -2,6 +2,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GameObject.h>
+#include <thread>
+
+#include "AudioPlayer.h"
 
 class GameObject;
 __interface IScoreStrategy;
@@ -16,7 +19,7 @@ private:
 	glm::vec3 lightPos = glm::vec3(1, 1, 1);
 public:
 	GameService(GLFWwindow* window) : window(window) {};
-	~GameService() = default;
+	~GameService();
     
 	// these functions are called from main
 	void init();
@@ -29,6 +32,10 @@ public:
 
 	bool gameOver = false;
 	bool gameOverMessageShown = false;
+
+	std::thread musicThread;
+	std::atomic<bool> stopMusicThread = false;
+	AudioPlayer audioPlayer;
 
 	// these functions are callable from game components via:
 	// if(auto p = getParent()) { p->game->function(); }
@@ -59,5 +66,11 @@ public:
 	static float RandomValue(float BoundryMin, float BoundryMax) {
 		return BoundryMin + ((float)(rand()) / (float)(RAND_MAX)) * (BoundryMax - BoundryMin);
 	}
+
+	//TODO get gameObjects plural function
+	//TODO queue delete based on tag
+
+	void playMusicInThread(const std::string& filepath);
+	void switchMusic(const std::string& newTrackPath);
 };
 

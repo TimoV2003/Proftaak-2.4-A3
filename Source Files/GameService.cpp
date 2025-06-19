@@ -1,5 +1,8 @@
 #include "GameService.h"
 #include <iostream>
+#include <thread>
+
+#include "AudioPlayer.h"
 #include <mutex>
 #include "tigl.h"
 
@@ -12,7 +15,6 @@
 
 #include "GameObject.h"
 #include "ModelLoader.h"
-#include "tigl.h"
 #include "ScoreStrategy.h"
 #include "ColourDetection.h"
 #include "MatToTexHelper.h" 
@@ -47,6 +49,8 @@ static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
+bool switchedFromLoadingTrack = false;
+
 //Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
 std::vector<std::shared_ptr<GameObject>> pendingAdding;
@@ -76,6 +80,12 @@ void GameService::init() {
 	floormillBehavior = std::make_shared<FloorMillBehavior>();
     houseFactory = std::make_shared<HouseFactory>();
     floorFactory = std::make_shared<FloorFactory>();
+
+    if (switchedFromLoadingTrack == false) {
+        stopMusicThread = false;
+        playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
+    }
+    
 
     /////  GAME OBJECT CREATION  /////
     Model PlayerModel;
@@ -123,6 +133,11 @@ void GameService::init() {
 }
 
 void GameService::update() {
+    if (!switchedFromLoadingTrack) {
+        switchMusic("Resource Files/Soundtrack/Faint Glow.mp3");
+		switchedFromLoadingTrack = true;
+    }
+
     double currentFrameTime = glfwGetTime();
     deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
@@ -217,6 +232,40 @@ void GameService::queueDelete(std::shared_ptr<GameObject>& object) {
     // so if find == vector.end() then nothing was found
     if (std::find(pendingDeletion.begin(), pendingDeletion.end(), object) == pendingDeletion.end()) {
         pendingDeletion.push_back(object);
+    }
+}
+
+void GameService::playMusicInThread(const std::string& filepath) {
+    stopMusicThread = false;
+    musicThread = std::thread([this, filepath]() {
+        if (audioPlayer.load(filepath)) {
+            audioPlayer.play();
+
+            while (!stopMusicThread) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+
+            audioPlayer.stop();
+        }
+        else {
+            std::cerr << "Failed to load: " << filepath << std::endl;
+        }
+        });
+}
+
+void GameService::switchMusic(const std::string& newTrackPath) {
+    stopMusicThread = true;
+    if (musicThread.joinable())
+        musicThread.join();
+
+    playMusicInThread(newTrackPath);
+}
+
+GameService::~GameService() {
+    stopMusicThread = true;
+    if (musicThread.joinable())
+    {
+        musicThread.join();
     }
 }
 
@@ -328,7 +377,6 @@ void GameService::imgGuiUpdate() {
     }
 }
 #endif
-
 
 
 
