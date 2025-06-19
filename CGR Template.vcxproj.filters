@@ -13,17 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Game Objects">
+    <Filter Include="Lib files">
       <UniqueIdentifier>{0e144dad-0d09-421f-872b-3bac8292be56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Components">
-      <UniqueIdentifier>{5072055c-d0a8-489e-8976-a78db757aa1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source Files\tigl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,9 +105,6 @@
     <ClCompile Include="Source Files\ScoreStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\GameService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="patterns\strategy\input_strategies\KeyboardInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,11 +117,14 @@
     <ClCompile Include="Game Components\HealthUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\tigl.cpp">
+      <Filter>Lib files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header Files\tigl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header Files\GameComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -162,7 +156,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\stb\stb_image.h">
-      <Filter>Header Files</Filter>
+      <Filter>Lib files</Filter>
     </ClInclude>
     <ClInclude Include="Game Components\EnemyComponent.h">
       <Filter>Header Files</Filter>
@@ -224,9 +218,6 @@
     <ClInclude Include="lib\imgui\backends\imgui_impl_glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\stb\stb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header Files\MatToTexHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -249,6 +240,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Components\HealthUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\stb\stb_truetype.h">
+      <Filter>Lib files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\tigl.h">
+      <Filter>Lib files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header Files\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
