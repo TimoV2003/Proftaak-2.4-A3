@@ -33,8 +33,6 @@ GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
 std::atomic<bool> visionShouldStop{ false };
-TextRenderer textRenderer;
-
 
 void plagueRunInit();
 
@@ -90,7 +88,6 @@ int main(void)
         case GameState::Playing:
             gameService->update();
             gameService->draw();
-            textRenderer.writeText("Hello World", "times", glm::vec4(100, 0, 0, 1));
 #ifdef _DEBUG
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
@@ -150,7 +147,6 @@ void plagueRunInit()
             glfwSetWindowShouldClose(window, true);
     });
 
-	textRenderer.loadFont("times", "c:/windows/fonts/times.ttf");
 
     gameService = std::make_unique<GameService>(window);
     gameService->init();
