@@ -2,14 +2,16 @@
 #include "GameComponent.h"
 class ScoreStrategy;
 
-class DistanceScoreComponent : public GameComponent
-{
+/// <summary>
+/// a component that updates the score based on the distance traveled.
+/// </summary>
+class DistanceScoreComponent : public GameComponent {
 private:
 	std::shared_ptr<ScoreStrategy> scoreHolder;
 public:
 	DistanceScoreComponent(std::shared_ptr<ScoreStrategy> scoreHolder) : scoreHolder(scoreHolder) {}
 	~DistanceScoreComponent() = default;
 
-	virtual void update(float deltaTime) override;
+	virtual void update(const float& deltaTime) override;
 };
 

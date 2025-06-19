@@ -5,7 +5,7 @@
 glm::vec3 initialScale = glm::vec3(0,0,0);
 constexpr double PI = 3.14159265358979323846;
 
-void WalkAnimationComponent::update(float deltaTime) {  
+void WalkAnimationComponent::update(const float& deltaTime) {  
 	if (initialScale == glm::vec3(0, 0, 0)) {  
 		if (auto p = getParent()) {  
 			initialScale = p->scale;  

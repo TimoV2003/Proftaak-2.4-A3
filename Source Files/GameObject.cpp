@@ -18,23 +18,23 @@ GameObject::~GameObject() {
 }
 
 void GameObject::addComponent(std::shared_ptr<GameComponent> component) {
-	if (std::shared_ptr<DrawComponent> draw = std::dynamic_pointer_cast<DrawComponent>(component)) {
-		drawComponents.push_back(draw);
-		draw->setGameObject(shared_from_this());
+	if (std::shared_ptr<DrawComponent> drawComponent = std::dynamic_pointer_cast<DrawComponent>(component)) {
+		this->drawComponents.push_back(drawComponent);
+		drawComponent->setGameObject(shared_from_this());
 		return;
 	}
-	gameComponents.push_back(component);
+	this->gameComponents.push_back(component);
 	component->setGameObject(shared_from_this());
 }
 
-std::vector<std::string> GameObject::getAllComponentNames() {
+std::vector<std::string> GameObject::getAllComponentNames() const {
 	std::vector<std::string> names = {};
-	for (const auto& gameComponent : gameComponents) {
+	for (const auto& gameComponent : this->gameComponents) {
 		if (gameComponent) {
 			names.push_back(typeid(*gameComponent).name());
 		}
 	}
-	for (const auto& drawComponent : drawComponents) {
+	for (const auto& drawComponent : this->drawComponents) {
 		if (drawComponent) {
 			names.push_back(typeid(*drawComponent).name());
 		}
@@ -42,19 +42,19 @@ std::vector<std::string> GameObject::getAllComponentNames() {
 	return names;
 }
 
-void GameObject::update(float deltaTime) {
-	for (auto& component : gameComponents) 
+void GameObject::update(const float& deltaTime) {
+	for (auto& component : this->gameComponents)
 	{
 		component->update(deltaTime);
 	}
-	for (auto& component : drawComponents)
+	for (auto& component : this->drawComponents)
 	{
 		component->update(deltaTime);
 	}
 }
 
 void GameObject::draw() {
-	for (auto& component : drawComponents)
+	for (auto& component : this->drawComponents)
 	{
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), scale) 
@@ -62,15 +62,8 @@ void GameObject::draw() {
 			* glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0, 1,0))
 			* glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(0, 0,1));
 
-//		tigl::shader->enableColor(true);
 		tigl::shader->setModelMatrix(model);
 
 		component->draw();
 	}
 }
-
-std::string GameObject::getTag()
-{
-	return tag;
-}
-

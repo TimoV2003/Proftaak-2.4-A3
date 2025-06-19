@@ -18,8 +18,7 @@ SpawnerComponent::SpawnerComponent(float initMinimumSpawndelay,float initMaximum
 	this->treeFactory = std::make_shared<TreeFactory>();
 }
 
-void SpawnerComponent::update(float deltaTime)
-{
+void SpawnerComponent::update(const float& deltaTime) {
 	static float timeSinceLast = 0.0f;
 	static float timeDelay;
 	float entityXPosition;

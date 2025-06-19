@@ -15,6 +15,6 @@ GameComponent::~GameComponent() {
 #endif
 }
 
-std::shared_ptr<GameObject> GameComponent::getParent() {
-    return parent.lock();
+std::shared_ptr<GameObject> GameComponent::getParent() const {
+    return this->parent.lock();
 }

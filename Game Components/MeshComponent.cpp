@@ -3,8 +3,7 @@
 #include "tigl.h"
 
 // Constructor: Builds the mesh from model data
-MeshComponent::MeshComponent(const Model& model)
-{
+MeshComponent::MeshComponent(const Model& model) {
 	std::vector<GLfloat> vertexData;
 	std::vector<GLuint> indexData;
 	std::map<int, std::vector<GLuint>> materialToIndices; // Maps material index to triangle indices
@@ -77,6 +76,11 @@ MeshComponent::MeshComponent(const Model& model)
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
 
+	// Vertex attribute: color on index 1 (4 floats)
+	glEnableVertexAttribArray(1); 
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, nullptr); 
+
+
 	//layout(location = 0) in vec3 a_position;
 	//layout(location = 1) in vec4 a_color;
 	//layout(location = 2) in vec2 a_texcoord;
@@ -85,16 +89,14 @@ MeshComponent::MeshComponent(const Model& model)
 }
 
 // Destructor: Clean up OpenGL resources
-MeshComponent::~MeshComponent()
-{
+MeshComponent::~MeshComponent() {
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
 }
 
 // Draw the mesh with correct material textures
-void MeshComponent::draw()
-{
+void MeshComponent::draw() {
 	tigl::shader->use();
 	glBindVertexArray(vao);
 
@@ -110,7 +112,6 @@ void MeshComponent::draw()
 			tigl::shader->enableTexture(false);
 		}
 		
-
 		// Draw elements (triangles)
 		glDrawElements(GL_TRIANGLES, batch.count, GL_UNSIGNED_INT, (void*)(batch.startIndex * sizeof(GLuint)));
 	}
