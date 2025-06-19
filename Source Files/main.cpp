@@ -1,9 +1,14 @@
+#pragma once
+#define _CRT_SECURE_NO_WARNINGS
+#define STB_TRUETYPE_IMPLEMENTATION 
+
 #include <iostream>
 #include <ostream>
 #include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include "TextRenderer.h"
 
 #ifdef _DEBUG
 #include <imgui.h>
@@ -28,7 +33,6 @@ GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
 std::thread visionThread;
 std::atomic<bool> visionShouldStop{ false };
-
 
 void plagueRunInit();
 
@@ -58,8 +62,8 @@ int main(void)
         return -1;
     }
 
-    tigl::init();
     plagueRunInit();
+    tigl::init();
 
 #ifdef _DEBUG
     IMGUI_CHECKVERSION();
@@ -143,8 +147,9 @@ void plagueRunInit()
             glfwSetWindowShouldClose(window, true);
     });
 
+
     gameService = std::make_unique<GameService>(window);
     gameService->init();
 
-    visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
+    //visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
 }
