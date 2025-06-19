@@ -4,7 +4,7 @@
 
 const uint32_t codePointOfFirstChar = 32;
 const uint32_t codePointOfLastChar = 122;
-constexpr uint32_t charsToIncludeInFontAtlas = codePointOfFirstChar + codePointOfLastChar;
+constexpr uint32_t charsToIncludeInFontAtlas = (codePointOfLastChar - codePointOfFirstChar + 1);
 
 const uint32_t fontAtlasWidth = 1024;  // The width of font atlas texture
 const uint32_t fontAtlasHeight = 1024; // The height of font atlas texture
