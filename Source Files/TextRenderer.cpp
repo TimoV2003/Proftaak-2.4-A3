@@ -154,17 +154,17 @@ uint32_t TextRenderer::createTextFrame(uint16_t size) {
 	return position;
 }
 
-void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, const glm::vec2& position)
+void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, const float fontSize, const glm::vec2& position)
 {
 	FontData font = this->fonts.at(this->activeFontName);
 	glm::vec4& color = this->activeColor;
 
-	//TODO: tweak size
-	float size = 160.0f;
+	//TODO: find out why i have to multiply by 10 to get the correctish size
+	const float size = fontSize * 10;
 	uint32_t vertexIndex = 0;
 
 	const int order[6] = { 0, 1, 2, 0, 2, 3 };
-	float pixelScale = 1.0f / this->windowHeight;
+	float pixelScale = 2.0f / this->windowHeight;
 
 	glm::vec3 localPosition(position[0], position[1], 0);
 
