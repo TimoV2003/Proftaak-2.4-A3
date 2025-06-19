@@ -49,7 +49,7 @@ static bool showingDebugMenu = true;
 static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
-bool switched = false;
+bool switchedFromLoadingTrack = false;
 
 //Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
@@ -81,8 +81,7 @@ void GameService::init() {
     houseFactory = std::make_shared<HouseFactory>();
     floorFactory = std::make_shared<FloorFactory>();
 
-    if (switched == false)
-    {
+    if (switchedFromLoadingTrack == false) {
         stopMusicThread = false;
         playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
     }
@@ -133,10 +132,8 @@ void GameService::init() {
 	pendingAdding.clear();
 }
 
-void GameService::update()
-{
-    if (!switched)
-    {
+void GameService::update() {
+    if (!switchedFromLoadingTrack) {
         switchMusic("Resource Files/Soundtrack/Faint Glow.mp3");
 		switched = true;
     }
@@ -264,8 +261,7 @@ void GameService::switchMusic(const std::string& newTrackPath) {
     playMusicInThread(newTrackPath);
 }
 
-GameService::~GameService()
-{
+GameService::~GameService() {
     stopMusicThread = true;
     if (musicThread.joinable())
     {
