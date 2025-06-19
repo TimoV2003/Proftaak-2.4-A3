@@ -135,7 +135,7 @@ void GameService::init() {
 void GameService::update() {
     if (!switchedFromLoadingTrack) {
         switchMusic("Resource Files/Soundtrack/Faint Glow.mp3");
-		switched = true;
+		switchedFromLoadingTrack = true;
     }
 
     double currentFrameTime = glfwGetTime();

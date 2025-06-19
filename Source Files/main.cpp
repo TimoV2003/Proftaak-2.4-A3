@@ -20,7 +20,6 @@
 #include "ColourDetection.h"
 #include "GameService.h"
 #include "tigl.h"
-using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
