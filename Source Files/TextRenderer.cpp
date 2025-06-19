@@ -15,8 +15,7 @@ stbtt_aligned_quad alignedQuads[charsToIncludeInFontAtlas];
 float fontSize = 64.0f;
 
 
-static void setupVAOAndVBO(const size_t size, uint32_t &vboId, uint32_t &vaoId)
-{
+static void setupVAOAndVBO(const size_t size, uint32_t &vboId, uint32_t &vaoId) {
 	// Setting up the VAO and VBO: -----------------------
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
@@ -128,6 +127,13 @@ static std::shared_ptr<uint8_t> loadFont(const std::string fontName, const std::
 	return fontAtlasBitmap;
 }
 
+static size_t calculateBufferSize(uint16_t characterCount) {
+	if (characterCount <= 0) {
+		throw std::runtime_error("Text frame size must be greater than 0");
+	}
+	return characterCount * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
+}
+
 void TextRenderer::initFont(const std::string fontName, const std::filesystem::path& fontPath) {
 
 	FontData fontData(fontName);
@@ -145,7 +151,7 @@ uint32_t TextRenderer::createTextFrame(uint16_t characterCount) {
 	}
 
 	TextFrame textFrame = TextFrame();
-	textFrame.bufferSize = characterCount * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
+	textFrame.bufferSize = calculateBufferSize(characterCount);
 	setupVAOAndVBO(textFrame.bufferSize, textFrame.vboID, textFrame.vaoID);
 
 	size_t position = this->textFrames.size();
@@ -154,8 +160,15 @@ uint32_t TextRenderer::createTextFrame(uint16_t characterCount) {
 	return position;
 }
 
-void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, const float fontSize, const glm::vec2& position)
-{
+void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, const float fontSize, const glm::vec2& position) {
+
+	TextFrame& textFrame = this->textFrames.at(textFrameId);
+
+	//check for text length in comparison to the buffer size
+	if (calculateBufferSize(text.size()) > textFrame.bufferSize) {
+		throw std::runtime_error("Text exceeds buffer size for text frame ID: " + std::to_string(textFrameId));
+	}
+
 	FontData font = this->fonts.at(this->activeFontName);
 	glm::vec4& color = this->activeColor;
 
@@ -243,7 +256,6 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 		}
 	}
 
-	TextFrame &textFrame = this->textFrames.at(textFrameId);
 	textFrame.vertexCount = vertices.size();
 	const int vertexSize = sizeof(Vertex);
 	size_t sizeOfVertices = vertices.size() * vertexSize;
