@@ -17,7 +17,7 @@
 #endif
 
 #include <thread>
-#include "colour_detection.h"
+#include "ColourDetection.h"
 #include "GameService.h"
 #include "tigl.h"
 using tigl::Vertex;
@@ -42,14 +42,19 @@ int main(void)
 {
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1400, 800, "Plague Run", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
         throw "Could not initialize glwf";
     }
     glfwMakeContextCurrent(window);
-	
+
+	// set callback for window resize
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+        glViewport(0, 0, width, height);
+    });
+
     //disable V-sync = 0, enable V-sync = 1
     glfwSwapInterval(0);
 
@@ -77,8 +82,8 @@ int main(void)
     // Have rushed the coding so now its still here
     while (!glfwWindowShouldClose(window))
     {
-        glfwSwapBuffers(window);
         glfwPollEvents();
+        glfwSwapBuffers(window);
 
         switch (currentState)
         {
@@ -101,6 +106,16 @@ int main(void)
             break;
 
         case GameState::GameOver:
+			// continue drawing the game but not updating
+            gameService->draw();
+#ifdef _DEBUG 
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+            gameService->imgGuiUpdate();
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#endif 
             if (!gameService->gameOverMessageShown) {
                 std::cout << "Game Over! Press R to restart." << std::endl;
                 gameService->gameOverMessageShown = true;

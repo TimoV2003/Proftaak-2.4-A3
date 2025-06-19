@@ -39,13 +39,10 @@
     <ClCompile Include="Source Files\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\KeyboardInput.cpp">
+    <ClCompile Include="Game Components\PlayerComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\PlayerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\colour_detection.cpp">
+    <ClCompile Include="Source Files\ColourDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\GameService.cpp">
@@ -58,9 +55,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="patterns\strategy\treadmill_strategies\FloorMillBehavior.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\VisionInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game Components\EnemyComponent.cpp">
@@ -111,7 +105,16 @@
     <ClCompile Include="Source Files\ScoreStrategy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\GameService.cpp">
+    <ClCompile Include="patterns\strategy\input_strategies\KeyboardInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="patterns\strategy\input_strategies\VisionInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Components\WalkAnimationComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Components\HealthUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\TextRenderer.cpp">
@@ -134,13 +137,7 @@
     <ClInclude Include="Game Components\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\I_InputStrategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header Files\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\KeyboardInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\PlayerComponent.h">
@@ -149,7 +146,7 @@
     <ClInclude Include="Game Components\HealthComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header Files\colour_detection.h">
+    <ClInclude Include="Header Files\ColourDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\GameService.h">
@@ -160,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="lib\stb\stb_image.h">
       <Filter>Lib files</Filter>
-    </ClInclude>
-    <ClInclude Include="Header Files\VisionInput.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game Components\EnemyComponent.h">
       <Filter>Header Files</Filter>
@@ -231,6 +225,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\ScoreStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patterns\strategy\interfaces\I_InputStrategy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\KeyboardInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\VisionInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\WalkAnimationComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Components\HealthUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\stb\stb_truetype.h">

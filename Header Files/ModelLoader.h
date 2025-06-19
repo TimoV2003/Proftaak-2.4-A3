@@ -33,6 +33,15 @@ struct Model {
 
 class ModelLoader {
 public:
+	/// <summary>
+	/// loads an OBJ model from file and populates the provided Model structure.
+	/// </summary>
+	/// <returns>succes or not</returns>
 	static bool load(const std::string& filename, Model& model);
+
+	/// <summary>
+	/// loads a material file and adds materials to the model.
+	/// </summary>
+	/// <returns>succes or not</returns>
 	static bool loadMaterialFile(const std::string& mtlFilename, Model& model);
 };

@@ -283,6 +283,7 @@ void TextRenderer::draw() {
 		glDrawArrays(GL_TRIANGLES, 0, textFrame.vertexCount);
 		glBindVertexArray(0); // Unbind the VAO after drawing
 	}
+	glBindTexture(GL_TEXTURE_2D, 0); // Unbind the texture after drawing
 }
 
 void TextRenderer::setActiveFont(const std::string& fontName) {
