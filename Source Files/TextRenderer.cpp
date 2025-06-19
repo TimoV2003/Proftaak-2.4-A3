@@ -109,8 +109,7 @@ static std::shared_ptr<uint8_t> loadFont(const std::string fontName, const std::
 	);
 	stbtt_PackEnd(&ctx);
 
-	for (int i = 0; i < charsToIncludeInFontAtlas; i++)
-	{
+	for (int i = 0; i < charsToIncludeInFontAtlas; i++) {
 		float unusedX, unusedY;
 
 		stbtt_GetPackedQuad(
@@ -182,11 +181,9 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 	glm::vec3 localPosition(position[0], position[1], 0);
 
 	std::vector<Vertex> vertices(text.size() * 6); // Reserve space for the vertices, each character will take 6 vertices
-	for (char ch : text)
-	{
+	for (char ch : text) {
 		// Check if the charecter glyph is in the font atlas.
-		if (ch >= codePointOfFirstChar && ch <= codePointOfFirstChar + charsToIncludeInFontAtlas)
-		{
+		if (ch >= codePointOfFirstChar && ch <= codePointOfFirstChar + charsToIncludeInFontAtlas) {
 			if (vertices.size() <= vertexIndex)
 				vertices.resize(vertices.size() + 6);
 
@@ -233,8 +230,7 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 			// The order used is in the 'order' array
 			// order = [0, 1, 2, 0, 2, 3] is meant to represent 2 triangles: 
 			// one by glyphVertices[0], glyphVertices[1], glyphVertices[2] and one by glyphVertices[0], glyphVertices[2], glyphVertices[3]
-			for (int i = 0; i < 6; i++)
-			{
+			for (int i = 0; i < 6; i++) {
 				Vertex& vertex = vertices[vertexIndex + i];
 				vertex.position = glm::vec3(glyphVertices[order[i]], 0);
 				vertex.color = color;
@@ -246,10 +242,8 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 			// Update the position to render the next glyph specified by packedChar->xadvance.
 			localPosition.x += packedChar->xadvance * pixelScale * size;
 		}
-
 		// Handle newlines seperately.
-		else if (ch == '\n')
-		{
+		else if (ch == '\n') {
 			// advance y by fontSize, reset x-coordinate
 			localPosition.y -= fontSize * pixelScale * size;
 			localPosition.x = position.x;
