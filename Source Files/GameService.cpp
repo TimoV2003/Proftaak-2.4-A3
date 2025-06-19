@@ -81,8 +81,12 @@ void GameService::init()
     houseFactory = std::make_shared<HouseFactory>();
     floorFactory = std::make_shared<FloorFactory>();
 
-    stopMusicThread = false;
-    playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
+    if (switched == false)
+    {
+        stopMusicThread = false;
+        playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
+    }
+    
 
     /////  GAME OBJECT CREATION  /////
     Model PlayerModel;
@@ -259,6 +263,15 @@ void GameService::switchMusic(const std::string& newTrackPath) {
         musicThread.join();
 
     playMusicInThread(newTrackPath);
+}
+
+GameService::~GameService()
+{
+    stopMusicThread = true;
+    if (musicThread.joinable())
+    {
+        musicThread.join();
+    }
 }
 
 #ifdef _DEBUG

@@ -19,7 +19,7 @@ private:
 	glm::vec3 lightPos = glm::vec3(1, 1, 1);
 public:
 	GameService(GLFWwindow* window) : window(window) {};
-	~GameService() = default;
+	~GameService();
     
 	// these functions are called from main
 	void init();
