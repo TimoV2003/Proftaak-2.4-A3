@@ -18,6 +18,7 @@
 #include "ScoreStrategy.h"
 #include "ColourDetection.h"
 #include "MatToTexHelper.h" 
+#include "TextRenderer.h"
 
 //this include section is needed for the components
 #include "SpawnerComponent.h"
@@ -28,6 +29,7 @@
 #include "TreadmillComponent.h"
 #include "WalkAnimationComponent.h"
 #include "HealthUI.h"
+#include "UiScoreComponent.h"
 
 // this include section is needed for the input strategy
 #include "../patterns/strategy/interfaces/I_InputStrategy.h"
@@ -50,6 +52,8 @@ static double lastFrameTime = 0;
 static double deltaTime = 0.0f;
 
 bool switchedFromLoadingTrack = false;
+
+TextRenderer textRenderer;
 
 //Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
@@ -81,6 +85,10 @@ void GameService::init() {
     houseFactory = std::make_shared<HouseFactory>();
     floorFactory = std::make_shared<FloorFactory>();
 
+    textRenderer.initFont("times", "c:/windows/fonts/times.ttf");
+    textRenderer.setActiveFont("times");
+    textRenderer.setActiveColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+
     if (switchedFromLoadingTrack == false) {
         stopMusicThread = false;
         playMusicInThread("Resource Files/Soundtrack/Gamecube.mp3");
@@ -100,6 +108,7 @@ void GameService::init() {
 		blocky->addComponent(std::make_shared<HealthUI>(healthComponent, window));
 		blocky->addComponent(std::make_shared<WalkAnimationComponent>());
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
+		blocky->addComponent(std::make_shared<UiScoreComponent>(distanceScoreHolder, &textRenderer));
         instantiate(blocky);
     }
     
@@ -198,11 +207,17 @@ void GameService::draw() {
     // sub-optimal, but this forces ui to be drawn last
 	auto player = GameService::getGameObject("blocky");
     if (player) {
-        auto ui = player->getComponent<HealthUI>();
-		if (ui) {
-			ui->draw();
+        auto healthUi = player->getComponent<HealthUI>();
+		auto distanceUi = player->getComponent<UiScoreComponent>();
+		if (healthUi) {
+            healthUi->drawLate();
 		}
+        if (distanceUi) {
+            distanceUi->drawLate();
+        }
     }
+
+    textRenderer.draw();
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object) {

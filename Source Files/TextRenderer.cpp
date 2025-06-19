@@ -130,7 +130,7 @@ static size_t calculateBufferSize(uint16_t characterCount) {
 	if (characterCount <= 0) {
 		throw std::runtime_error("Text frame size must be greater than 0");
 	}
-	return characterCount * sizeof(Vertex) * 6; // 6 vertices per character (2 triangles per quad)
+	return characterCount * sizeof(TextVertex) * 6; // 6 vertices per character (2 triangles per quad)
 }
 
 void TextRenderer::initFont(const std::string fontName, const std::filesystem::path& fontPath) {
@@ -180,7 +180,7 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 
 	glm::vec3 localPosition(position[0], position[1], 0);
 
-	std::vector<Vertex> vertices(text.size() * 6); // Reserve space for the vertices, each character will take 6 vertices
+	std::vector<TextVertex> vertices(text.size() * 6); // Reserve space for the vertices, each character will take 6 vertices
 	for (char ch : text) {
 		// Check if the charecter glyph is in the font atlas.
 		if (ch >= codePointOfFirstChar && ch <= codePointOfFirstChar + charsToIncludeInFontAtlas) {
@@ -231,7 +231,7 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 			// order = [0, 1, 2, 0, 2, 3] is meant to represent 2 triangles: 
 			// one by glyphVertices[0], glyphVertices[1], glyphVertices[2] and one by glyphVertices[0], glyphVertices[2], glyphVertices[3]
 			for (int i = 0; i < 6; i++) {
-				Vertex& vertex = vertices[vertexIndex + i];
+				TextVertex& vertex = vertices[vertexIndex + i];
 				vertex.position = glm::vec3(glyphVertices[order[i]], 0);
 				vertex.color = color;
 				vertex.texCoord = glyphTextureCoords[order[i]];
@@ -251,10 +251,10 @@ void TextRenderer::writeText(uint32_t textFrameId, const std::string& text, cons
 	}
 
 	textFrame.vertexCount = vertices.size();
-	const int vertexSize = sizeof(Vertex);
+	const int vertexSize = sizeof(TextVertex);
 	size_t sizeOfVertices = vertices.size() * vertexSize;
 
-	const Vertex* data = vertices.data();
+	const TextVertex* data = vertices.data();
 
 	glBindVertexArray(textFrame.vaoID);
 	glBindBuffer(GL_ARRAY_BUFFER, textFrame.vboID);

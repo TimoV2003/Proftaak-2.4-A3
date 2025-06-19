@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-	  <AdditionalIncludeDirectories>$(SolutionDir)lib\bass24\c;$(SolutionDir)lib\stb;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\bass24\c;$(SolutionDir)lib\stb;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game Components\UiScoreComponent.cpp" />
     <ClCompile Include="Source Files\AudioPlayer.cpp" />
     <ClCompile Include="Game Components\HealthUI.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\FloorFactory.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Source Files\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game Components\UiScoreComponent.h" />
     <ClInclude Include="Header Files\AudioPlayer.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />

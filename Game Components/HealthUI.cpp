@@ -17,7 +17,7 @@ HealthUI::HealthUI(std::shared_ptr<HealthComponent> healthComponent, GLFWwindow*
 	glfwGetWindowSize(window, &screenWidth, &screenHeight);
 }
 
-void HealthUI::draw()
+void HealthUI::drawLate()
 {
 	tigl::shader->setProjectionMatrix(glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f));
 
