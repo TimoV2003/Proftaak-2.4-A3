@@ -1,11 +1,11 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "DrawComponent.h"
+#include "GameComponent.h"
 
 class HealthComponent;
 
-class HealthUI : public DrawComponent
+class HealthUI : public GameComponent
 {
 private:
 	std::shared_ptr<HealthComponent> healthComponent;
@@ -13,7 +13,7 @@ private:
 public:
 	HealthUI(std::shared_ptr<HealthComponent> healthComponent, GLFWwindow* window);
 	~HealthUI() = default;
-	virtual void draw() override;
+	void drawLate();
 	
 };
 

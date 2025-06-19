@@ -24,7 +24,7 @@ struct TextFrame {
 	size_t bufferSize;
 };
 
-struct Vertex
+struct TextVertex
 {
 	glm::vec3 position;
 	glm::vec4 color;
