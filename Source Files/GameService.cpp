@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GameService.h"
 #include <iostream>
 #include <thread>
@@ -17,8 +19,7 @@
 #include "ModelLoader.h"
 #include "ScoreStrategy.h"
 #include "ColourDetection.h"
-#include "MatToTexHelper.h" 
-#include "TextRenderer.h"
+#include "MatToTexHelper.h"
 
 //this include section is needed for the components
 #include "SpawnerComponent.h"
@@ -235,12 +236,10 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag) {
 }
 
 void GameService::reset() {
-	objects.clear();
-	pendingAdding.clear();
-	pendingDeletion.clear();
-    init();
-	this->gameOverMessageShown = false;
-    }
+    objects.clear();
+    pendingAdding.clear();
+    pendingDeletion.clear();
+}
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object) {
     // find = return index of first find or index of end (last index + 1)

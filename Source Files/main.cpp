@@ -20,20 +20,26 @@
 #include "ColourDetection.h"
 #include "GameService.h"
 #include "tigl.h"
+#include "StartMenu.hpp"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 
-enum class GameState{ Playing,GameOver };
-GameState currentState = GameState::Playing;
+enum class GameState{ Playing,GameOver, StartMenu, Loading };
+GameState currentState = GameState::StartMenu;
 
 GLFWwindow* window;
 std::unique_ptr<GameService> gameService;
+TextRenderer textRendererr;
 std::thread visionThread;
+
 std::atomic<bool> visionShouldStop{ false };
 
 void plagueRunInit();
+void onStartMenuButtonPressed();
+
+StartMenu* startMenu;
 
 int main(void)
 {
@@ -61,6 +67,17 @@ int main(void)
         return -1;
     }
 
+    //plagueRunInit();
+    textRendererr.initFont("times", "c:/windows/fonts/times.ttf");
+    textRendererr.setActiveFont("times");
+    textRendererr.setActiveColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+    startMenu = new StartMenu(window);
+    startMenu->init();
+	startMenu->setCallbackOnButtonPress([=]() {
+		std::cout << "Button Pressed!" << std::endl;
+		currentState = GameState::Loading;
+		});
     plagueRunInit();
     tigl::init();
 
@@ -84,6 +101,22 @@ int main(void)
 
         switch (currentState)
         {
+        case GameState::StartMenu: {
+			startMenu->update();
+			startMenu->draw();
+            glfwSwapBuffers(window);
+            startMenu->draw();
+            break;
+        }
+        case GameState::Loading: {
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glfwSwapBuffers(window);
+            gameService->init();
+            glfwSwapBuffers(window);
+            currentState = GameState::Playing;
+            break;
+        }
         case GameState::Playing:
             gameService->update();
             gameService->draw();
@@ -95,7 +128,6 @@ int main(void)
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif
-            gameService->gameOverMessageShown = false;
             if (gameService->gameOver) {
                 currentState = GameState::GameOver;
             }
@@ -112,17 +144,9 @@ int main(void)
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 #endif 
-            if (!gameService->gameOverMessageShown) {
-                std::cout << "Game Over! Press R to restart." << std::endl;
-                gameService->gameOverMessageShown = true;
-            }
-            if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-            {
-                gameService->reset();
-                gameService->gameOver = false;
-                gameService->gameOverMessageShown = false;
-                currentState = GameState::Playing;
-            }
+            gameService->reset();
+            gameService->gameOver = false;
+            currentState = GameState::StartMenu;
             break;
         }
     }
@@ -130,8 +154,9 @@ int main(void)
 	if (visionThread.joinable())
 		visionThread.join(); 
 
-        glfwTerminate();
-        return 0;
+    glfwTerminate();
+    delete startMenu;
+    return 0;
 }
 
 
@@ -146,9 +171,17 @@ void plagueRunInit()
             glfwSetWindowShouldClose(window, true);
     });
 
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+	startMenu->setWindowSize(static_cast<float>(width/2.0f), static_cast<float>(height/2.0f));
+
 
     gameService = std::make_unique<GameService>(window);
-    gameService->init();
 
-    //visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
+    visionThread = std::thread(vision::color_detection_loop, std::ref(visionShouldStop));
+}
+
+void onStartMenuButtonPressed() {
+    std::cout << "Button Pressed!" << std::endl;
+    currentState = GameState::Loading;
 }
