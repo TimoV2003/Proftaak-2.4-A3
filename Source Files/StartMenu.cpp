@@ -58,8 +58,10 @@ void StartMenu::draw() {
 	this->startbutton->draw();
 
 	tigl::shader->setColorMult(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	const std::vector<tigl::Vertex> mouse = OpenGLHelpers::createRectangleVerticies(currentMousePosition, glm::vec2(10, 10));
-	tigl::drawVertices(GL_QUADS, mouse);
+
+	//draw cube around player
+	///const std::vector<tigl::Vertex> mouse = OpenGLHelpers::createRectangleVerticies(currentMousePosition, glm::vec2(10, 10));
+	//tigl::drawVertices(GL_QUADS, mouse);
 
 	this->textRenderer->draw();
 }
