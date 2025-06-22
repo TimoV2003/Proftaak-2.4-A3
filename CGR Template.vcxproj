@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{A7ECF1BE-DB22-4BF7-BFF6-E3BF72691EE6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CGRTemplate</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PropertySheetRelease.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Game Components;$(ProjectDir)\Header Files;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Game Components;$(ProjectDir)\Header Files;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8\$(Platform);$(SolutionDir)lib\glew-2.1.0\lib\Release\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\bass24\c;$(SolutionDir)lib\stb;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\bass24\c\x64;$(SolutionDir)lib\glfw-3.3.8\$(Platform);$(SolutionDir)lib\glew-2.1.0\lib\Release\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8\$(Platform);$(SolutionDir)lib\glew-2.1.0\lib\Release\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\stb;$(SolutionDir)lib\imgui\misc;$(SolutionDir)lib\imgui\backends;$(SolutionDir)lib\imgui;$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.8\$(Platform);$(SolutionDir)lib\glew-2.1.0\lib\Release\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Game Components\UiScoreComponent.cpp" />
+    <ClCompile Include="Source Files\AudioPlayer.cpp" />
+    <ClCompile Include="Game Components\HealthUI.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\FloorFactory.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\HouseFactory.cpp" />
+    <ClCompile Include="Game Components\WalkAnimationComponent.cpp" />
+    <ClCompile Include="patterns\strategy\treadmill_strategies\EntityMillBehavior.cpp" />
+    <ClCompile Include="Source Files\OpenGLHelperFunctions.cpp" />
+    <ClCompile Include="Source Files\ScoreStrategy.cpp" />
+    <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
+    <ClCompile Include="Game Components\CollisionComponent.cpp" />
+    <ClCompile Include="Game Components\EnemyComponent.cpp" />
+    <ClCompile Include="patterns\strategy\treadmill_strategies\FloorMillBehavior.cpp" />
+    <ClCompile Include="Source Files\GameService.cpp" />
+    <ClCompile Include="Game Components\DistanceScoreComponent.cpp" />
+    <ClCompile Include="lib\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\imgui\imgui.cpp" />
+    <ClCompile Include="lib\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\imgui\imgui_tables.cpp" />
+    <ClCompile Include="lib\imgui\imgui_draw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_demo.cpp" />
+    <ClCompile Include="Source Files\GameObject.cpp" />
+    <ClCompile Include="Game Components\HealthComponent.cpp" />
+    <ClCompile Include="patterns\strategy\input_strategies\KeyboardInput.cpp" />
+    <ClCompile Include="Game Components\MeshComponent.cpp" />
+    <ClCompile Include="Source Files\ModelLoader.cpp" />
+    <ClCompile Include="Source Files\DrawComponent.cpp" />
+    <ClCompile Include="Source Files\GameComponent.cpp" />
+    <ClCompile Include="Source Files\main.cpp" />
+    <ClCompile Include="Game Components\PlayerComponent.cpp" />
+    <ClCompile Include="Source Files\StartMenu.cpp" />
+    <ClCompile Include="Source Files\tigl.cpp" />
+    <ClCompile Include="Source Files\ColourDetection.cpp" />
+    <ClCompile Include="Game Components\SpawnerComponent.cpp" />
+    <ClCompile Include="Game Components\TimedSuicideComponent.cpp" />
+    <ClCompile Include="Game Components\TreadmillComponent.cpp" />
+    <ClCompile Include="patterns\strategy\input_strategies\VisionInput.cpp" />
+    <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
+    <ClCompile Include="Source Files\TextRenderer.cpp" />
+    <ClCompile Include="Source Files\StartMenuButton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game Components\UiScoreComponent.h" />
+    <ClInclude Include="Header Files\AudioPlayer.h" />
+    <ClInclude Include="Header Files\OpenGLHelperFunctions.hpp" />
+    <ClInclude Include="Header Files\StartMenu.hpp" />
+    <ClInclude Include="Header Files\StartMenuButton.hpp" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />
+    <ClInclude Include="Game Components\WalkAnimationComponent.h" />
+    <ClInclude Include="Game Components\HealthUI.h" />
+    <ClInclude Include="patterns\factory_method\Interfaces\GameEntityFactory.h" />
+    <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\EntityMillBehavior.h" />
+    <ClInclude Include="Header Files\DebugReferenceCounter.h" />
+    <ClInclude Include="Game Components\CollisionComponent.h" />
+    <ClInclude Include="Game Components\EnemyComponent.h" />
+    <ClInclude Include="patterns\strategy\treadmill_strategies\Headers\FloorMillBehavior.h" />
+    <ClInclude Include="Header Files\GameService.h" />
+    <ClInclude Include="Header Files\DrawComponent.h" />
+    <ClInclude Include="Header Files\GameComponent.h" />
+    <ClInclude Include="Header Files\GameObject.h" />
+    <ClInclude Include="patterns\strategy\interfaces\IEndOfMillBehavior.h" />
+    <ClInclude Include="patterns\strategy\interfaces\I_InputStrategy.h" />
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\KeyboardInput.h" />
+    <ClInclude Include="Header Files\ScoreStrategy.h" />
+    <ClInclude Include="Header Files\MatToTexHelper.h" />
+    <ClInclude Include="Game Components\PlayerComponent.h" />
+    <ClInclude Include="Header Files\tigl.h" />
+    <ClInclude Include="Header Files\ModelLoader.h" />
+    <ClInclude Include="Game Components\MeshComponent.h" />
+    <ClInclude Include="Game Components\HealthComponent.h" />
+    <ClInclude Include="Header Files\ColourDetection.h" />
+    <ClInclude Include="Game Components\SpawnerComponent.h" />
+    <ClInclude Include="Game Components\TimedSuicideComponent.h" />
+    <ClInclude Include="lib\stb\stb_image.h" />
+    <ClInclude Include="patterns\strategy\input_strategies\Headers\VisionInput.h" />
+    <ClInclude Include="Game Components\TreadmillComponent.h" />
+    <ClInclude Include="patterns\factory_method\entity_factories\Headers\TreeFactory.h" />
+    <ClInclude Include="Game Components\DistanceScoreComponent.h" />
+    <ClInclude Include="lib\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="lib\imgui\imconfig.h" />
+    <ClInclude Include="lib\imgui\imgui.h" />
+    <ClInclude Include="lib\imgui\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\imgui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="lib\stb\stb_truetype.h" />
+    <ClInclude Include="Header Files\TextRenderer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\imgui\misc\debuggers\imgui.natstepfilter" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="lib\imgui\misc\debuggers\imgui.natvis" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
