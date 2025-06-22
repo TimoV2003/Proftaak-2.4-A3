@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "AudioPlayer.h"
+#include "TextRenderer.h"
 
 class GameObject;
 __interface IScoreStrategy;
@@ -31,7 +32,6 @@ public:
 #endif
 
 	bool gameOver = false;
-	bool gameOverMessageShown = false;
 
 	std::thread musicThread;
 	std::atomic<bool> stopMusicThread = false;

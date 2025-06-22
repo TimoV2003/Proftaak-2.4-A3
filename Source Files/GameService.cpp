@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GameService.h"
 #include <iostream>
 #include <thread>
@@ -17,8 +19,7 @@
 #include "ModelLoader.h"
 #include "ScoreStrategy.h"
 #include "ColourDetection.h"
-#include "MatToTexHelper.h" 
-#include "TextRenderer.h"
+#include "MatToTexHelper.h"
 
 //this include section is needed for the components
 #include "SpawnerComponent.h"
@@ -53,7 +54,7 @@ static double deltaTime = 0.0f;
 
 bool switchedFromLoadingTrack = false;
 
-TextRenderer textRenderer;
+TextRenderer* textRenderer;
 
 //Game Object Variables
 std::vector<std::shared_ptr<GameObject>> objects;
@@ -85,9 +86,10 @@ void GameService::init() {
     houseFactory = std::make_shared<HouseFactory>();
     floorFactory = std::make_shared<FloorFactory>();
 
-    textRenderer.initFont("times", "c:/windows/fonts/times.ttf");
-    textRenderer.setActiveFont("times");
-    textRenderer.setActiveColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	textRenderer = new TextRenderer();
+    textRenderer->initFont("times", "c:/windows/fonts/times.ttf");
+    textRenderer->setActiveFont("times");
+    textRenderer->setActiveColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
     if (switchedFromLoadingTrack == false) {
         stopMusicThread = false;
@@ -108,7 +110,7 @@ void GameService::init() {
 		blocky->addComponent(std::make_shared<HealthUI>(healthComponent, window));
 		blocky->addComponent(std::make_shared<WalkAnimationComponent>());
 		blocky->addComponent(std::make_shared<DistanceScoreComponent>(distanceScoreHolder));
-		blocky->addComponent(std::make_shared<UiScoreComponent>(distanceScoreHolder, &textRenderer));
+		blocky->addComponent(std::make_shared<UiScoreComponent>(distanceScoreHolder, textRenderer));
         instantiate(blocky);
     }
     
@@ -217,7 +219,7 @@ void GameService::draw() {
         }
     }
 
-    textRenderer.draw();
+    textRenderer->draw();
 }
 
 void GameService::instantiate(std::shared_ptr<GameObject> object) {
@@ -235,12 +237,11 @@ std::shared_ptr<GameObject> GameService::getGameObject(std::string tag) {
 }
 
 void GameService::reset() {
-	objects.clear();
-	pendingAdding.clear();
-	pendingDeletion.clear();
-    init();
-	this->gameOverMessageShown = false;
-    }
+    objects.clear();
+    pendingAdding.clear();
+    pendingDeletion.clear();
+    delete textRenderer;
+}
 
 void GameService::queueDelete(std::shared_ptr<GameObject>& object) {
     // find = return index of first find or index of end (last index + 1)

@@ -169,6 +169,7 @@
     <ClCompile Include="patterns\factory_method\entity_factories\HouseFactory.cpp" />
     <ClCompile Include="Game Components\WalkAnimationComponent.cpp" />
     <ClCompile Include="patterns\strategy\treadmill_strategies\EntityMillBehavior.cpp" />
+    <ClCompile Include="Source Files\OpenGLHelperFunctions.cpp" />
     <ClCompile Include="Source Files\ScoreStrategy.cpp" />
     <ClCompile Include="Source Files\DebugRefferenceCounter.cpp" />
     <ClCompile Include="Game Components\CollisionComponent.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="Source Files\GameComponent.cpp" />
     <ClCompile Include="Source Files\main.cpp" />
     <ClCompile Include="Game Components\PlayerComponent.cpp" />
+    <ClCompile Include="Source Files\StartMenu.cpp" />
     <ClCompile Include="Source Files\tigl.cpp" />
     <ClCompile Include="Source Files\ColourDetection.cpp" />
     <ClCompile Include="Game Components\SpawnerComponent.cpp" />
@@ -201,10 +203,14 @@
     <ClCompile Include="patterns\strategy\input_strategies\VisionInput.cpp" />
     <ClCompile Include="patterns\factory_method\entity_factories\TreeFactory.cpp" />
     <ClCompile Include="Source Files\TextRenderer.cpp" />
+    <ClCompile Include="Source Files\StartMenuButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Components\UiScoreComponent.h" />
     <ClInclude Include="Header Files\AudioPlayer.h" />
+    <ClInclude Include="Header Files\OpenGLHelperFunctions.hpp" />
+    <ClInclude Include="Header Files\StartMenu.hpp" />
+    <ClInclude Include="Header Files\StartMenuButton.hpp" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\FloorFactory.h" />
     <ClInclude Include="patterns\factory_method\entity_factories\Headers\HouseFactory.h" />
     <ClInclude Include="Game Components\WalkAnimationComponent.h" />
